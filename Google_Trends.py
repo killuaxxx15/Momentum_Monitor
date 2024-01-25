@@ -52,7 +52,8 @@ def get_data(keyword, country, timeframe):
         st.error("Too many requests sent to Google Trends. Please reduce the timeframe or try again later.")
         return pd.DataFrame()  # Return an empty DataFrame
 
-    df_trends = df_trends.drop('isPartial', axis=1)
+    if 'isPartial' in df_trends.columns:
+        df_trends = df_trends.drop('isPartial', axis=1)
     df_trends.reset_index(level=0, inplace=True)
     df_trends.columns = ['Date', country]
 
