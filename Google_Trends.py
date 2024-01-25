@@ -23,7 +23,7 @@ TIMEFRAME_OPTIONS = {
     'Past hour': 'now 1-H'
 }
 
-default_timeframe_index = list(TIMEFRAME_OPTIONS.keys()).index('Past 12 months')
+default_timeframe_index = list(TIMEFRAME_OPTIONS.keys()).index('Past 5 years')
 timeframe = st.selectbox("Select Timeframe", list(TIMEFRAME_OPTIONS.keys()), index=default_timeframe_index)
 
 COUNTRY = ['Worldwide', 'US', 'PH', 'CN', 'IN', 'GB', 'KR', 'JP', 'TH', 'VN', 'RU', 'AE']
@@ -33,7 +33,7 @@ def get_data(keyword, country, timeframe):
     KEYWORDS = [keyword]
     KEYWORDS_CODES = [pytrend.suggestions(keyword=i)[0] for i in KEYWORDS]
     df_CODES = pd.DataFrame(KEYWORDS_CODES)
-    st.dataframe(df_CODES)
+    # st.dataframe(df_CODES)
 
     EXACT_KEYWORDS = df_CODES['mid'].to_list()
     CATEGORY = 0
