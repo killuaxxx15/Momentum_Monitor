@@ -49,7 +49,7 @@ def get_data(keyword, country, timeframe):
                               gprop=SEARCH_TYPE)
         df_trends = pytrend.interest_over_time()
     except exceptions.TooManyRequestsError:
-        st.error("Too many requests sent to Google Trends. Please try again later.")
+        st.error("Too many requests sent to Google Trends. Please reduce the timeframe or try again later.")
         return pd.DataFrame()  # Return an empty DataFrame
 
     df_trends = df_trends.drop('isPartial', axis=1)
