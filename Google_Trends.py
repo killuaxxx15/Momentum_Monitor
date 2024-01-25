@@ -71,5 +71,5 @@ def linePlot(input_data, keyword, country):
 
 if keyword and country:
     df_trends = get_data(keyword, country, timeframe)
-    st.dataframe(df_trends, 2000, 200)
+    #st.dataframe(df_trends, 2000, 200)
     linePlot(df_trends, keyword, country)  # Updated function call
