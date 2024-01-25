@@ -3,11 +3,10 @@ import pytrends
 from pytrends.request import TrendReq
 import streamlit as st
 import matplotlib.pyplot as plt
-from pytrends import exceptions
-
-st.header('Google Trends Keyword Search')
 
 pytrend = TrendReq(hl='en-US', tz=360)
+
+st.header('Google Trends Keyword Search')
 
 keyword = st.text_input("Enter a keyword", help="Look up on Google Trends")
 
@@ -23,12 +22,15 @@ TIMEFRAME_OPTIONS = {
     'Past hour': 'now 1-H'
 }
 
+# Selecting the index for 'Past 5 years'
 default_timeframe_index = list(TIMEFRAME_OPTIONS.keys()).index('Past 5 years')
 timeframe = st.selectbox("Select Timeframe", list(TIMEFRAME_OPTIONS.keys()), index=default_timeframe_index)
 
-COUNTRY = ['Worldwide', 'US', 'PH', 'CN', 'IN', 'GB', 'KR', 'JP', 'TH', 'VN', 'RU', 'AE']
+# Updated country list with 'Worldwide' option
+COUNTRY = ['Worldwide', 'US', 'PH', 'IN', 'CN', 'TH', 'VN', 'GB', 'KR', 'JP', 'RU', 'AE']
 country = st.selectbox("Choose a country or worldwide", COUNTRY, index=COUNTRY.index("US"))
 
+# Updated get_data function to handle 'Worldwide'
 def get_data(keyword, country, timeframe):
     KEYWORDS = [keyword]
     KEYWORDS_CODES = [pytrend.suggestions(keyword=i)[0] for i in KEYWORDS]
@@ -39,23 +41,19 @@ def get_data(keyword, country, timeframe):
     CATEGORY = 0
     SEARCH_TYPE = ''
 
+    # Set geo parameter to '' for worldwide
     geo_param = '' if country == 'Worldwide' else country
 
-    try:
-        pytrend.build_payload(kw_list=EXACT_KEYWORDS,
-                              timeframe=TIMEFRAME_OPTIONS[timeframe],
-                              geo=geo_param,
-                              cat=CATEGORY,
-                              gprop=SEARCH_TYPE)
-        df_trends = pytrend.interest_over_time()
-    except exceptions.TooManyRequestsError:
-        st.error("Too many requests sent to Google Trends. Please reduce the timeframe or try again later.")
-        return pd.DataFrame()  # Return an empty DataFrame
+    pytrend.build_payload(kw_list=EXACT_KEYWORDS,
+                          timeframe=TIMEFRAME_OPTIONS[timeframe],
+                          geo=geo_param,
+                          cat=CATEGORY,
+                          gprop=SEARCH_TYPE)
+    df_trends = pytrend.interest_over_time()
 
-    if 'isPartial' in df_trends.columns:
-        df_trends = df_trends.drop('isPartial', axis=1)
-    df_trends.reset_index(level=0, inplace=True)
-    df_trends.columns = ['Date', country]
+    df_trends = df_trends.drop('isPartial', axis=1)  # drop "isPartial"
+    df_trends.reset_index(level=0, inplace=True)  # reset_index
+    df_trends.columns = ['Date', country]  # change column names
 
     return df_trends
 
