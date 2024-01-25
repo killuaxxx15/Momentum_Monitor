@@ -58,16 +58,18 @@ def get_data(keyword, country, timeframe):
 
     return df_trends
 
+# Matplotlib function for plotting
+def linePlot(input_data, keyword, country):
+    plt.figure(figsize=(10, 4))
+    plt.plot(input_data['Date'], input_data[country])
+    plt.title(f'Google Trends for "{keyword}" in {country}')
+    plt.xlabel('Date')
+    plt.ylabel('Trends Index')
+    plt.grid(True)
+    plt.xticks(rotation=45)  # Rotate date labels for better readability
+    st.pyplot(plt)
+
 if keyword and country:
     df_trends = get_data(keyword, country, timeframe)
-    # st.dataframe(df_trends, 2000, 200)
-
-    def linePlot(input_data, keyword):
-        fig = plt.figure(figsize=(10, 4))
-        sns.lineplot(x='Date', y=country, data=input_data)\
-            .set(title='Google Trends for "' + keyword + '" in ' + country,\
-                 xlabel='Date', ylabel='Trends Index')
-        plt.grid()
-        st.pyplot(fig)
-
-    linePlot(df_trends, keyword)
+    st.dataframe(df_trends, 2000, 200)
+    linePlot(df_trends, keyword, country)  # Updated function call
