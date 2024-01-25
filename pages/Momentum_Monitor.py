@@ -30,7 +30,7 @@ df2 = pd.read_excel(excel_file,
                    header=13,
                    nrows=14)
 
-st.markdown('### Table 2 Inputs Ver 1 as dataframe')
+st.markdown('### Table 2 Ver 1 as dataframe')
 
 # Replace None/NaN values with an empty string for all columns except the ones to be converted to integers
 columns_to_int = ['3 month return', '6 month rank']
@@ -96,7 +96,7 @@ for col in range(3):  # Loop over the first three columns
     df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
 
 # Display in Streamlit
-st.markdown('### Table 2 Inputs Ver 2 with colored circles')
+st.markdown('### Table 2 Ver 2 with colored circles')
 st.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
