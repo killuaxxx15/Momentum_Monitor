@@ -72,18 +72,14 @@ def value_to_circle(value):
 
     return f'<span style="color: {color}; font-size: 20px;">●</span>'
 
-# Assume df20 is loaded from an Excel file as in your original code
-# df20 = pd.read_excel(excel_file, sheet_name=sheet_name, usecols='E:J', header=13, nrows=14)
-# Replace None/NaN values with an empty string
-df20 = df20.fillna('')
 
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
 column_index2 = 2  # Index for the '6 month rank' column
-df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
+df2.iloc[2:13, column_index1] = df2.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
 
 # Apply the value_to_circle function to the 3rd column
-df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
+df2.iloc[2:13, column_index2] = df2.iloc[2:13, column_index2].apply(value_to_circle)
 
 def format_as_percent(value):
     # Check if the value is a number and not NaN
@@ -94,7 +90,7 @@ def format_as_percent(value):
 
 # Apply the format_as_percent function to the first three columns of the first row
 for col in range(3):  # Loop over the first three columns
-    df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
+    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
 
 # Define CSS for responsive table
 responsive_table_css = """
@@ -113,10 +109,10 @@ responsive_table_css = """
 
 # Apply styling to the DataFrame
 # Assuming color_cells is defined elsewhere in your code
-df20_styled = df20.style.applymap(color_cells)
+df2_styled = df2.style.applymap(color_cells)
 
 # Convert DataFrame to HTML with responsive styling
-df20_html = df20_styled.to_html(escape=False, classes="responsive-table")
+df2_html = df2_styled.to_html(escape=False, classes="responsive-table")
 
 # Display in Streamlit with Markdown and responsive CSS
 col1 = st.beta_container() # or st.container(), depending on your Streamlit version
