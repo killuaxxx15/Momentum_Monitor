@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(page_title='Global Momentum',
-                   page_icon=':bar_chart:',
-                   layout='wide')
+                   page_icon=':bar_chart:')
+                   #layout='wide')
 
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
@@ -185,7 +185,7 @@ for col in range(3):  # Loop over the first three columns
 
 # Display in Streamlit
 st.markdown('### Table 2 Ver 2 with colored circles')
-st.markdown(df20_styled.to_html(escape=False), unsafe_allow_html=True)
+st.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
 
