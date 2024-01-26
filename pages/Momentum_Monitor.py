@@ -58,6 +58,8 @@ col2.dataframe(df2, hide_index=True)
 
 
 
+
+
 def value_to_circle(value):
     # Check if value is NaN or not a number (int or float)
     if pd.isna(value) or not isinstance(value, (int, float)):
@@ -72,26 +74,6 @@ def value_to_circle(value):
 
     return f'<span style="color: {color}; font-size: 20px;">●</span>'
 
-df20 = pd.read_excel(excel_file,
-                   sheet_name=sheet_name,
-                   usecols='E:J',
-                   header=13,
-                   nrows=14)
-
-# Replace None/NaN values with an empty string
-df20 = df20.fillna('')
-
-# Convert rows 4 to 14 of the 3rd column to integers
-column_index1 = 1  # Index for the '3 month return' column
-column_index2 = 2  # Index for the '6 month rank' column
-df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
-
-# Apply the value_to_circle function to the 3rd column
-df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
-
-# Applying the styling to the DataFrame
-df20_styled = df20.style.applymap(color_cells)
-
 def format_as_percent(value):
     # Check if the value is a number and not NaN
     if pd.notna(value) and isinstance(value, (int, float)):
@@ -99,13 +81,74 @@ def format_as_percent(value):
         return f"{round(value * 100)}%"
     return value  # Return the value unchanged if it's not a number
 
+
+df20 = pd.read_excel(excel_file, sheet_name=sheet_name, usecols='E:J', header=13, nrows=14)
+
+# Replace None/NaN values with an empty string
+df20 = df20.fillna('')
+
+# Convert rows 4 to 14 of the 3rd column to integers
+column_index1 = 1  # Index for a specific column
+column_index2 = 2  # Index for another specific column
+df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
+
+# Apply the value_to_circle function to the 3rd column
+df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
+
 # Apply the format_as_percent function to the first three columns of the first row
 for col in range(3):  # Loop over the first three columns
     df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
 
-# Display in Streamlit
+# Applying the styling to the DataFrame
+df20_styled = df20.style.applymap(color_cells)
+
+# Custom CSS for the responsive table
+table_css = """
+<style>
+.responsiveTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 2px solid #ddd;
+}
+.responsiveTable th, .responsiveTable td {
+    text-align: left;
+    padding: 8px;
+}
+@media screen and (max-width: 600px) {
+    .responsiveTable thead {
+        display: none;
+    }
+    .responsiveTable, .responsiveTable tbody, .responsiveTable tr, .responsiveTable td {
+        display: block;
+        width: 100%;
+    }
+    .responsiveTable tr {
+        margin-bottom: 15px;
+    }
+    .responsiveTable td {
+        text-align: right;
+        padding-left: 50%;
+        text-align: right;
+        position: relative;
+    }
+    .responsiveTable td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+</style>
+"""
+
 col1.markdown('### Table 2 Ver 2 with colored circles')
-col1.markdown(df20_styled.to_html(escape=False), unsafe_allow_html=True)
+col1.markdown(table_css, unsafe_allow_html=True)
+col1.markdown(df20_styled.to_html(escape=False, classes='responsiveTable'), unsafe_allow_html=True)
+
 
 
 
