@@ -99,7 +99,7 @@ responsive_table_css = """
 .responsive-table th,
 .responsive-table td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 4px;
 }
 </style>
 """
