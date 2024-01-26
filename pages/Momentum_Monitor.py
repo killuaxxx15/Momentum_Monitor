@@ -4,6 +4,8 @@ import streamlit as st
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
 
+col1, col2 = st.columns(2)
+
 df1 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:H',
@@ -19,8 +21,8 @@ def color_cells(val):
 df1 = df1.style.applymap(color_cells)
 
 # Display the table with styling but without index
-st.markdown('### Table 1')
-st.dataframe(df1, hide_index=True)
+col1.markdown('### Table 1')
+col1.dataframe(df1, hide_index=True)
 
 
 
@@ -30,7 +32,7 @@ df2 = pd.read_excel(excel_file,
                    header=13,
                    nrows=14)
 
-st.markdown('### Table 2 Ver 1 as dataframe')
+col2.markdown('### Table 2 Ver 1 as dataframe')
 
 # Replace None/NaN values with an empty string for all columns except the ones to be converted to integers
 columns_to_int = ['3 month return', '6 month rank']
@@ -46,7 +48,7 @@ df2['6 month rank'] = df2['6 month rank'].fillna(0).round().astype(int)
 # Applying the styling to the DataFrame
 # Ensure that color_cells function can handle integer formatting
 df2 = df2.style.applymap(color_cells)
-st.dataframe(df2, hide_index=True)
+col2.dataframe(df2, hide_index=True)
 
 
 
@@ -96,8 +98,8 @@ for col in range(3):  # Loop over the first three columns
     df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
 
 # Display in Streamlit
-st.markdown('### Table 2 Ver 2 with colored circles')
-st.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
+col1.markdown('### Table 2 Ver 2 with colored circles')
+col1.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
 
@@ -142,9 +144,9 @@ df3 = df3.style.applymap(yellow_background, subset=['median']).format({
     'median': custom_format  # Apply custom formatting to 'median' column
 })
 
-st.markdown('### ')
-st.markdown('### Table 3 Equity - Momentum + Breadth + Uptrades')
-st.dataframe(df3, hide_index=True)
+col1.markdown('### ')
+col2.markdown('### Table 3 Equity - Momentum + Breadth + Uptrades')
+col2.dataframe(df3, hide_index=True)
 
 
 df4 = pd.read_excel(excel_file,
@@ -153,10 +155,10 @@ df4 = pd.read_excel(excel_file,
                    header=41,
                    nrows=9)
 
-st.markdown('### Table 4')
+col1.markdown('### Table 4')
 # Applying the styling to the DataFrame
 df4 = df4.style.applymap(color_cells)
-st.dataframe(df4, hide_index=True)
+col1.dataframe(df4, hide_index=True)
 
 
 df5 = pd.read_excel(excel_file,
@@ -165,7 +167,7 @@ df5 = pd.read_excel(excel_file,
                    header=41,
                    nrows=11)
 
-st.markdown('### Table 5')
+col2.markdown('### Table 5')
 df5['Upgrades 1 month'] = df5['Upgrades 1 month'].apply(format_percentage_one_decimal)
 df5['Downgrades 1 month'] = df5['Downgrades 1 month'].apply(format_percentage_one_decimal)
-st.dataframe(df5, hide_index=True)
+col2.dataframe(df5, hide_index=True)
