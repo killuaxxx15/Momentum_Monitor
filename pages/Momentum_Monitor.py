@@ -89,23 +89,30 @@ df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: 
 # Apply the value_to_circle function to the 3rd column
 df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
 
-# Applying the styling to the DataFrame
+# Define CSS for responsive table
+responsive_table_css = """
+<style>
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.responsive-table th,
+.responsive-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+</style>
+"""
+
+# Apply styling to the DataFrame
 df20_styled = df20.style.applymap(color_cells)
 
-def format_as_percent(value):
-    # Check if the value is a number and not NaN
-    if pd.notna(value) and isinstance(value, (int, float)):
-        # Convert decimal to percentage, round to nearest whole number, and append percent symbol
-        return f"{round(value * 100)}%"
-    return value  # Return the value unchanged if it's not a number
+# Convert DataFrame to HTML with responsive styling
+df20_html = df20_styled.to_html(escape=False, classes="responsive-table")
 
-# Apply the format_as_percent function to the first three columns of the first row
-for col in range(3):  # Loop over the first three columns
-    df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
-
-# Display in Streamlit
+# Display in Streamlit with Markdown and responsive CSS
 col1.markdown('### Table 2 Ver 2 with colored circles')
-col1.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
+col1.markdown(responsive_table_css + df20_html, unsafe_allow_html=True)
 
 
 
