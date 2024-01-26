@@ -21,6 +21,26 @@ def main():
     st.write('**Future Performance Projections:** The company is focused on high return on capital deployed, efficient capital deployment, and high returns from capital invested in product development and infrastructure. These strategies, particularly in developing modular scalable platforms and optimizing their manufacturing footprint, are central to their future projections​​.')
     st.write('**Market Trends, Risks, and Opportunities:** They are adapting to market trends such as the search for productivity, labor shortages, electrification, and the rise of low-cost competitors. These trends shape their strategic focus on technology solutions, automation, and modular scalable platforms​​.')
 
+    st.write('')
+    st.write('**Business Prospects**')
+    st.write('**Strategic Initiatives & Market Expansion Plans:** The company is innovating in areas like modular scalable platforms and partnering with suppliers and dealers to optimize manufacturing and distribution. Their focus on technology, particularly in areas like telemetry systems and operator assist systems, indicates a strong push towards modernization and efficiency​​.')
+    st.write('**Impact of R&D and Partnerships:** R&D is heavily directed towards technology solutions like fuel cells, automation, and smart batteries, as well as the expansion of their product range to include electrified solutions​​.')
+
+    st.write('')
+    st.write('**Competition Analysiss**')
+    st.write('**Comparison with Main Competitors:** The company\'s focus on modular scalable platforms provides a competitive edge. This system, which is unique and not easily replicable by competitors, allows for the efficient configuration of trucks to customer needs. They also focus on differentiating themselves through technology and customer service​​.')
+
+    st.write('')
+    st.write('**Capital Deployment**')
+    st.write('**Use of Financial Resources:** Investments are strategically made in product development, technology, optimizing manufacturing footprint, and expanding their sales capabilities. The modular scalable platform is a significant area of investment, indicating the company’s focus on long-term sustainable growth and competitiveness​​.')
+
+    st.write('')
+    st.write('**Sentiment Assessment**')
+    st.write('**Tone & Language of Management and Analysts:** The language and tone used by management reflect a strong focus on innovation, customer-centric solutions, and strategic growth. The emphasis is on leveraging technology, enhancing customer service, and expanding market presence​​.')
+    st.write('**Overall Sentiment:** The sentiment is generally positive and forward-looking, with a clear emphasis on adapting to market changes, technological advancements, and improving customer service and product offerings​​.')
+
+    st.write('')
+    st.write('Overall, the company appears to be in a strong position with a clear focus on growth through technology, efficiency, and customer-centric strategies. Their recovery from past challenges and targeted strategies for future development indicate a solid path forward in a competitive market.')
 
 
 if __name__ == "__main__":
