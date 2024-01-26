@@ -72,14 +72,25 @@ def value_to_circle(value):
 
     return f'<span style="color: {color}; font-size: 20px;">●</span>'
 
+df20 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:J',
+                   header=13,
+                   nrows=14)
+
+# Replace None/NaN values with an empty string
+df20 = df20.fillna('')
 
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
 column_index2 = 2  # Index for the '6 month rank' column
-df2.iloc[2:13, column_index1] = df2.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
+df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
 
 # Apply the value_to_circle function to the 3rd column
-df2.iloc[2:13, column_index2] = df2.iloc[2:13, column_index2].apply(value_to_circle)
+df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
+
+# Applying the styling to the DataFrame
+df20_styled = df20.style.applymap(color_cells)
 
 def format_as_percent(value):
     # Check if the value is a number and not NaN
@@ -90,34 +101,11 @@ def format_as_percent(value):
 
 # Apply the format_as_percent function to the first three columns of the first row
 for col in range(3):  # Loop over the first three columns
-    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
+    df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
 
-# Define CSS for responsive table
-responsive_table_css = """
-<style>
-.responsive-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.responsive-table th,
-.responsive-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-</style>
-"""
-
-# Apply styling to the DataFrame
-# Assuming color_cells is defined elsewhere in your code
-df2_styled = df2.style.applymap(color_cells)
-
-# Convert DataFrame to HTML with responsive styling
-df2_html = df2_styled.to_html(escape=False, classes="responsive-table")
-
-# Display in Streamlit with Markdown and responsive CSS
-col1 = st.beta_container() # or st.container(), depending on your Streamlit version
+# Display in Streamlit
 col1.markdown('### Table 2 Ver 2 with colored circles')
-col1.markdown(responsive_table_css + df20_html, unsafe_allow_html=True)
+col1.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
 
