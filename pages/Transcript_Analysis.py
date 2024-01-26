@@ -13,7 +13,7 @@ def main():
 
     st.write('')
     st.write('**Growth Analysis**')
-    st.write('**Revenue Trends & Financial Performance:** In the last 12 months, the company\'s revenues exceeded $4 billion, with an operating profit of $180 million and a net income of just over $100 million. This marks a significant recovery from a period affected by a large backlog and high inflation​​.')
+    st.write('**Revenue Trends & Financial Performance:** In the last 12 months, the company\'s revenues exceeded \$4 billion, with an operating profit of $180 million and a net income of just over $100 million. This marks a significant recovery from a period affected by a large backlog and high inflation​​.')
     st.write('**Profit Margins & Key Indicators:** The company targets a top-quartile return in their industry, with a goal of greater than 20% return on total capital employed and a 7% operating profit. This is a key indicator of their financial health and strategic focus​​.')
 
     st.write('')
