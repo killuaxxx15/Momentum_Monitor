@@ -105,7 +105,7 @@ for col in range(3):  # Loop over the first three columns
 
 # Display in Streamlit
 col1.markdown('### Table 2 Ver 2 with colored circles')
-col1.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
+col1.markdown(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
 
