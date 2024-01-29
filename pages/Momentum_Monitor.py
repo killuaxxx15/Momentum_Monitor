@@ -128,9 +128,15 @@ col1.dataframe(df5, hide_index=True)
 
 
 
+df6 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='D:E',
+                   header=55,
+                   nrows=6)
 
-
-
+df6.iloc[column_index1] = df6.iloc[column_index2].apply(format_percentage_one_decimal)
+col2.markdown('### Long term Forecasts')
+col2.dataframe(df6, hide_index=True)
 
 
 
