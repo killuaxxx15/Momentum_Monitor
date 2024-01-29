@@ -135,7 +135,7 @@ df6 = pd.read_excel(excel_file,
                    nrows=6)
 
 column_index3 = 1
-df6.iloc[column_index3] = df6.iloc[column_index3].apply(format_percentage_one_decimal)
+df6.iloc[0:5, column_index3] = df6.iloc[0:5, column_index3].apply(format_percentage_one_decimal)
 col2.markdown('### Long term Forecasts')
 col2.dataframe(df6, hide_index=True)
 
