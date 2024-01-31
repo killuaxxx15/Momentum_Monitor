@@ -40,8 +40,11 @@ with st.expander("Table 2"):
     
     # Iterate through columns and fill NaN with empty string for non-numeric columns
     for col in df2.columns:
-        if col not in columns_to_int:
-            df2[col] = df2[col].fillna('')
+        try:
+            if col not in columns_to_int:
+                df2[col] = df2[col].fillna('')
+        except Exception as e:
+            st.warning(f"An error occurred while processing column '{col}': {e}")
 
     # Convert '3 month return' and '6 month rank' to integers
     # First replace NaN with 0 or any other default integer value
