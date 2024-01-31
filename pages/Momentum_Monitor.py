@@ -35,8 +35,10 @@ with st.expander("Table 1"):
 with st.expander("Table 2"):
     df2 = read_excel_and_style(sheet_name, 'E:J', 13, 14)
     
-    # Replace None/NaN values with an empty string for all columns except the ones to be converted to integers
+    # List of columns to be converted to integers
     columns_to_int = ['3 month return', '6 month rank']
+    
+    # Iterate through columns and fill NaN with empty string for non-numeric columns
     for col in df2.columns:
         if col not in columns_to_int:
             df2[col] = df2[col].fillna('')
@@ -47,6 +49,7 @@ with st.expander("Table 2"):
     df2['6 month rank'] = df2['6 month rank'].fillna(0).round().astype(int)
 
     st.dataframe(df2, hide_index=True)
+
 
 
 
