@@ -25,8 +25,8 @@ def color_cells(val):
 df1 = df1.style.applymap(color_cells)
 
 # Display the table with styling but without index
-col1.markdown('### Table 1')
-col1.dataframe(df1, hide_index=True)
+#col1.markdown('### Table 1')
+#col1.dataframe(df1, hide_index=True)
 
 
 
@@ -101,6 +101,8 @@ df3 = df3.style.applymap(yellow_background, subset=['median']).format({
 col1.markdown('### Table 3 Equity - Momentum + Breadth + Uptrades')
 col1.dataframe(df3, hide_index=True)
 
+col1.markdown('### Table 1')
+col1.dataframe(df1, hide_index=True)
 
 df4 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
