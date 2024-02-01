@@ -101,8 +101,10 @@ df3 = df3.style.applymap(yellow_background, subset=['median']).format({
 col1.markdown('### Table 3 Equity - Momentum + Breadth + Uptrades')
 col1.dataframe(df3, hide_index=True)
 
-col1.markdown('### Table 1')
-col1.dataframe(df1, hide_index=True)
+col3, col4, col5 = st.columns(3)
+
+col4.markdown('### Table 1')
+col4.dataframe(df1, hide_index=True)
 
 df4 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
@@ -110,10 +112,10 @@ df4 = pd.read_excel(excel_file,
                    header=41,
                    nrows=9)
 
-col2.markdown('### Table 4')
+col5.markdown('### Table 4')
 # Applying the styling to the DataFrame
 df4 = df4.style.applymap(color_cells)
-col2.dataframe(df4, hide_index=True)
+col5.dataframe(df4, hide_index=True)
 
 
 df5 = pd.read_excel(excel_file,
@@ -122,10 +124,10 @@ df5 = pd.read_excel(excel_file,
                    header=41,
                    nrows=11)
 
-col1.markdown('### Table 5')
+col3.markdown('### Table 5')
 df5['Upgrades 1 month'] = df5['Upgrades 1 month'].apply(format_percentage_one_decimal)
 df5['Downgrades 1 month'] = df5['Downgrades 1 month'].apply(format_percentage_one_decimal)
-col1.dataframe(df5, hide_index=True)
+col3.dataframe(df5, hide_index=True)
 
 
 
@@ -138,8 +140,8 @@ df6 = pd.read_excel(excel_file,
 
 column_index3 = 1
 df6.iloc[0:6, column_index3] = df6.iloc[0:6, column_index3].apply(format_percentage_one_decimal)
-col2.markdown('### Long term Forecasts')
-col2.dataframe(df6, hide_index=True)
+col4.markdown('### Long term Forecasts')
+col4.dataframe(df6, hide_index=True)
 
 
 
