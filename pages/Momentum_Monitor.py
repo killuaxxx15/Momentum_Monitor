@@ -38,7 +38,7 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
-st.table(df2, hide_index=True)
+st.table(df2)
 
 
 
