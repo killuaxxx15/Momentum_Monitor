@@ -133,7 +133,7 @@ def value_to_circle(value):
     else:
         color = 'red'
 
-    return f'<span style="color: {color}; font-size: 20px;">●</span>'
+    return f'<span style="color: {color}; font-size: 30px;">●</span>'
 
 df20 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
