@@ -70,6 +70,7 @@ df3 = pd.read_excel(excel_file,
                    header=27,
                    nrows=10)
 
+df3 = df3.fillna('')
 # Apply the formatting to the specific columns
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
 df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
