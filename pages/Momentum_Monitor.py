@@ -40,9 +40,7 @@ df2 = pd.read_excel(excel_file,
 df2 = df2.style.applymap(color_cells)
 
 # Convert styled DataFrame to HTML
-#df_html = styled_df.to_html(escape=False)
-df2 = df2.to_html(escape=False)
-
+df2 = df2.to_html(escape=False, index=False)
 
 # Display the HTML in Streamlit
 st.markdown('#### Table 2: Relative Ranking', unsafe_allow_html=True)
