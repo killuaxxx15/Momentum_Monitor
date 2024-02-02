@@ -117,8 +117,8 @@ def value_to_circle(value):
 df20 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
-                   header=13,
-                   nrows=14)
+                   header=11,
+                   nrows=13)
 
 # Replace None/NaN values with an empty string
 df20 = df20.fillna('')
