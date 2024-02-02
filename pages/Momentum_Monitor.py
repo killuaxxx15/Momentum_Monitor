@@ -37,14 +37,27 @@ df2 = pd.read_excel(excel_file,
                    nrows=13)
 
 
-#df2 = df2.style.applymap(color_cells)
-st.markdown('#### Table 2: Relative Ranking')
-# Convert DataFrame to markdown without including the index
-df2 = df2.to_markdown(index=False)
+def style_specific_cells(val):
+    """
+    Applies background color to cells based on their values.
+    """
+    if val == 'CASH':
+        color = 'red'
+    elif val == 'INVESTED':
+        color = 'green'
+    else:
+        color = ''  # Default no background color
+    return f'background-color: {color}'
 
-# Display the markdown in Streamlit
-st.markdown(df2, unsafe_allow_html=True)
+# Apply the styling
+styled_df = df2.style.applymap(style_specific_cells)
 
+# Convert styled DataFrame to HTML
+df_html = styled_df.to_html(escape=False)
+
+# Display the HTML in Streamlit
+st.markdown('#### Table 2: Relative Ranking', unsafe_allow_html=True)
+st.markdown(df_html, unsafe_allow_html=True)
 
 
 
