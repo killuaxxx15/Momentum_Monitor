@@ -36,12 +36,13 @@ df2 = pd.read_excel(excel_file,
                    header=11,
                    nrows=13)
 
-# Ensure columns '3 month return' and '6 month rank' are numeric
-for col in ['3 month return', '6 month rank']:
-    df2[col] = pd.to_numeric(df2[col], errors='coerce')
+# Convert specified columns (by index) to numeric, handling non-numeric values
+column_indices = [2, 3]  # Adjust these indices to match your actual columns
+for col_idx in column_indices:
+    df2.iloc[:, col_idx] = pd.to_numeric(df2.iloc[:, col_idx], errors='coerce')
 
-# Convert '3 month return' and '6 month rank' to integer for rows 3 to 13 (pandas index 2 to 12)
-df2.loc[2:12, ['3 month return', '6 month rank']] = df2.loc[2:12, ['3 month return', '6 month rank']].fillna(0).astype(int)
+# Convert the specified columns to integer for rows 3 to 13 (pandas index 2 to 12)
+df2.iloc[2:12, column_indices] = df2.iloc[2:12, column_indices].fillna(0).astype(int)
 
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
