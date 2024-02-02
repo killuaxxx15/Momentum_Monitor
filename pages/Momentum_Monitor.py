@@ -36,12 +36,6 @@ df2 = pd.read_excel(excel_file,
                    header=11,
                    nrows=13)
 
-
-# Function to apply color based on cell value
-def color_cells(val):
-    color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
-    return f'background-color: {color}'
-
 # Apply the styling
 styled_df = df2.style.applymap(color_cells)
 
