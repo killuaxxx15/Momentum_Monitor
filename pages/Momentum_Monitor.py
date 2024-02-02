@@ -37,7 +37,7 @@ df2 = pd.read_excel(excel_file,
                    nrows=13)
 
 
-df2 = df2.style.applymap(color_cells)
+#df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
 # Convert DataFrame to markdown
 df_markdown = df2.to_markdown()
