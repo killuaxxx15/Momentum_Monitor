@@ -37,20 +37,13 @@ df2 = pd.read_excel(excel_file,
                    nrows=13)
 
 
-def style_specific_cells(val):
-    """
-    Applies background color to cells based on their values.
-    """
-    if val == 'CASH':
-        color = 'red'
-    elif val == 'INVESTED':
-        color = 'green'
-    else:
-        color = ''  # Default no background color
+# Function to apply color based on cell value
+def color_cells(val):
+    color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
     return f'background-color: {color}'
 
 # Apply the styling
-styled_df = df2.style.applymap(style_specific_cells)
+styled_df = df2.style.applymap(color_cells)
 
 # Convert styled DataFrame to HTML
 df_html = styled_df.to_html(escape=False)
