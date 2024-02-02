@@ -48,7 +48,7 @@ for col in df2.columns:
 
 # Convert '3 month return' and '6 month rank' to integers
 # First replace NaN with 0 or any other default integer value
-df2['3 month return'] = df2['3 month return'].fillna(0).round().astype(int)
+#df2['3 month return'] = df2['3 month return'].fillna(0).round().astype(int)
 df2['6 month rank'] = df2['6 month rank'].fillna(0).round().astype(int)
 
 # Applying the styling to the DataFrame
