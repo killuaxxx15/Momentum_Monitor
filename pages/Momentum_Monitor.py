@@ -91,7 +91,7 @@ for col in range(3):  # Loop over the first three columns
 # Display in Streamlit
 st.markdown('#### Table 2: Relative Ranking')
 st.markdown(df2_styled.to_html(escape=False), unsafe_allow_html=True)
-
+st.markdown('#### ')
 
 
 
