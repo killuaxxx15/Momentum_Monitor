@@ -70,6 +70,10 @@ df3 = pd.read_excel(excel_file,
                    header=27,
                    nrows=10)
 
+# Apply the formatting to the specific columns
+df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
+df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
+df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
