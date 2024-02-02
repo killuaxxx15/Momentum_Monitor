@@ -37,8 +37,8 @@ df2 = pd.read_excel(excel_file,
                    nrows=13)
 
 # Convert '3 month return' and '6 month rank' to integer for rows 3 to 13 (pandas index 2 to 12)
-cols_to_convert = ['3 month return', '6 month rank']
-df2.loc[2:12, cols_to_convert] = df2.loc[2:12, cols_to_convert].applymap(lambda x: int(x) if pd.notnull(x) else x)
+df2.loc[2:12, ['3 month return', '6 month rank']] = df2.loc[2:12, ['3 month return', '6 month rank']].fillna(0).astype(int)
+
 
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
