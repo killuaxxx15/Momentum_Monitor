@@ -36,7 +36,13 @@ df2 = pd.read_excel(excel_file,
                    header=11,
                    nrows=13)
 
-df2['3 month return'] = df2['3 month return'].astype('Int64')
+# Inspect unique values or a sample to identify potential problematic values
+unique_values = df2['3 month return'].unique()
+st.write(unique_values)
+
+# Alternatively, summarize the column to look for anomalies
+st.write(df2['3 month return'].describe())
+
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
