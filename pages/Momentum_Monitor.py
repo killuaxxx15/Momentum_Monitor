@@ -15,8 +15,8 @@ col1, col2 = st.columns(2)
 df1 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:H',
-                   header=5,
-                   nrows=6)
+                   header=2,
+                   nrows=5)
 
 # Function to apply color based on cell value
 def color_cells(val):
@@ -35,10 +35,10 @@ df1 = df1.style.applymap(color_cells)
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
-                   header=13,
-                   nrows=14)
+                   header=11,
+                   nrows=13)
 
-col2.markdown('### Table 2 Ver 1 as dataframe')
+col2.markdown('#### Table 2: Relative Ranking')
 
 # Replace None/NaN values with an empty string for all columns except the ones to be converted to integers
 columns_to_int = ['3 month return', '6 month rank']
@@ -61,8 +61,8 @@ col2.dataframe(df2, hide_index=True)
 
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
-                   usecols='E:O',
-                   header=29,
+                   usecols='E:P',
+                   header=27,
                    nrows=10)
 
 # Function to format as whole number percentage
@@ -100,23 +100,23 @@ df3 = df3.style.applymap(yellow_background, subset=['median']).format({
 })
 
 #col1.markdown('### ')
-col1.markdown('### Table 3 Equity - Momentum + Breadth + Uptrades')
+col1.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 col1.dataframe(df3, hide_index=True)
 
 st.markdown('---')
 col3, col4, col5 = st.columns(3)
 st.markdown('---')
 
-col4.markdown('### Table 1')
+col4.markdown('#### Table 1: Equity Relative to other Asset Classes')
 col4.dataframe(df1, hide_index=True)
 
 df4 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
-                   usecols='D:H',
-                   header=41,
+                   usecols='E:I',
+                   header=40,
                    nrows=9)
 
-col5.markdown('### Table 4')
+col5.markdown('#### Table 4: Equity ETF - MA Signals')
 # Applying the styling to the DataFrame
 df4 = df4.style.applymap(color_cells)
 col5.dataframe(df4, hide_index=True)
@@ -124,11 +124,11 @@ col5.dataframe(df4, hide_index=True)
 
 df5 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
-                   usecols='J:L',
-                   header=41,
-                   nrows=11)
+                   usecols='K:M',
+                   header=40,
+                   nrows=10)
 
-col3.markdown('### Table 5')
+col3.markdown('#### Table 5: Equity ETF - Upgrades')
 df5['Upgrades 1 month'] = df5['Upgrades 1 month'].apply(format_percentage_one_decimal)
 df5['Downgrades 1 month'] = df5['Downgrades 1 month'].apply(format_percentage_one_decimal)
 col3.dataframe(df5, hide_index=True)
@@ -138,13 +138,13 @@ col3.dataframe(df5, hide_index=True)
 
 df6 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
-                   usecols='D:E',
-                   header=55,
+                   usecols='E:F',
+                   header=52,
                    nrows=6)
 
 column_index3 = 1
 df6.iloc[0:6, column_index3] = df6.iloc[0:6, column_index3].apply(format_percentage_one_decimal)
-col4.markdown('### Long term Forecasts')
+col4.markdown('#### Table 6: Long Term Forecasts (above local rates)')
 col4.dataframe(df6, hide_index=True)
 
 
@@ -170,8 +170,8 @@ def value_to_circle(value):
 df20 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
-                   header=13,
-                   nrows=14)
+                   header=11,
+                   nrows=13)
 
 # Replace None/NaN values with an empty string
 df20 = df20.fillna('')
@@ -199,7 +199,7 @@ for col in range(3):  # Loop over the first three columns
     df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
 
 # Display in Streamlit
-st.markdown('### Table 2 Ver 2 with colored circles')
+st.markdown('#### Table 2 Ver 2 with colored circles')
 st.write(df20_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
