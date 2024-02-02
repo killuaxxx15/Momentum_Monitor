@@ -40,8 +40,8 @@ df2 = pd.read_excel(excel_file,
 cols_to_convert = ['3 month return', '6 month rank']
 df2.loc[2:12, cols_to_convert] = df2.loc[2:12, cols_to_convert].applymap(lambda x: int(x) if pd.notnull(x) else x)
 
-st.markdown('#### Table 2: Relative Ranking')
 df2 = df2.style.applymap(color_cells)
+st.markdown('#### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
 
 
