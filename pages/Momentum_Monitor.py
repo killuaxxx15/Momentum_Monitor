@@ -39,7 +39,11 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
-st.markdown(df2)
+# Convert DataFrame to markdown
+df_markdown = df2.to_markdown()
+
+# Display the markdown in Streamlit
+st.markdown(df_markdown, unsafe_allow_html=True)
 
 
 
