@@ -40,7 +40,7 @@ df2['3 month return'] = df2['3 month return'].astype('Int64')
 
 df2 = df2.style.applymap(color_cells)
 st.markdown('#### Table 2: Relative Ranking')
-st.table(df2)
+st.write(df2)
 
 
 
