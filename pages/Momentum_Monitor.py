@@ -36,20 +36,11 @@ df2 = pd.read_excel(excel_file,
                    header=11,
                    nrows=13)
 
-# Convert specified columns (by index) to numeric, handling non-numeric values
-column_indices = [2, 3]  # Adjust these indices to match your actual columns
-for col_idx in column_indices:
-    df2.iloc[:, col_idx] = pd.to_numeric(df2.iloc[:, col_idx], errors='coerce')
+df2['3 month return'] = df2['3 month return'].astype('Int64')
+df2 = df2.style.applymap(color_cells)
 
-# Adjusted row indexing to include row 13 in the conversion
-df2.iloc[2:13, column_indices] = df2.iloc[2:13, column_indices].fillna(0).astype(int)
-
-# Once all modifications are done, apply the styling
-df_styled = df2.style.applymap(color_cells)
-
-# Assuming st is Streamlit, displaying the DataFrame with styles
 st.markdown('#### Table 2: Relative Ranking')
-st.dataframe(df_styled, hide_index=True)
+st.dataframe(df2, hide_index=True)
 
 
 
