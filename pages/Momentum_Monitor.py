@@ -16,6 +16,19 @@ def color_cells(val):
     color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
     return f'background-color: {color}'
 
+# Function to format as whole number percentage
+def format_percentage_whole(val):
+    if isinstance(val, (int, float)):
+        return '{:.0%}'.format(val)
+    return val
+
+# Function to format as percentage with at most 1 decimal place
+def format_percentage_one_decimal(val):
+    if isinstance(val, (int, float)):
+        return '{:.1%}'.format(val)
+    return val
+
+
 
 df1 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
@@ -80,6 +93,8 @@ df5 = pd.read_excel(excel_file,
                    nrows=10)
 
 st.markdown('#### Table 5: Equity ETF - Upgrades')
+df5['Upgrades 1 month'] = df5['Upgrades 1 month'].apply(format_percentage_one_decimal)
+df5['Downgrades 1 month'] = df5['Downgrades 1 month'].apply(format_percentage_one_decimal)
 st.dataframe(df5, hide_index=True)
 
 
@@ -89,6 +104,8 @@ df6 = pd.read_excel(excel_file,
                    header=52,
                    nrows=6)
 
+column_index1 = 1
+df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(format_percentage_one_decimal)
 st.markdown('#### Table 6: Long Term Forecasts (above local rates)')
 st.dataframe(df6, hide_index=True)
 
