@@ -101,7 +101,7 @@ df3 = df3.style.applymap(yellow_background, subset=['median']).format({
 
 #col1.markdown('### ')
 col1.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
-col1.dataframe(df3, hide_index=True)
+col1.dataframe(df3)
 
 st.markdown('---')
 col3, col4, col5 = st.columns(3)
