@@ -36,13 +36,18 @@ df2 = pd.read_excel(excel_file,
                    header=11,
                    nrows=13)
 
-# Convert '3 month return' to pandas nullable integer type, handling non-numeric values
-df2['3 month return'] = pd.to_numeric(df2['3 month return'], errors='coerce').astype('Int64')
-
 df2 = df2.style.applymap(color_cells)
 
 st.markdown('#### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
+
+# Display the overall data type of the column
+st.write(f"Data type of '3 month return' column: {df2['3 month return'].dtype}")
+
+# Display unique data types of all values within the column
+unique_types = df2['3 month return'].apply(type).unique()
+st.write("Unique data types of values in '3 month return' column:", unique_types)
+
 
 
 
