@@ -109,7 +109,8 @@ df6 = pd.read_excel(excel_file,
                    nrows=6)
 
 column_index1 = 1
-df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(format_percentage_one_decimal)
+#df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(format_percentage_one_decimal)
+df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(lambda x: format_percentage_one_decimal(x) if pd.notnull(x) else x)
 st.markdown('#### Table 6: Long Term Forecasts (above local rates)')
 st.dataframe(df6, hide_index=True)
 
