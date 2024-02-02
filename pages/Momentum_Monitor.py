@@ -41,12 +41,15 @@ column_indices = [2, 3]  # Adjust these indices to match your actual columns
 for col_idx in column_indices:
     df2.iloc[:, col_idx] = pd.to_numeric(df2.iloc[:, col_idx], errors='coerce')
 
-# Convert the specified columns to integer for rows 3 to 13 (pandas index 2 to 12)
-df2.iloc[2:12, column_indices] = df2.iloc[2:12, column_indices].fillna(0).astype(int)
+# Adjusted row indexing to include row 13 in the conversion
+df2.iloc[2:13, column_indices] = df2.iloc[2:13, column_indices].fillna(0).astype(int)
 
-df2 = df2.style.applymap(color_cells)
+# Once all modifications are done, apply the styling
+df_styled = df2.style.applymap(color_cells)
+
+# Assuming st is Streamlit, displaying the DataFrame with styles
 st.markdown('#### Table 2: Relative Ranking')
-st.dataframe(df2, hide_index=True)
+st.dataframe(df_styled, hide_index=True)
 
 
 
