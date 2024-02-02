@@ -43,22 +43,54 @@ st.dataframe(df1, hide_index=True)
 
 
 
+def value_to_circle(value):
+    # Check if value is NaN or not a number (int or float)
+    if pd.isna(value) or not isinstance(value, (int, float)):
+        return ''  # or some default representation
+
+    if value <= 2:
+        color = 'green'
+    elif 3 <= value <= 4:
+        color = 'yellow'
+    else:
+        color = 'red'
+
+    return f'<span style="color: {color}; font-size: 20px;">●</span>'
+
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
                    header=11,
                    nrows=13)
 
-# Apply the styling
-styled_df = df2.style.applymap(color_cells)
+# Replace None/NaN values with an empty string
+df2 = df2.fillna('')
 
-# Convert styled DataFrame to HTML without including the index
-df_html = styled_df.to_html(escape=False, index=False)
+# Convert rows 4 to 14 of the 3rd column to integers
+column_index1 = 1  # Index for the '3 month return' column
+column_index2 = 2  # Index for the '6 month rank' column
+df2.iloc[2:13, column_index1] = df2.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
 
-# Display the HTML in Streamlit
-st.markdown('#### Table 2: Relative Ranking', unsafe_allow_html=True)
-st.markdown(df_html, unsafe_allow_html=True)
-st.markdown('#### ')
+# Apply the value_to_circle function to the 3rd column
+df2.iloc[2:13, column_index2] = df2.iloc[2:13, column_index2].apply(value_to_circle)
+
+# Applying the styling to the DataFrame
+df2_styled = df2.style.applymap(color_cells)
+
+def format_as_percent(value):
+    # Check if the value is a number and not NaN
+    if pd.notna(value) and isinstance(value, (int, float)):
+        # Convert decimal to percentage, round to nearest whole number, and append percent symbol
+        return f"{round(value * 100)}%"
+    return value  # Return the value unchanged if it's not a number
+
+# Apply the format_as_percent function to the first three columns of the first row
+for col in range(3):  # Loop over the first three columns
+    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
+
+# Display in Streamlit
+st.markdown('#### Table 2: Relative Ranking')
+st.markdown(df2_styled.to_html(escape=False), unsafe_allow_html=True)
 
 
 
@@ -114,60 +146,3 @@ column_index1 = 1
 df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(lambda x: format_percentage_one_decimal(x) if pd.notnull(x) else '')
 st.markdown('#### Table 6: Long Term Forecasts (above local rates)')
 st.dataframe(df6, hide_index=True)
-
-
-
-
-
-
-
-
-
-def value_to_circle(value):
-    # Check if value is NaN or not a number (int or float)
-    if pd.isna(value) or not isinstance(value, (int, float)):
-        return ''  # or some default representation
-
-    if value <= 2:
-        color = 'green'
-    elif 3 <= value <= 4:
-        color = 'yellow'
-    else:
-        color = 'red'
-
-    return f'<span style="color: {color}; font-size: 20px;">●</span>'
-
-df20 = pd.read_excel(excel_file,
-                   sheet_name=sheet_name,
-                   usecols='E:J',
-                   header=11,
-                   nrows=13)
-
-# Replace None/NaN values with an empty string
-df20 = df20.fillna('')
-
-# Convert rows 4 to 14 of the 3rd column to integers
-column_index1 = 1  # Index for the '3 month return' column
-column_index2 = 2  # Index for the '6 month rank' column
-df20.iloc[2:13, column_index1] = df20.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
-
-# Apply the value_to_circle function to the 3rd column
-df20.iloc[2:13, column_index2] = df20.iloc[2:13, column_index2].apply(value_to_circle)
-
-# Applying the styling to the DataFrame
-df20_styled = df20.style.applymap(color_cells)
-
-def format_as_percent(value):
-    # Check if the value is a number and not NaN
-    if pd.notna(value) and isinstance(value, (int, float)):
-        # Convert decimal to percentage, round to nearest whole number, and append percent symbol
-        return f"{round(value * 100)}%"
-    return value  # Return the value unchanged if it's not a number
-
-# Apply the format_as_percent function to the first three columns of the first row
-for col in range(3):  # Loop over the first three columns
-    df20.iloc[0, col] = format_as_percent(df20.iloc[0, col])
-
-# Display in Streamlit
-st.markdown('#### Table 2 Ver 2 with colored circles')
-st.markdown(df20_styled.to_html(escape=False), unsafe_allow_html=True)
