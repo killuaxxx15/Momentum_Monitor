@@ -58,7 +58,7 @@ df_html = styled_df.to_html(escape=False, index=False)
 # Display the HTML in Streamlit
 st.markdown('#### Table 2: Relative Ranking', unsafe_allow_html=True)
 st.markdown(df_html, unsafe_allow_html=True)
-
+st.markdown('#### ')
 
 
 
