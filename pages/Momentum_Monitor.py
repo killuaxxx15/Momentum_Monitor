@@ -65,7 +65,7 @@ df2 = pd.read_excel(excel_file,
 
 # Replace None/NaN values with an empty string
 df2 = df2.fillna('')
-
+st.dataframe(df2)
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
 column_index2 = 2  # Index for the '6 month rank' column
