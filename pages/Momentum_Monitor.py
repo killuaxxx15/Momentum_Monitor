@@ -97,7 +97,7 @@ st.markdown('#### ')
 
 
 # Function to apply conditional background colors based on cell value
-def color_cells(val):
+def color_cells_2(val):
     # Check for NaN (empty) values first and return no styling for them
     if pd.isna(val):
         return ''
@@ -122,7 +122,7 @@ df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
 df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
 # Apply the styling function to the 'Relative ranking' column of the DataFrame
-styled_df = df3.style.applymap(color_cells, subset=['Relative ranking'])
+df3 = df3.style.applymap(color_cells_2, subset=['Relative ranking'])
 df3['3 month return'] = pd.to_numeric(df3['3 month return'])
 df3['3 month return'] = df3['3 month return'].round(1)
 relative_ranking = df3['Relative ranking']
