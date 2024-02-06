@@ -96,19 +96,16 @@ st.markdown('#### ')
 
 
 
-# Function to apply conditional background colors based on cell value
 def color_cells_2(val):
-    # Check for NaN (empty) values first and return no styling for them
-    #if pd.isna(val):
-    #    return ''
-    # Apply color based on value thresholds
+    # Check if val is NaN or not a numeric value
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return ''
     if val < 0:
-        color = 'lightgreen'
+        return 'background-color: lightgreen'
     elif 0 <= val <= 2:
-        color = 'lightyellow'
+        return 'background-color: lightyellow'
     else:  # val > 2
-        color = 'lightcoral'  # Assuming "light red" means a light coral color
-    return f'background-color: {color}'
+        return 'background-color: lightcoral'
   
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
