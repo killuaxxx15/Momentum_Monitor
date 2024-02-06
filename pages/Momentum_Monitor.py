@@ -99,8 +99,8 @@ st.markdown('#### ')
 # Function to apply conditional background colors based on cell value
 def color_cells_2(val):
     # Check for NaN (empty) values first and return no styling for them
-    if pd.isna(val):
-        return ''
+    #if pd.isna(val):
+    #    return ''
     # Apply color based on value thresholds
     if val < 0:
         color = 'lightgreen'
