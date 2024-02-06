@@ -114,6 +114,7 @@ df3['3 month return'] = df3['3 month return'].round(1)
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
+df3['3 month return'] = pd.to_numeric(df3['3 month return'])
 df33 = df3['3 month return'].round(1)
 st.write(df33)
 
