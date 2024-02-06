@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title='Global Momentum',
                    page_icon=':bar_chart:')
 
-st.header('To be edited')
+st.header('Global Momentum Dashboard')
 
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
@@ -107,6 +107,9 @@ df3 = df3.fillna('')
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
 df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
+relative_ranking = df3['Relative ranking']
+df3 = df3.drop(['Relative ranking'], axis=1)
+df3.insert(1, "Relative Ranking", relative_ranking)
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
