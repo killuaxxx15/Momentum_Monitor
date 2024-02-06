@@ -65,7 +65,7 @@ df2 = pd.read_excel(excel_file,
 
 # Replace None/NaN values with an empty string
 df2 = df2.fillna('')
-st.dataframe(df2)
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
@@ -90,10 +90,7 @@ def format_as_percent(value):
 #for col in range(3):  # Loop over the first three columns
 #    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
 
-st.write(df2_styled.columns)
-
 # Display in Streamlit
-
 st.markdown('#### Table 2: Relative Ranking')
 st.markdown(df2_styled.to_html(escape=False), unsafe_allow_html=True)
 st.markdown('#### ')
