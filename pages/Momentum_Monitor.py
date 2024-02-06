@@ -111,7 +111,7 @@ df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:P',
                    header=27,
-                   skiprows=[1],
+                   skiprows=1,
                    nrows=9)
 
 df3 = df3.fillna('')
