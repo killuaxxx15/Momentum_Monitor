@@ -105,7 +105,7 @@ def color_cells_2(val):
     elif 0 <= val <= 2:
         return 'background-color: lightyellow'
     else:  # val > 2
-        return 'background-color: lightcoral'
+        return 'background-color: #ffcccc'
   
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
