@@ -107,14 +107,14 @@ df3 = df3.fillna('')
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
 df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
-column_name_at_index_4 = df3.columns[4]
 relative_ranking = df3['Relative ranking']
 df3 = df3.drop(['Relative ranking'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
+df3['3 month return'] = df3['3 month return'].round(1)
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
-st.write(column_name_at_index_4)
+
 
 
 df4 = pd.read_excel(excel_file,
