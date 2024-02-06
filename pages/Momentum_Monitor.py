@@ -92,7 +92,7 @@ def format_as_percent(value):
 st.write(df2_styled.columns)
 
 # Display in Streamlit
-df2_styled = df2_styled.rename(columns={'Unnamed: 4': '33%'})
+df2_styled = df2_styled.rename(columns={'Unnamed: 4' : '33%'})
 st.markdown('#### Table 2: Relative Ranking')
 st.markdown(df2_styled.to_html(escape=False), unsafe_allow_html=True)
 st.markdown('#### ')
