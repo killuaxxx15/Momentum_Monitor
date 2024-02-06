@@ -95,6 +95,17 @@ st.markdown('#### ')
 
 
 
+def apply_background_color(val):
+    color = ''  # Default, no background color
+    if pd.notnull(val):  # Apply color only to non-empty (non-NaN) cells
+        if val < 0:
+            color = 'background-color: lightgreen'
+        elif 0 <= val <= 2:
+            color = 'background-color: lightyellow'
+        else:  # val > 2
+            color = 'background-color: lightcoral'  # light red
+    return color
+
 
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
@@ -109,6 +120,10 @@ df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentag
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
 df3['3 month return'] = pd.to_numeric(df3['3 month return'])
 df3['3 month return'] = df3['3 month return'].round(1)
+
+# Apply the styling function to the Relative ranking column
+df3 = df3.style.applymap(apply_background_color, subset=['Relative ranking'])
+
 relative_ranking = df3['Relative ranking']
 df3 = df3.drop(['Relative ranking'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
