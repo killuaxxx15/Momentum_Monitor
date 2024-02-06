@@ -113,6 +113,8 @@ relative_ranking = df3['Relative ranking']
 df3 = df3.drop(['Relative ranking'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
 df3 = df3.fillna('')
+
+df3['U/D.1'] = df3['U/D.1'].astype(float).astype('Int64')
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
