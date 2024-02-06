@@ -103,7 +103,7 @@ def color_cells_2(val):
     if val < 0:
         return 'background-color: #ccffcc'
     elif 0 <= val <= 2:
-        return 'background-color: yellow'
+        return 'background-color: lightyellow'
     else:  # val > 2
         return 'background-color: #ffcccc'
   
