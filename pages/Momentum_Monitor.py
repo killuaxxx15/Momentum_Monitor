@@ -101,9 +101,9 @@ def color_cells_2(val):
     if pd.isna(val) or not isinstance(val, (int, float)):
         return ''
     if val < 0:
-        return 'background-color: lightgreen'
+        return 'background-color: #ccffcc'
     elif 0 <= val <= 2:
-        return 'background-color: lightyellow'
+        return 'background-color: yellow'
     else:  # val > 2
         return 'background-color: #ffcccc'
   
