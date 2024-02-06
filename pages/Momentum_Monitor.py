@@ -114,6 +114,7 @@ df3.insert(1, "Relative Ranking", relative_ranking)
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
+st.write(df3.iloc[:, 4])
 
 
 df4 = pd.read_excel(excel_file,
