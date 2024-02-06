@@ -89,6 +89,7 @@ def format_as_percent(value):
 #for col in range(3):  # Loop over the first three columns
 #    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
 
+st.write(df2_styled.columns)
 
 # Display in Streamlit
 df2_styled = df2_styled.rename(columns={'Unnamed: 4': '33%'})
