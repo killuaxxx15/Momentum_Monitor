@@ -60,8 +60,8 @@ def value_to_circle(value):
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
-                   header=11,
-                   nrows=13)
+                   header=13,
+                   nrows=11)
 
 # Replace None/NaN values with an empty string
 df2 = df2.fillna('')
@@ -69,10 +69,11 @@ df2 = df2.fillna('')
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
 column_index2 = 2  # Index for the '6 month rank' column
-df2.iloc[2:13, column_index1] = df2.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
-
+#df2.iloc[2:13, column_index1] = df2.iloc[2:13, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
+df2.iloc[0:11, column_index1] = df2.iloc[0:11, column_index1].apply(lambda x: int(x) if pd.notna(x) else x)
 # Apply the value_to_circle function to the 3rd column
-df2.iloc[2:13, column_index2] = df2.iloc[2:13, column_index2].apply(value_to_circle)
+#df2.iloc[2:13, column_index2] = df2.iloc[2:13, column_index2].apply(value_to_circle)
+df2.iloc[0:11, column_index2] = df2.iloc[0:11, column_index2].apply(value_to_circle)
 
 # Applying the styling to the DataFrame
 df2_styled = df2.style.applymap(color_cells)
@@ -85,8 +86,8 @@ def format_as_percent(value):
     return value  # Return the value unchanged if it's not a number
 
 # Apply the format_as_percent function to the first three columns of the first row
-for col in range(3):  # Loop over the first three columns
-    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
+#for col in range(3):  # Loop over the first three columns
+#    df2.iloc[0, col] = format_as_percent(df2.iloc[0, col])
 
 # Display in Streamlit
 st.markdown('#### Table 2: Relative Ranking')
