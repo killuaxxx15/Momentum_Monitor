@@ -123,11 +123,11 @@ df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentag
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
 df3['3 month return'] = pd.to_numeric(df3['3 month return'])
 df3['3 month return'] = df3['3 month return'].round(1)
-# Apply the styling function to the 'Relative ranking' column of the DataFrame
-df3 = df3.style.applymap(color_cells_2, subset=['Relative ranking'])
 relative_ranking = df3['Relative ranking']
 df3 = df3.drop(['Relative ranking'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
+# Apply the styling function to the 'Relative ranking' column of the DataFrame
+df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])
 df3 = df3.fillna('')
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
