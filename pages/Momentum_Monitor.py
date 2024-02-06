@@ -129,7 +129,7 @@ df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
-st.write(dtype(df3['Relative Ranking']))
+st.write(df3['Relative Ranking'].dtype)
 
 
 
