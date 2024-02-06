@@ -66,6 +66,7 @@ df2 = pd.read_excel(excel_file,
 # Replace None/NaN values with an empty string
 df2 = df2.fillna('')
 st.dataframe(df2)
+df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 # Convert rows 4 to 14 of the 3rd column to integers
 column_index1 = 1  # Index for the '3 month return' column
 column_index2 = 2  # Index for the '6 month rank' column
@@ -92,7 +93,7 @@ def format_as_percent(value):
 st.write(df2_styled.columns)
 
 # Display in Streamlit
-df2_styled = df2_styled.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+
 st.markdown('#### Table 2: Relative Ranking')
 st.markdown(df2_styled.to_html(escape=False), unsafe_allow_html=True)
 st.markdown('#### ')
