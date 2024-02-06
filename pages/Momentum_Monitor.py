@@ -125,6 +125,7 @@ df3 = df3.drop(['Relative ranking'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
 # Apply the styling function to the 'Relative ranking' column of the DataFrame
 df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])
+df3['Relative Ranking'] = df3['Relative Ranking'].round(1)
 #df3 = df3.fillna('')
 st.markdown('#### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
