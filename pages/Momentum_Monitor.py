@@ -96,7 +96,20 @@ st.markdown('#### ')
 
 
 
-
+# Function to apply conditional background colors based on cell value
+def color_cells(val):
+    # Check for NaN (empty) values first and return no styling for them
+    if pd.isna(val):
+        return ''
+    # Apply color based on value thresholds
+    if val < 0:
+        color = 'lightgreen'
+    elif 0 <= val <= 2:
+        color = 'lightyellow'
+    else:  # val > 2
+        color = 'lightcoral'  # Assuming "light red" means a light coral color
+    return f'background-color: {color}'
+  
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:P',
@@ -108,6 +121,8 @@ df3 = df3.fillna('')
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
 df3['Closeness to 52 week'] = df3['Closeness to 52 week'].apply(format_percentage_one_decimal)
 df3['U/D'] = df3['U/D'].apply(format_percentage_one_decimal)
+# Apply the styling function to the 'Relative ranking' column of the DataFrame
+styled_df = df3.style.applymap(color_cells, subset=['Relative ranking'])
 df3['3 month return'] = pd.to_numeric(df3['3 month return'])
 df3['3 month return'] = df3['3 month return'].round(1)
 relative_ranking = df3['Relative ranking']
