@@ -117,6 +117,9 @@ df3 = pd.read_excel(excel_file,
                    nrows=10)
 
 df3 = df3.rename(columns={'U/D.1' : 'U/D (rank)'})
+df3 = df3.rename(columns={'Breadth.1' : 'Breadth (rank)'})
+df3 = df3.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week (rank)'})
+df3 = df3.rename(columns={'3 month return.1' : '3 month return (rank)'})
 df3 = df3.fillna('')
 # Apply the formatting to the specific columns
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
