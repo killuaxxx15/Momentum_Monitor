@@ -155,6 +155,7 @@ df5 = pd.read_excel(excel_file,
                    header=40,
                    nrows=10)
 
+df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
 st.markdown('#### Table 5: Equity ETF - Upgrades')
 df5['Upgrades 1 month'] = df5['Upgrades 1 month'].apply(format_percentage_one_decimal)
 df5['Downgrades 1 month'] = df5['Downgrades 1 month'].apply(format_percentage_one_decimal)
