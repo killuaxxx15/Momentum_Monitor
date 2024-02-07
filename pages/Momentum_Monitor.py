@@ -167,6 +167,8 @@ df6 = pd.read_excel(excel_file,
                    header=52,
                    nrows=6)
 
+df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
+df6 = df6.rename(columns={'Unnamed: 5' : 'Long Term Forecast'})
 column_index1 = 1
 #df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(format_percentage_one_decimal)
 df6.iloc[0:6, column_index1] = df6.iloc[0:6, column_index1].apply(lambda x: format_percentage_one_decimal(x) if pd.notnull(x) else '')
