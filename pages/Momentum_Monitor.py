@@ -116,6 +116,7 @@ df3 = pd.read_excel(excel_file,
                    #skiprows=2,
                    nrows=10)
 
+df3 = df3.rename(columns={'U/D.1' : 'U/D (rank)'})
 df3 = df3.fillna('')
 # Apply the formatting to the specific columns
 df3['Breadth'] = df3['Breadth'].apply(format_percentage_whole)
