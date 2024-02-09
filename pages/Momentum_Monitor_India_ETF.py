@@ -41,6 +41,7 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Clsoeness to 52 week.1' : 'Closeness to 52 week.1'})
 relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
