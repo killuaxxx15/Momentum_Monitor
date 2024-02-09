@@ -52,7 +52,7 @@ st.dataframe(df2, hide_index=True)
 
 
 # TABLE 2
-df3 = p3.read_excel(excel_file,
+df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='D:I',
                    header=42,
