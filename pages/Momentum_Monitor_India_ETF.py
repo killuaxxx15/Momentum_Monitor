@@ -57,7 +57,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-df2 = df2.style.applymap(color_cells_1, subset=['Relative Ranking'])
+#df2 = df2.style.applymap(color_cells_1, subset=['Relative Ranking'])
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
 
