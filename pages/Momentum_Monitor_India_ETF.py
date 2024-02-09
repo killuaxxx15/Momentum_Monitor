@@ -58,6 +58,8 @@ df3 = pd.read_excel(excel_file,
                    header=42,
                    nrows=14)
 
+df3 = df3.drop(['Unnamed: 5'], axis=1)
+df3 = df3.style.applymap(color_cells)
 st.markdown('### Equity ETF - MA Signals')
 st.dataframe(df3, hide_index=True)
 
