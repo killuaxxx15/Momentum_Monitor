@@ -135,6 +135,9 @@ df6 = pd.read_excel(excel_file,
                    header=52,
                    nrows=6)
 
+df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
+df6 = df6.rename(columns={'Unnamed: 5' : 'Long Term Forecasts'})
+df6 = df6.style.format({'Long Term Forecasts': percent_one_decimal})
 st.markdown('### Table 6: Long Term Forecasts (above local rates)')
 st.dataframe(df6, hide_index=True)
 
