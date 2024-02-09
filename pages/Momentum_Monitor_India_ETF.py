@@ -51,7 +51,7 @@ st.dataframe(df2, hide_index=True)
 
 
 
-# TABLE 2
+# TABLE 3
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='D:I',
@@ -62,6 +62,19 @@ df3 = df3.drop(['Unnamed: 5'], axis=1)
 df3 = df3.style.applymap(color_cells)
 st.markdown('### Equity ETF - MA Signals')
 st.dataframe(df3, hide_index=True)
+
+
+
+
+# TABLE 4
+df4 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='K:N',
+                   header=42,
+                   nrows=14)
+
+st.markdown('### Equity ETF - Upgrades')
+st.dataframe(df4, hide_index=True)
 
 
 
