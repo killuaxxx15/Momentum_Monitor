@@ -106,7 +106,7 @@ df4 = pd.read_excel(excel_file,
                    header=40,
                    nrows=9)
 
-df4 = df4.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
+df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 4: Equity ETF - MA Signals')
 st.dataframe(df4, hide_index=True)
 
