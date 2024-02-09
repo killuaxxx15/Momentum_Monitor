@@ -57,17 +57,6 @@ df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df2 = df2.drop(['Unnamed: 6'], axis=1)
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
                .applymap(color_cells_1, subset=['Relative Ranking'])
-
-df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
-    .format({
-      'U/D': percent_one_decimal, 
-      'Breadth': percent_whole_number, 
-      'Closeness to 52 week': percent_one_decimal,
-      '3 month return': '{:.1f}',
-      'median': '{:.1f}',
-      'Relative Ranking': '{:.1f}'
-})
-
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
 
@@ -95,6 +84,15 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
+df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
+    .format({
+      'U/D': percent_one_decimal, 
+      'Breadth': percent_whole_number, 
+      'Closeness to 52 week': percent_one_decimal,
+      '3 month return': '{:.1f}',
+      'median': '{:.1f}',
+      'Relative Ranking': '{:.1f}'
+})
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
