@@ -120,6 +120,8 @@ df5 = pd.read_excel(excel_file,
                    header=40,
                    nrows=10)
 
+df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
+df5 = df5.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Table 5: Equity ETF - Upgrades')
 st.dataframe(df5, hide_index=True)
 
