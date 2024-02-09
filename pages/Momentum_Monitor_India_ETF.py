@@ -20,7 +20,7 @@ def color_cells_1(val):
     return f'background-color: {color}'
 
 def color_cells_2(val):
-    color = '#ffcccc' if val > 7 else ('#ccffcc' if val <=4 else '#ffffcc')
+    color = '#ffcccc' if val >= 4 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
 
 def percent_one_decimal(val):
@@ -62,7 +62,7 @@ df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
 
-df2 = df2.style.applymap(color_cells_1, subset=['Relative Ranking'])\
+df2 = df2.style.applymap(color_cells_2, subset=['Relative Ranking'])\
     .format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_one_decimal, 
