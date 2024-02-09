@@ -26,6 +26,9 @@ def color_cells_2(val):
 def percent_one_decimal(val):
     return "{:.1f}%".format(val * 100)
 
+def percent_whole_number(val):
+    return "{:.0f}%".format(val * 100)
+
 
 
 
@@ -65,7 +68,7 @@ df2.insert(2, "Relative Ranking", relative_ranking)
 df2 = df2.style.applymap(color_cells_2, subset=['Relative Ranking'])\
     .format({
       'U/D': percent_one_decimal, 
-      'Breadth': percent_one_decimal, 
+      'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
       'median': '{:.1f}',
