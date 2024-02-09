@@ -26,7 +26,13 @@ df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 # Applying the styling to the DataFrame
-df1 = df1.style.applymap(color_cells, subset=['Above 30 D'])
+#df1 = df1.style.applymap(color_cells, subset=['Above 30 D'])
+# Assuming 'df1' is your DataFrame
+column_names = df1.columns
+
+# To print the column names using st.write
+st.write("Column Names:", column_names)
+
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
