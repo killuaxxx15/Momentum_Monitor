@@ -51,6 +51,20 @@ st.dataframe(df2, hide_index=True)
 
 
 
+# TABLE 2
+df3 = p3.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='D:I',
+                   header=42,
+                   nrows=14)
+
+st.markdown('### Equity ETF - MA Signals')
+st.dataframe(df3, hide_index=True)
+
+
+
+
+
 
 
 
