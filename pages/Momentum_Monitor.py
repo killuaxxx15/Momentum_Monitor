@@ -39,6 +39,7 @@ df1 = pd.read_excel(excel_file,
                    header=2,
                    nrows=5)
 
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 1: Equity Relative to other Asset Classes')
 st.dataframe(df1, hide_index=True)
 
