@@ -90,7 +90,7 @@ df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
-      'median': '{:.1f}',
+      'Median': '{:.1f}',
       'Relative Ranking': '{:.1f}'
 })
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
