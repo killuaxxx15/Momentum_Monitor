@@ -79,8 +79,9 @@ df3 = df3.rename(columns={'Unnamed: 11' : 'Breadth.1'})
 df3 = df3.rename(columns={'Unnamed: 12' : 'Closeness to 52 week.1'})
 df3 = df3.rename(columns={'Unnamed: 13' : '3 month return.1'})
 df3 = df3.rename(columns={'Unnamed: 14' : 'Median'})
-relative_ranking = df3['Relative ranking']
-df3 = df3.drop(['Relative ranking'], axis=1)
+df3 = df3.rename(columns={'Unnamed: 15' : 'Relative Ranking'})
+relative_ranking = df3['Relative Ranking']
+df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
