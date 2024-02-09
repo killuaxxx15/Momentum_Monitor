@@ -39,6 +39,9 @@ df2 = pd.read_excel(excel_file,
                    header=23,
                    nrows=14)
 
+relative_ranking = df2['Relative ranking']
+df2 = df2.drop(['Relative ranking'], axis=1)
+df2.insert(2, "Relative Ranking", relative_ranking)
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
 
