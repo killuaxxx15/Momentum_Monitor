@@ -70,6 +70,19 @@ df3 = pd.read_excel(excel_file,
                    header=28,
                    nrows=9)
 
+df3 = df3.rename(columns={'Unnamed: 5' : 'U/D'})
+df3 = df3.rename(columns={'Unnamed: 6' : 'Breadth'})
+df3 = df3.rename(columns={'Unnamed: 7' : 'Closeness to 52 week'})
+df3 = df3.rename(columns={'Unnamed: 8' : '3 month return'})
+df3 = df3.rename(columns={'Unnamed: 10' : 'U/D.1'})
+df3 = df3.rename(columns={'Unnamed: 11' : 'Breadth.1'})
+df3 = df3.rename(columns={'Unnamed: 12' : 'Closeness to 52 week.1'})
+df3 = df3.rename(columns={'Unnamed: 13' : '3 month return.1'})
+df3 = df3.rename(columns={'Unnamed: 14' : 'Median'})
+relative_ranking = df3['Relative ranking']
+df3 = df3.drop(['Relative ranking'], axis=1)
+df3 = df3.drop(['Unnamed: 9'], axis=1)
+df3.insert(1, "Relative Ranking", relative_ranking)
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
