@@ -16,7 +16,7 @@ def color_cells(val):
     return f'background-color: {color}'
 
 def color_cells_1(val):
-    color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '')
+    color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '#ffffcc')
     return f'background-color: {color}'
 
 
