@@ -62,6 +62,7 @@ df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
 df2 = df2.style.format({'U/D': percent_one_decimal, 'Breadth': percent_one_decimal, 'Closeness to 52 week': percent_one_decimal})
+df2 = df2.style.format({'3 month return': '{:.1f}', 'median': '{:.1f}'})
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
 
