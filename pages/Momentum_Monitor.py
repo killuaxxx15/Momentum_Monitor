@@ -52,6 +52,11 @@ df2 = pd.read_excel(excel_file,
                    header=13,
                    nrows=11)
 
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df2 = df2.drop(['Unnamed: 6'], axis=1)
+df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
+               .applymap(color_cells_1, subset=['Relative Ranking'])
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
 
