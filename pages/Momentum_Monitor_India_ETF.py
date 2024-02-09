@@ -39,6 +39,8 @@ df2 = pd.read_excel(excel_file,
                    header=23,
                    nrows=14)
 
+df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
