@@ -20,7 +20,7 @@ def color_cells_1(val):
     return f'background-color: {color}'
 
 def color_cells_2(val):
-    color = '#ffcccc' if val >= 2 else ('#ccffcc' if val < 0 else '#ffffcc')
+    color = '#ffcccc' if val > 2 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
 
 def percent_one_decimal(val):
