@@ -91,8 +91,7 @@ df4 = pd.read_excel(excel_file,
 
 df4 = df4.rename(columns={'TICKER.1' : 'TICKER'})
 df4 = df4.rename(columns={'ETF.1' : 'ETF'})
-df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal})
-df4 = df4.style.format({'Downgrades 1 month': percent_one_decimal})
+df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Equity ETF - Upgrades')
 st.dataframe(df4, hide_index=True)
 
