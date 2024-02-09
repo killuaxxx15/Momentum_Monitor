@@ -32,11 +32,12 @@ df1 = pd.read_excel(excel_file,
 df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+st.write(df1['Unnamed: 6'])
 # Applying the styling to the DataFrame
-#df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 #df1 = df1.style.applymap(color_cells_1, subset=['Unnamed: 6'])
-df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
-                    .applymap(color_cells_1, subset=['Unnamed: 6'])
+#df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
+#                    .applymap(color_cells_1, subset=['Unnamed: 6'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
