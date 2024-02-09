@@ -19,6 +19,10 @@ def color_cells_1(val):
     color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '#ffffcc')
     return f'background-color: {color}'
 
+def color_cells_2(val):
+    color = '#ffcccc' if val > 7 else ('#ccffcc' if val <=4 else '#ffffcc')
+    return f'background-color: {color}'
+
 
 
 # TABLE 1
@@ -53,6 +57,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
+df2 = df2.style.applymap(color_cells_2, subset=['Relative Ranking'])
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
 
