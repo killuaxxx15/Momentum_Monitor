@@ -22,6 +22,9 @@ df1 = pd.read_excel(excel_file,
                    header=5,
                    nrows=14)
 
+df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
+df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 # Applying the styling to the DataFrame
 df1 = df1.style.applymap(color_cells)
 st.markdown('#### Relative Ranking')
