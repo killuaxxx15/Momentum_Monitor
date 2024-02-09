@@ -16,11 +16,10 @@ def color_cells(val):
     return f'background-color: {color}'
 
 def color_cells_1(val):
-    if val <= 2:
-      color = '#ccffcc'
-    if val >= 5:
-      color = '#ffcccc'
+    color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '')
     return f'background-color: {color}'
+
+
 
 # TABLE 1
 df1 = pd.read_excel(excel_file,
