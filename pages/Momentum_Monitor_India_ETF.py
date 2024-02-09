@@ -27,7 +27,7 @@ df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 # Applying the styling to the DataFrame
 df1 = df1.style.applymap(color_cells)
-st.markdown('#### Relative Ranking')
+st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
 
@@ -43,6 +43,7 @@ df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
+df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
