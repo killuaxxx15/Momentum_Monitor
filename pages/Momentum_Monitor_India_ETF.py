@@ -23,6 +23,10 @@ def color_cells_2(val):
     color = '#ffcccc' if val > 7 else ('#ccffcc' if val <=4 else '#ffffcc')
     return f'background-color: {color}'
 
+def percent_one_decimal(val):
+    return "{:.1f}%".format(val * 100)
+
+
 
 
 # TABLE 1
@@ -87,7 +91,7 @@ df4 = pd.read_excel(excel_file,
 
 df4 = df4.rename(columns={'TICKER.1' : 'TICKER'})
 df4 = df4.rename(columns={'ETF.1' : 'ETF'})
-df4 = df4.style.format({'Upgrades 1 month': '{:.1f}%'})
+df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal})
 st.markdown('### Equity ETF - Upgrades')
 st.dataframe(df4, hide_index=True)
 
