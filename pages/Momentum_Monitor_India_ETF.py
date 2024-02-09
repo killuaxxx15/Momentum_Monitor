@@ -68,7 +68,8 @@ df2 = df2.style.format({
     'Breadth': percent_one_decimal, 
     'Closeness to 52 week': percent_one_decimal,
     '3 month return': '{:.1f}',
-    'median': '{:.1f}'
+    'median': '{:.1f}',
+    'Relative Ranking': '{:.1f}'
 })
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
