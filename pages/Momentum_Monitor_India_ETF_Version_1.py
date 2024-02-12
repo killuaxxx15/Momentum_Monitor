@@ -107,5 +107,4 @@ df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 m
 st.markdown('### Equity ETF - Upgrades')
 st.dataframe(df4, hide_index=True)
 
-st.markdown('🔴')
 
