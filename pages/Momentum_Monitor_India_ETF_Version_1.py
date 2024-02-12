@@ -32,6 +32,14 @@ def color_cells_2(val):
     color = '#ffcccc' if val >= 4 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
 
+def color_circle_1(val):
+    if val >= 4:
+        return '🔴'  
+    elif val < 0:
+        return '🟢'  
+    else:
+        return '🟡'  
+
 def percent_one_decimal(val):
     return "{:.1f}%".format(val * 100)
 
@@ -51,11 +59,12 @@ df1 = pd.read_excel(excel_file,
 df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
 #df1 = df1.drop(['Unnamed: 6'], axis=1)
 #df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
 #               .applymap(color_cells_1, subset=['Relative Ranking'])
 # Apply the color_circle function to the 'Relative Ranking' column of the copy
-df1['Relative Ranking'] = df1['Relative Ranking'].apply(color_circle)
+df1['Relative Ranking'] = df1['Relative Ranking.1'].apply(color_circle)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
@@ -76,15 +85,13 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-
-df2 = df2.style.applymap(color_cells_2, subset=['Relative Ranking'])\
-    .format({
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle)
+df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
-      'median': '{:.1f}',
-      'Relative Ranking': '{:.1f}'
+      'median': '{:.1f}'
 })
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df2, hide_index=True)
