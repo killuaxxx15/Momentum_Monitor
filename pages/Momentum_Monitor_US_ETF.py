@@ -13,6 +13,21 @@ def color_cells(val):
     color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
     return f'background-color: {color}'
 
+def color_cells_1(val):
+    color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '#ffffcc')
+    return f'background-color: {color}'
+
+def color_cells_2(val):
+    color = '#ffcccc' if val > 2 else ('#ccffcc' if val < 0 else '#ffffcc')
+    return f'background-color: {color}'
+
+def percent_one_decimal(val):
+    return "{:.1f}%".format(val * 100)
+
+def percent_whole_number(val):
+    return "{:.0f}%".format(val * 100)
+
+
 
 images_col = {"Images": [
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
@@ -62,26 +77,38 @@ st.markdown('## ')
 
 
 
+# TABLE 3
+df3 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:P',
+                   header=28,
+                   nrows=9)
 
-# Replace these URLs with the raw URLs of your images in the GitHub repository
-data = {
-    "Name": ["Image 1", "Image 2"],
-    "Image": [
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="50">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="50">',
-    ]
-}
-
-# Create a DataFrame
-df = pd.DataFrame(data)
-
-# Convert the DataFrame to HTML and allow column names to be displayed
-df_html = df.to_html(escape=False)
-
-# Display the DataFrame as HTML in Streamlit
-#st.markdown(df_html, unsafe_allow_html=True)
-
-
+df3 = df3.rename(columns={'Unnamed: 5' : 'U/D'})
+df3 = df3.rename(columns={'Unnamed: 6' : 'Breadth'})
+df3 = df3.rename(columns={'Unnamed: 7' : 'Closeness to 52 week'})
+df3 = df3.rename(columns={'Unnamed: 8' : '3 month return'})
+df3 = df3.rename(columns={'Unnamed: 10' : 'U/D.1'})
+df3 = df3.rename(columns={'Unnamed: 11' : 'Breadth.1'})
+df3 = df3.rename(columns={'Unnamed: 12' : 'Closeness to 52 week.1'})
+df3 = df3.rename(columns={'Unnamed: 13' : '3 month return.1'})
+df3 = df3.rename(columns={'Unnamed: 14' : 'Median'})
+df3 = df3.rename(columns={'Unnamed: 15' : 'Relative Ranking'})
+relative_ranking = df3['Relative Ranking']
+df3 = df3.drop(['Relative Ranking'], axis=1)
+df3 = df3.drop(['Unnamed: 9'], axis=1)
+df3.insert(1, "Relative Ranking", relative_ranking)
+df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
+    .format({
+      'U/D': percent_one_decimal, 
+      'Breadth': percent_whole_number, 
+      'Closeness to 52 week': percent_one_decimal,
+      '3 month return': '{:.1f}',
+      'Median': '{:.1f}',
+      'Relative Ranking': '{:.1f}'
+})
+st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
+st.dataframe(df3, hide_index=True)
 
 
 
