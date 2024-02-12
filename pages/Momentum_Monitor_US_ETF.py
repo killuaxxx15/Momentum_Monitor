@@ -41,7 +41,7 @@ images_col = {"Images": [
 }
 
 df_images = pd.DataFrame(images_col)
-df_images_html = df_images(escape=False)
+df_images_html = df_images.to_html(escape=False)
 st.markdown(df_images_html, unsafe_allow_html=True)
 st.markdown('## ')
 
