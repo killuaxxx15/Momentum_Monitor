@@ -4,7 +4,8 @@ import streamlit as st
 st.set_page_config(page_title='India ETF Momentum',
                    page_icon=':bar_chart:')
 
-st.header('Momentum Monitor India ETF')
+#st.header('Momentum Monitor India ETF')
+st.markdown("<div style='text-align: center;'> <h1>Momentum Monitor India ETF</h1> </div>", unsafe_allow_html=True)
 
 excel_file = 'INDIA_ETF_MOMENTUM.xlsx'
 sheet_name = 'Aset class Rankings'
@@ -153,7 +154,8 @@ df3 = pd.read_excel(excel_file,
 
 df3 = df3.drop(['Unnamed: 5'], axis=1)
 df3 = df3.style.applymap(color_cells)
-st.markdown('### Equity ETF - MA Signals')
+#st.markdown('### Equity ETF - MA Signals')
+st.markdown("<div style='text-align: center;'> <h2>Equity ETF - MA Signals</h2> </div>", unsafe_allow_html=True)
 #st.dataframe(df3, hide_index=True)
 df3_html = df3.to_html(escape=False)
 st.markdown(df3_html, unsafe_allow_html=True)
@@ -171,7 +173,8 @@ df4 = pd.read_excel(excel_file,
 df4 = df4.rename(columns={'TICKER.1' : 'TICKER'})
 df4 = df4.rename(columns={'ETF.1' : 'ETF'})
 df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
-st.markdown('### Equity ETF - Upgrades')
+#st.markdown('### Equity ETF - Upgrades')
+st.markdown("<div style='text-align: center;'> <h2>Equity ETF - Upgrades</h2> </div>", unsafe_allow_html=True)
 #st.dataframe(df4, hide_index=True)
 df4_html = df4.to_html(escape=False)
 st.markdown(df4_html, unsafe_allow_html=True)
