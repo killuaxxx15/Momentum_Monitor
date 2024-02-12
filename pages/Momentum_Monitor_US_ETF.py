@@ -5,6 +5,7 @@ st.set_page_config(page_title='US ETF Momentum Monitor',
                    page_icon=':bar_chart:')
 
 st.header('TO BE EDITED')
+st.header('Global Momentum Version 2')
 
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
