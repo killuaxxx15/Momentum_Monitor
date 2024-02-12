@@ -30,8 +30,8 @@ df_images = pd.DataFrame(images_col)
 #aa = aa.to_html(escape=False)
 #st.markdown(aa, unsafe_allow_html=True)
 df_images_html = df_images.to_html(escape=False)
-st.markdown(df_images_html, unsafe_allow_html=True)
-st.markdown('## ')
+#st.markdown(df_images_html, unsafe_allow_html=True)
+#st.markdown('## ')
 
 aa = df_images['Images']
 
@@ -73,7 +73,7 @@ df = pd.DataFrame(data)
 df_html = df.to_html(escape=False)
 
 # Display the DataFrame as HTML in Streamlit
-st.markdown(df_html, unsafe_allow_html=True)
+#st.markdown(df_html, unsafe_allow_html=True)
 
 
 
