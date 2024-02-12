@@ -56,6 +56,7 @@ df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 #               .applymap(color_cells_1, subset=['Relative Ranking'])
 # Apply the color_circle function to the 'Relative Ranking' column of the copy
 df1['Relative Ranking'] = df1['Relative Ranking'].apply(color_circle)
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
