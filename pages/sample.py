@@ -124,6 +124,7 @@ df2 = pd.read_excel(excel_file,
 df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
+df2 = df2.rename(columns={'median' : 'Median'})
 relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
@@ -134,7 +135,7 @@ df2 = df2.style.format({
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
-      'median': '{:.1f}'
+      'Median': '{:.1f}'
 })
 #st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 # Center the title using HTML and CSS within st.markdown
