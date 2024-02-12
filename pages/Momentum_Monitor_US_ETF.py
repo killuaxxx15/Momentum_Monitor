@@ -25,6 +25,26 @@ st.markdown(df2_html, unsafe_allow_html=True)
 st.markdown('## ')
 
 
+
+images_col = {"Images": [
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
+    ]
+}
+
+df_images = pd.DataFrame(images_col)
+df_images_html = df_images(escape=False)
+st.markdown(df_images_html, unsafe_allow_html=True)
+st.markdown('## ')
+
 # Replace these URLs with the raw URLs of your images in the GitHub repository
 data = {
     "Name": ["Image 1", "Image 2"],
