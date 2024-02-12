@@ -67,6 +67,24 @@ df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Abov
 st.markdown('### Relative Ranking')
 #st.dataframe(df1, hide_index=True)
 df1_html = df1.to_html(escape=False)
+
+
+# CSS to center table content and modify text size
+style = """
+<style>
+    th, td {
+        text-align: center;
+        font-size: 10px; /* Example size, adjust as needed */
+    }
+    table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+"""
+
+# Combine the style with the DataFrame HTML
+df1_html = style + df1_html
 st.markdown(df1_html, unsafe_allow_html=True)
 st.markdown('## ')
 
