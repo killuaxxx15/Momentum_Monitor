@@ -32,7 +32,7 @@ df_images_html = df_images.to_html(escape=False)
 st.markdown(df_images_html, unsafe_allow_html=True)
 st.markdown('## ')
 
-
+aa = df_images_html['Images']
 
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
