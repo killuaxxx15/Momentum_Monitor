@@ -21,6 +21,7 @@ images_col = {"Images": [
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
     ]
 }
 
@@ -42,6 +43,7 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df2 = df2.drop(['Unnamed: 6'], axis=1)
 df2.insert(2, "Images", aa)
 st.markdown('### Table 2: Relative Ranking')
 #st.dataframe(df2, hide_index=True)
