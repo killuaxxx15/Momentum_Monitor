@@ -135,7 +135,9 @@ df2 = df2.style.format({
       '3 month return': '{:.1f}',
       'median': '{:.1f}'
 })
-st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
+#st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
+# Center the title using HTML and CSS within st.markdown
+st.markdown("<div style='text-align: center;'> <h2>Equity Ranking: Momentum + Breadth + Upgrades</h2> </div>", unsafe_allow_html=True)
 #st.dataframe(df2, hide_index=True)
 df2_html = df2.to_html(escape=False)
 st.markdown(df2_html, unsafe_allow_html=True)
