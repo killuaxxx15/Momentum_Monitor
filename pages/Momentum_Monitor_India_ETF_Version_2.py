@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(page_title='India ETF Momentum',
-                   page_icon=':bar_chart:,
-                   layout="wide"')
+                   page_icon=':bar_chart:',
+                   layout="wide")
 
 #st.header('Momentum Monitor India ETF')
 st.markdown("<div style='text-align: center;'> <h1>Momentum Monitor India ETF</h1> </div>", unsafe_allow_html=True)
