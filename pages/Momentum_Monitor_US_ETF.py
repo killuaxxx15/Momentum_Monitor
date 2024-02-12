@@ -25,12 +25,12 @@ images_col = {"Images": [
 }
 
 df_images = pd.DataFrame(images_col)
-aa = df_images['Images']
-aa = aa.to_html(escape=False)
-st.markdown(aa, unsafe_allow_html=True)
-#df_images_html = df_images.to_html(escape=False)
-#st.markdown(df_images_html, unsafe_allow_html=True)
-#st.markdown('## ')
+#aa = df_images['Images']
+#aa = aa.to_html(escape=False)
+#st.markdown(aa, unsafe_allow_html=True)
+df_images_html = df_images.to_html(escape=False)
+st.markdown(df_images_html, unsafe_allow_html=True)
+st.markdown('## ')
 
 
 
