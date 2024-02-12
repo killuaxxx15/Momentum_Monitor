@@ -6,6 +6,24 @@ st.set_page_config(page_title='US ETF Momentum Monitor',
 
 st.header('Momentum Monitor US ETF')
 
+excel_file = 'sample.xlsx'
+sheet_name = 'Aset class Rankings'
+
+df2 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:J',
+                   header=13,
+                   nrows=11)
+
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df2 = df2.drop(['Unnamed: 6'], axis=1)
+st.markdown('### Table 2: Relative Ranking')
+st.dataframe(df2, hide_index=True)
+
+
+
+
 # Replace these URLs with the raw URLs of your images in the GitHub repository
 data = {
     "Name": ["Image 1", "Image 2"],
@@ -23,3 +41,9 @@ df_html = df.to_html(escape=False)
 
 # Display the DataFrame as HTML in Streamlit
 st.markdown(df_html, unsafe_allow_html=True)
+
+
+
+
+
+
