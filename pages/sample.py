@@ -64,7 +64,9 @@ df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df1 = df1.drop(['Unnamed: 6'], axis=1)
 df1.insert(3, "Images", aa)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
-st.markdown('### Relative Ranking')
+#st.markdown('### Relative Ranking')
+# Center the title using HTML and CSS within st.markdown
+st.markdown("<div style='text-align: center;'> <h3>Relative Ranking</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df1, hide_index=True)
 df1_html = df1.to_html(escape=False)
 
