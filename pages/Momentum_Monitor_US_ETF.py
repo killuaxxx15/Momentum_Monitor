@@ -20,7 +20,9 @@ df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
 
-
+df2_html = df2.to_html(escape=False)
+st.markdown(df2_html, unsafe_allow_html=True)
+st.markdown('## ')
 
 
 # Replace these URLs with the raw URLs of your images in the GitHub repository
