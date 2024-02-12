@@ -29,6 +29,21 @@ def percent_whole_number(val):
 
 
 
+
+# TABLE 1
+df1 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:H',
+                   header=2,
+                   nrows=5)
+
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
+st.markdown('### Table 1: Equity Relative to other Asset Classes')
+#st.dataframe(df1, hide_index=True)
+df1_html = df1.to_html(escape=False)
+st.markdown(df1_html, unsafe_allow_html=True)
+st.markdown('## ')
+
 images_col = {"Images": [
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
