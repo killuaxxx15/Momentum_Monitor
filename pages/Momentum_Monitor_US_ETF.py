@@ -9,6 +9,10 @@ st.header('Momentum Monitor US ETF')
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
 
+def color_cells(val):
+    color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
+    return f'background-color: {color}'
+
 
 images_col = {"Images": [
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
@@ -47,6 +51,8 @@ df2 = df2.drop(['Unnamed: 6'], axis=1)
 df2.insert(2, "Images", aa)
 st.markdown('### Table 2: Relative Ranking')
 #st.dataframe(df2, hide_index=True)
+
+df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 
 df2_html = df2.to_html(escape=False)
 st.markdown(df2_html, unsafe_allow_html=True)
