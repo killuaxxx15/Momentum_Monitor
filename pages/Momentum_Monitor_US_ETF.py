@@ -10,8 +10,8 @@ st.header('Momentum Monitor US ETF')
 data = {
     "Name": ["Image 1", "Image 2"],
     "Image": [
-        '<img src="user_avatar.png" width="100" height="100">',
-        '<img src="user_avatar.png" width="100" height="100">',
+        '<img src="https://github.com/killuaxxx15/google_trends/blob/aeb7a6ff8e3436742a5e150a777da86e9803c096/user_avatar.png" width="100" height="100">',
+        '<img src="https://github.com/killuaxxx15/google_trends/blob/aeb7a6ff8e3436742a5e150a777da86e9803c096/user_avatar.png" width="100" height="100">',
     ]
 }
 
