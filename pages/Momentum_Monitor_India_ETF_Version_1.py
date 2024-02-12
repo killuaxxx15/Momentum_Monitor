@@ -19,6 +19,15 @@ def color_cells_1(val):
     color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '#ffffcc')
     return f'background-color: {color}'
 
+# Define the color_circle function
+def color_circle(val):
+    if val >= 5:
+        return '🔴'  # Red circle if value is greater than or equal to 5
+    elif val <= 2:
+        return '🟢'  # Green circle if value is less than or equal to 2
+    else:
+        return '🟡'  # Yellow circle otherwise
+
 def color_cells_2(val):
     color = '#ffcccc' if val >= 4 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
@@ -43,8 +52,10 @@ df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 #df1 = df1.drop(['Unnamed: 6'], axis=1)
-df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
-               .applymap(color_cells_1, subset=['Relative Ranking'])
+#df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
+#               .applymap(color_cells_1, subset=['Relative Ranking'])
+# Apply the color_circle function to the 'Relative Ranking' column of the copy
+df1['Relative Ranking'] = df1['Relative Ranking'].apply(color_circle)
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
