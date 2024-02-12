@@ -25,7 +25,7 @@ df = pd.DataFrame(
 
 # Create a list named country to store all the image paths
 country = [
-    "https://github.com/killuaxxx15/google_trends/blob/main/IMG_2196.JPG",
+    "IMG_2196.JPG",
     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png",
     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png",
     "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png",
