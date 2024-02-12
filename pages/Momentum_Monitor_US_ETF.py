@@ -97,7 +97,7 @@ df3 = df3.rename(columns={'Unnamed: 15' : 'Relative Ranking'})
 relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
-df3.insert(1, "Relative Ranking", relative_ranking)
+df1.insert(1, "Relative Ranking", aa)
 df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
     .format({
       'U/D': percent_one_decimal, 
@@ -108,8 +108,9 @@ df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
       'Relative Ranking': '{:.1f}'
 })
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
-st.dataframe(df3, hide_index=True)
-
+#st.dataframe(df3, hide_index=True)
+df3_html = df3.to_html(escape=False)
+st.markdown(df3_html, unsafe_allow_html=True)
 
 
 
