@@ -27,9 +27,9 @@ st.markdown('## ')
 
 
 images_col = {"Images": [
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="50" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="50" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="50" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/user_avatar.png" width="50" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/ai_bot_avatar.png" width="50" height="20">',
