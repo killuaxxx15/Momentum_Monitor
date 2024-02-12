@@ -9,6 +9,30 @@ st.header('Momentum Monitor US ETF')
 excel_file = 'sample.xlsx'
 sheet_name = 'Aset class Rankings'
 
+
+images_col = {"Images": [
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+    ]
+}
+
+df_images = pd.DataFrame(images_col)
+aa = df_images['Images']
+st.markdown(aa, unsafe_allow_html=True)
+#df_images_html = df_images.to_html(escape=False)
+#st.markdown(df_images_html, unsafe_allow_html=True)
+#st.markdown('## ')
+
+
+
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
@@ -26,24 +50,8 @@ st.markdown('## ')
 
 
 
-images_col = {"Images": [
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/blue_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
-    ]
-}
 
-df_images = pd.DataFrame(images_col)
-df_images_html = df_images.to_html(escape=False)
-st.markdown(df_images_html, unsafe_allow_html=True)
-st.markdown('## ')
+
 
 # Replace these URLs with the raw URLs of your images in the GitHub repository
 data = {
