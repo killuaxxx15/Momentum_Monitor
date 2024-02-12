@@ -42,7 +42,7 @@ df1 = pd.read_excel(excel_file,
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 #st.markdown('### Table 1: Equity Relative to other Asset Classes')
-st.markdown("<div style='text-align: center;'> <h2>Table 1: Equity Relative to other Asset Classes</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 1: Equity Relative to other Asset Classes</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df1, hide_index=True)
 df1_html = df1.to_html(escape=False)
 
@@ -101,7 +101,7 @@ df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df2 = df2.drop(['Unnamed: 6'], axis=1)
 df2.insert(2, "Images", aa)
 #st.markdown('### Table 2: Relative Ranking')
-st.markdown("<div style='text-align: center;'> <h2>Table 2: Relative Ranking</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 2: Relative Ranking</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df2, hide_index=True)
 
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
@@ -162,7 +162,7 @@ df3 = df3.style.format({
       'Median': '{:.1f}',
 })
 #st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
-st.markdown("<div style='text-align: center;'> <h2>Table 3: Equity Ranking: Momentum + Breadth + Upgrades</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 3: Equity Ranking: Momentum + Breadth + Upgrades</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df3, hide_index=True)
 df3_html = df3.to_html(escape=False)
 st.markdown(df3_html, unsafe_allow_html=True)
@@ -179,7 +179,7 @@ df4 = pd.read_excel(excel_file,
 
 df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
 #st.markdown('### Table 4: Equity ETF - MA Signals')
-st.markdown("<div style='text-align: center;'> <h2>Table 4: Equity ETF - MA Signals</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 4: Equity ETF - MA Signals</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df4, hide_index=True)
 df4_html = df4.to_html(escape=False)
 st.markdown(df4_html, unsafe_allow_html=True)
@@ -198,7 +198,7 @@ df5 = pd.read_excel(excel_file,
 df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
 df5 = df5.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 #st.markdown('### Table 5: Equity ETF - Upgrades')
-st.markdown("<div style='text-align: center;'> <h2>Table 5: Equity ETF - Upgrades</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 5: Equity ETF - Upgrades</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df5, hide_index=True)
 df5_html = df5.to_html(escape=False)
 st.markdown(df5_html, unsafe_allow_html=True)
@@ -216,7 +216,7 @@ df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' 
 df6 = df6.rename(columns={'Unnamed: 5' : 'Long Term Forecasts'})
 df6 = df6.style.format({'Long Term Forecasts': percent_one_decimal})
 #st.markdown('### Table 6: Long Term Forecasts (above local rates)')
-st.markdown("<div style='text-align: center;'> <h2>Table 6: Long Term Forecasts (above local rates)</h2> </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center;'> <h3>Table 6: Long Term Forecasts (above local rates)</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df6, hide_index=True)
 df6_html = df6.to_html(escape=False)
 st.markdown(df6_html, unsafe_allow_html=True)
