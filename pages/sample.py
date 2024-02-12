@@ -33,12 +33,12 @@ def percent_whole_number(val):
 images_col = {"Images": [
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
-        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
         '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
@@ -71,6 +71,28 @@ st.markdown(df1_html, unsafe_allow_html=True)
 st.markdown('## ')
 
 
+
+images_col1 = {"Images": [
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+    ]
+}
+
+df_images1 = pd.DataFrame(images_col1)
+bb = df_images1['Images']
+
 # TABLE 2
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
@@ -84,16 +106,14 @@ df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
 relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
-df2.insert(2, "Relative Ranking", relative_ranking)
-
-df2 = df2.style.applymap(color_cells_2, subset=['Relative Ranking'])\
-    .format({
+#df2.insert(2, "Relative Ranking", relative_ranking)
+df2.insert(2, "Relative Ranking", bb)
+df2 = df2.style.applymap.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
-      'median': '{:.1f}',
-      'Relative Ranking': '{:.1f}'
+      'median': '{:.1f}'
 })
 st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
 #st.dataframe(df2, hide_index=True)
