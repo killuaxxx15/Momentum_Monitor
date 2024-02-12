@@ -6,51 +6,41 @@ st.set_page_config(page_title='US ETF Momentum Monitor',
 
 st.header('Momentum Monitor US ETF')
 
-df = pd.DataFrame(
-    [
-        [2768571, 130655, 1155027, 34713051, 331002277],
-        [1448753, 60632, 790040, 3070447, 212558178],
-        [654405, 9536, 422931, 19852167, 145934619],
-        [605216, 17848, 359891, 8826585, 1379974505],
-        [288477, 9860, 178245, 1699369, 32969875],
-    ],
-    columns=[
-        "Total Cases",
-        "Total Deaths",
-        "Total Recovered",
-        "Total Tests",
-        "Population",
-    ],
-)
+import glob
+import base64
+from PIL import Image
+from io import BytesIO
+import os
 
-# Create a list named country to store all the image paths
-country = [
-    "IMG_2196.JPG",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Peru.png",
-]
-# Assigning the new list as a new column of the dataframe
-df["Country"] = country
+def get_thumbnail(path: str) -> Image:
+    img = Image.open(path)
+    img.thumbnail((200, 200))
+    return img
 
-# Converting links to html tags
-def path_to_image_html(path):
-    return '<img src="' + path + '" width="60" >'
+def image_to_base64(img_path: str) -> str:
+    img = get_thumbnail(img_path)
+    with BytesIO() as buffer:
+        img.save(buffer, 'png') # or 'jpeg'
+        return base64.b64encode(buffer.getvalue()).decode()
+
+def image_formatter(img_path: str) -> str:
+    return f'<img src="data:image/png;base64,{image_to_base64(img_path)}">'
 
 @st.cache
 def convert_df(input_df):
      # IMPORTANT: Cache the conversion to prevent computation on every rerun
-     return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+     return input_df.to_html(escape=False, formatters=dict(thumbnail=image_formatter))
 
+st.title('London Skyline Image Table')
+
+images = glob.glob('images/*.png')
+df = pd.DataFrame({'image_path': images, 'thumbnail': images})
 html = convert_df(df)
 
 st.markdown(
     html,
     unsafe_allow_html=True
 )
-
-# Saving the dataframe as a webpage
 
 st.download_button(
      label="Download data as HTML",
