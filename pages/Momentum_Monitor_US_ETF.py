@@ -98,14 +98,12 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", aa)
-df3 = df3.style.applymap(color_cells_2, subset=['Relative Ranking'])\
-    .format({
+df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
       '3 month return': '{:.1f}',
       'Median': '{:.1f}',
-      'Relative Ranking': '{:.1f}'
 })
 st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 #st.dataframe(df3, hide_index=True)
