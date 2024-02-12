@@ -108,7 +108,7 @@ df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 #df2.insert(2, "Relative Ranking", relative_ranking)
 df2.insert(2, "Relative Ranking", bb)
-df2 = df2.style.applymap.format({
+df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
       'Closeness to 52 week': percent_one_decimal,
