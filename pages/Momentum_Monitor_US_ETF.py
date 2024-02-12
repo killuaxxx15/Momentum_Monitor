@@ -144,6 +144,55 @@ st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 #st.dataframe(df3, hide_index=True)
 df3_html = df3.to_html(escape=False)
 st.markdown(df3_html, unsafe_allow_html=True)
+st.markdown('## ')
 
 
+
+# TABLE 4
+df4 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:I',
+                   header=40,
+                   nrows=9)
+
+df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
+st.markdown('### Table 4: Equity ETF - MA Signals')
+#st.dataframe(df4, hide_index=True)
+df4_html = df4.to_html(escape=False)
+st.markdown(df4_html, unsafe_allow_html=True)
+st.markdown('## ')
+
+
+
+
+# TABLE 5
+df5 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='K:M',
+                   header=40,
+                   nrows=10)
+
+df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
+df5 = df5.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
+st.markdown('### Table 5: Equity ETF - Upgrades')
+#st.dataframe(df5, hide_index=True)
+df5_html = df5.to_html(escape=False)
+st.markdown(df5_html, unsafe_allow_html=True)
+st.markdown('## ')
+
+
+# TABLE 6
+df6 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='E:F',
+                   header=52,
+                   nrows=6)
+
+df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
+df6 = df6.rename(columns={'Unnamed: 5' : 'Long Term Forecasts'})
+df6 = df6.style.format({'Long Term Forecasts': percent_one_decimal})
+st.markdown('### Table 6: Long Term Forecasts (above local rates)')
+#st.dataframe(df6, hide_index=True)
+df6_html = df6.to_html(escape=False)
+st.markdown(df6_html, unsafe_allow_html=True)
 
