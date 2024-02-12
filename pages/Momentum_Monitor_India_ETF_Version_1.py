@@ -110,9 +110,6 @@ st.dataframe(df4, hide_index=True)
 
 
 
-
-
-
-
+st.write('🔴')
 
 
