@@ -74,7 +74,7 @@ style = """
 <style>
     th, td {
         text-align: center;
-        font-size: 10px; /* Example size, adjust as needed */
+        font-size: 15px; /* Example size, adjust as needed */
     }
     table {
         margin-left: auto;
