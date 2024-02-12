@@ -43,7 +43,7 @@ df2 = pd.read_excel(excel_file,
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 st.markdown('### Table 2: Relative Ranking')
-st.dataframe(df2, hide_index=True)
+#st.dataframe(df2, hide_index=True)
 
 df2_html = df2.to_html(escape=False)
 st.markdown(df2_html, unsafe_allow_html=True)
