@@ -30,7 +30,26 @@ def percent_whole_number(val):
     return "{:.0f}%".format(val * 100)
 
 
+images_col = {"Images": [
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+    ]
+}
 
+df_images = pd.DataFrame(images_col)
+aa = df_images['Images']
 
 # TABLE 1
 df1 = pd.read_excel(excel_file,
@@ -42,9 +61,9 @@ df1 = pd.read_excel(excel_file,
 df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
-#df1 = df1.drop(['Unnamed: 6'], axis=1)
-df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
-               .applymap(color_cells_1, subset=['Relative Ranking'])
+df1 = df1.drop(['Unnamed: 6'], axis=1)
+df1.insert(4, "Images", aa)
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 #st.dataframe(df1, hide_index=True)
 df1_html = df1.to_html(escape=False)
