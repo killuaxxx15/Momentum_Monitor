@@ -42,6 +42,7 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df2.insert(2, "Images", aa)
 st.markdown('### Table 2: Relative Ranking')
 #st.dataframe(df2, hide_index=True)
 
