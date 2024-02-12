@@ -6,6 +6,7 @@ st.set_page_config(page_title='US ETF Momentum Monitor',
 
 #st.header('TO BE EDITED')
 #st.header('Global Momentum Version 2')
+
 st.markdown("<div style='text-align: center;'> <h1>Global Momentum Version 2</h1> </div>", unsafe_allow_html=True)
 
 excel_file = 'sample.xlsx'
