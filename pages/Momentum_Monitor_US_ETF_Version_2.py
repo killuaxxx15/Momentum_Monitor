@@ -75,7 +75,7 @@ df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df1 = df1.drop(['Unnamed: 6'], axis=1)
-df1.insert(3, "Images", aa)
+df1.insert(3, "Relative Ranking.1", aa)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown("<div style='text-align: center;'> <h2>Relative Ranking</h2> </div>", unsafe_allow_html=True)
 df1_html = df1.to_html(escape=False)
@@ -102,9 +102,72 @@ st.markdown('## ')
 
 
 
+images_col1 = {"Images": [
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/green_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/red_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+        '<img src="https://raw.githubusercontent.com/killuaxxx15/google_trends/main/yellow_circle.png" width="20" height="20">',
+    ]
+}
 
+df_images1 = pd.DataFrame(images_col1)
+bb = df_images1['Images']
 
+# TABLE 2
+df2 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='D:P',
+                   header=23,
+                   nrows=14)
 
+df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
+df2 = df2.rename(columns={'median' : 'Median'})
+relative_ranking = df2['Relative ranking']
+df2 = df2.drop(['Relative ranking'], axis=1)
+df2 = df2.drop(['Unnamed: 9'], axis=1)
+df2.insert(2, "Relative Ranking", bb)
+df2 = df2.style.format({
+      'U/D': percent_one_decimal, 
+      'Breadth': percent_whole_number, 
+      'Closeness to 52 week': percent_one_decimal,
+      '3 month return': '{:.1f}',
+      'Median': '{:.1f}'
+})
+st.markdown("<div style='text-align: center;'> <h2>Equity Ranking: Momentum + Breadth + Upgrades</h2> </div>", unsafe_allow_html=True)
+df2_html = df2.to_html(escape=False)
+st.markdown(df2_html, unsafe_allow_html=True)
+st.markdown('## ')
 
 
 
