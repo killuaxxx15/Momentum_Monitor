@@ -25,9 +25,9 @@ def color_circle(val):
         return '🟡'  # Yellow circle otherwise
 
 def color_circle_1(val):
-    if val >= 4:
+    if val >= 23:
         return '🔴'  
-    elif val < 0:
+    elif val <= 12:
         return '🟢'  
     else:
         return '🟡'  
