@@ -58,7 +58,31 @@ st.dataframe(df1, hide_index=True)
 
 
 
+# TABLE 2
+df2 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='D:P',
+                   header=42,
+                   nrows=33)
 
+df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
+df2 = df2.rename(columns={'median' : 'Median'})
+relative_ranking = df2['Relative ranking']
+df2 = df2.drop(['Relative ranking'], axis=1)
+df2 = df2.drop(['Unnamed: 9'], axis=1)
+df2.insert(2, "Relative Ranking", relative_ranking)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2 = df2.style.format({
+      'U/D': percent_one_decimal, 
+      'Breadth': percent_whole_number, 
+      'Closeness to 52 week': percent_one_decimal,
+      '3 month return': '{:.1f}',
+      'Median': '{:.1f}'
+})
+st.markdown('### Equity Ranking: Momentum + Breadth + Upgrades')
+st.dataframe(df2, hide_index=True)
 
 
 
