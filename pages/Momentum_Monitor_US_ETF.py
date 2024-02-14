@@ -86,7 +86,18 @@ st.dataframe(df2, hide_index=True)
 
 
 
+# TABLE 3
+df3 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='D:G',
+                   header=80,
+                   nrows=32)
 
+#df3 = df3.rename(columns={'TICKER.1' : 'TICKER'})
+#df3 = df3.rename(columns={'ETF.1' : 'ETF'})
+#df3 = df3.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
+st.markdown('### Equity ETF - Upgrades')
+st.dataframe(df3, hide_index=True)
 
 
 
