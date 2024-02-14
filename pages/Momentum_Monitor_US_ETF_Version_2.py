@@ -175,7 +175,7 @@ st.markdown('## ')
 # TABLE 3
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
-                   usecols='K:N',
+                   usecols='D:G',
                    header=80,
                    nrows=33)
 
