@@ -100,7 +100,7 @@ df2 = pd.read_excel(excel_file,
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df2 = df2.drop(['Unnamed: 6'], axis=1)
-df2.insert(2, "Images", aa)
+df2.insert(2, "Relative Ranking.1", aa)
 #st.markdown('### Table 2: Relative Ranking')
 st.markdown("<div style='text-align: center;'> <h3>Table 2: Relative Ranking</h3> </div>", unsafe_allow_html=True)
 #st.dataframe(df2, hide_index=True)
