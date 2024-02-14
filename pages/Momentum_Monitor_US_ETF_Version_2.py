@@ -172,4 +172,18 @@ st.markdown('## ')
 
 
 
+# TABLE 3
+df3 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='K:N',
+                   header=80,
+                   nrows=33)
+
+df3 = df3.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
+st.markdown("<div style='text-align: center;'> <h2>Equity ETF - Upgrades</h2> </div>", unsafe_allow_html=True)
+df3_html = df3.to_html(escape=False)
+st.markdown(df3_html, unsafe_allow_html=True)
+st.markdown('## ')
+
+
 
