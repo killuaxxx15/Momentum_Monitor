@@ -73,7 +73,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
@@ -95,7 +95,7 @@ df3 = pd.read_excel(excel_file,
 
 #df3 = df3.rename(columns={'TICKER.1' : 'TICKER'})
 #df3 = df3.rename(columns={'ETF.1' : 'ETF'})
-#df3 = df3.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
+df3 = df3.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Equity ETF - Upgrades')
 st.dataframe(df3, hide_index=True)
 
