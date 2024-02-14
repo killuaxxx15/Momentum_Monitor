@@ -3,3 +3,4 @@ pytrends
 seaborn
 streamlit
 tabulate
+pandas
