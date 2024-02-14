@@ -91,7 +91,7 @@ df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='D:G',
                    header=80,
-                   nrows=32)
+                   nrows=33)
 
 #df3 = df3.rename(columns={'TICKER.1' : 'TICKER'})
 #df3 = df3.rename(columns={'ETF.1' : 'ETF'})
