@@ -47,6 +47,12 @@ df1 = pd.read_excel(excel_file,
                    header=5,
                    nrows=33)
 
+df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
+df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
+df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
+df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
