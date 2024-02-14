@@ -146,8 +146,8 @@ bb = df_images1['Images']
 df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='D:P',
-                   header=23,
-                   nrows=14)
+                   header=42,
+                   nrows=33)
 
 df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
