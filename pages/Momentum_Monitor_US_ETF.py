@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title='US ETF Momentum Monitor',
+st.set_page_config(page_title='US ETF Momentum Monitor (lower is better)',
                    page_icon=':bar_chart:')
 
 st.header('Momentum Monitor US ETF')
