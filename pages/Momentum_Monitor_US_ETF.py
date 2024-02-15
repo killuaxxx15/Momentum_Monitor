@@ -17,9 +17,9 @@ def color_cells(val):
 
 # Define the color_circle function
 def color_circle(val):
-    if val >= 10:
+    if val >= 23:
         return '🔴'  # Red circle if value is greater than or equal to 5
-    elif val <= 3:
+    elif val <= 10:
         return '🟢'  # Green circle if value is less than or equal to 2
     else:
         return '🟡'  # Yellow circle otherwise
