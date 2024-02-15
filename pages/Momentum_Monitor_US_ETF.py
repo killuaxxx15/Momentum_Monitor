@@ -1,10 +1,10 @@
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title='US ETF Momentum Monitor (lower is better)',
+st.set_page_config(page_title='US ETF Momentum Monitor',
                    page_icon=':bar_chart:')
 
-st.header('Momentum Monitor US ETF')
+st.header('Momentum Monitor US ETF (lower is better)')
 
 excel_file = 'US_ETF_MOMENTUM.xlsx'
 sheet_name = 'Aset class Rankings'
