@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title='India ETF Momentum',
                    page_icon=':bar_chart:')
 
-st.header('Momentum Monitor India ETF')
+st.header('Momentum Monitor India ETF (lower is better)')
 
 excel_file = 'INDIA_ETF_MOMENTUM.xlsx'
 sheet_name = 'Aset class Rankings'
