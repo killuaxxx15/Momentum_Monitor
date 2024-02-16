@@ -33,7 +33,7 @@ def color_cells_2(val):
     return f'background-color: {color}'
 
 def color_circle_1(val):
-    if val >= 4:
+    if val >= 3:
         return '🔴'  
     elif val < 0:
         return '🟢'  
@@ -85,7 +85,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
