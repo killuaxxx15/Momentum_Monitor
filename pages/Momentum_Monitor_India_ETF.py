@@ -35,7 +35,7 @@ def color_cells_2(val):
 def color_circle_1(val):
     if val >= 3:
         return '🔴'  
-    elif val < 0:
+    elif val < -1.5:
         return '🟢'  
     else:
         return '🟡'  
@@ -60,9 +60,6 @@ df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
-#df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])\
-#               .applymap(color_cells_1, subset=['Relative Ranking'])
-# Apply the color_circle function to the 'Relative Ranking' column of the copy
 df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
@@ -85,7 +82,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
