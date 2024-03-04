@@ -33,9 +33,9 @@ def color_cells_2(val):
     return f'background-color: {color}'
 
 def color_circle_1(val):
-    if val >= 3:
+    if val >= 1:
         return '🔴'  
-    elif val < -1.5:
+    elif val < -4:
         return '🟢'  
     else:
         return '🟡'  
