@@ -6,7 +6,7 @@ st.set_page_config(page_title='US ETF Momentum Monitor',
 
 st.header('Momentum Monitor US ETF (lower is better)')
 
-excel_file = 'US_ETF_MOMENTUM.xlsx'
+excel_file = 'US_ETF_MOMENTUM_RANKINGS.xlsx'
 sheet_name = 'Aset class Rankings'
 
 
