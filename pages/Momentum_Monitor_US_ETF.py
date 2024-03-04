@@ -25,7 +25,7 @@ def color_circle(val):
         return '🟡'  # Yellow circle otherwise
 
 def color_circle_1(val):
-    if val >= 16:
+    if val >= 15:
         return '🔴'  
     elif val <= 1:
         return '🟢'  
@@ -73,7 +73,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
