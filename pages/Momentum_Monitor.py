@@ -6,7 +6,7 @@ st.set_page_config(page_title='Global Momentum',
 
 st.header('Global Momentum Dashboard')
 
-excel_file = 'Global-macro-rankings-final-20240222.xlsx'
+excel_file = 'Global-macro-rankings-final-04032024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 
