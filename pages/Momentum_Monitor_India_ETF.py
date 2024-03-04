@@ -5,6 +5,7 @@ st.set_page_config(page_title='India ETF Momentum',
                    page_icon=':bar_chart:')
 
 st.header('Momentum Monitor India ETF (lower is better)')
+st.markdown('#### Updated: 04/03/2024')
 
 excel_file = 'INDIA_ETF_MOMENTUM_RANKINGS.xlsx'
 sheet_name = 'Aset class Rankings'
