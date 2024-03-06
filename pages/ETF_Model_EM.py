@@ -40,7 +40,15 @@ df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
 df1 = df1.style.format({
     'VALUE': '{:.1f}',
-    'UPGRADES': percent_whole_number
+    'QUALITY': '{:.1f}',
+    'RISK': '{:.1f}',
+    'COMPOSITE VALUE SCORE': '{:.1f}',
+    'LIQUIDITY': '{:.1f}',
+    'SCORE': '{:.1f}',
+    'UPGRADES': percent_whole_number,
+    'CURRENCY': '{:.1f}',
+    'OVERALL SCORE': '{:.1f}',
+    'OVERALL RANK': '{:.1f}'
 })
 
 st.markdown('### OUTPUT COUNTRY')
