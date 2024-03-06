@@ -58,5 +58,13 @@ df2 = pd.read_excel(excel_file,
                    header=2,
                    nrows=13)
 
+df2 = df2.rename(columns={'Unnamed: 2' : 'TICKER'})
+df2 = df2.rename(columns={'Unnamed: 3' : 'ETF'})
+df2 = df2.rename(columns={'Unnamed: 7' : 'COMPOSITE VALUE'})
+df2 = df2.rename(columns={'Unnamed: 8' : 'LIQUIDITY'})
+df2 = df2.rename(columns={'Unnamed: 9' : 'MOMENTUM'})
+df2 = df2.rename(columns={'Unnamed: 10' : 'CURRENCY'})
+df2 = df2.rename(columns={'Unnamed: 11' : 'OVERALL RANK'})
+
 st.markdown('### OUTPUT PPT')
 st.dataframe(df2, hide_index=True)
