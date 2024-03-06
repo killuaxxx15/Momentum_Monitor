@@ -39,7 +39,7 @@ df1 = df1.rename(columns={'Unnamed: 12' : 'OVERALL SCORE'})
 df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
 df1 = df1.style.format({
-    'VALUE': '{:1f}',
+    'VALUE': '{:.1f}',
     'UPGRADES': percent_whole_number
 })
 
