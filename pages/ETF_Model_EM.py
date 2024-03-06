@@ -56,3 +56,19 @@ st.dataframe(df1, hide_index=True)
 
 
 
+# TABLE 2
+df2 = pd.read_excel(excel_file,
+                   sheet_name=sheet_name2,
+                   usecols='C:L',
+                   header=2,
+                   nrows=21)
+
+st.markdown('### OUTPUT PPT')
+st.dataframe(df2, hide_index=True)
+
+
+
+
+
+
+
