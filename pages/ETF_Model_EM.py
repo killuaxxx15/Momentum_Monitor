@@ -33,4 +33,4 @@ data = {
 df = pd.DataFrame(data)
 
 # Display the DataFrame in Streamlit
-st.write(df)
+st.dataframe(df)
