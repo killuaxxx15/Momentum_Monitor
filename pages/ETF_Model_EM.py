@@ -38,6 +38,9 @@ df1 = df1.rename(columns={'Unnamed: 11' : 'CURRENCY'})
 df1 = df1.rename(columns={'Unnamed: 12' : 'OVERALL SCORE'})
 df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
+df1_styled = df1.style.format({
+    'UPGRADES': percent_whole_number
+)}
 
 st.markdown('### OUTPUT COUNTRY')
 st.dataframe(df1, hide_index=True)
