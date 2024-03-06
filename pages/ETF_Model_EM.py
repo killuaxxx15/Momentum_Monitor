@@ -20,3 +20,17 @@ df1 = pd.read_excel(excel_file,
 
 st.markdown('### Table 1: OUTPUT_COUNTRY')
 st.dataframe(df1, hide_index=True)
+
+
+
+# Sample data
+data = {
+    ('Group Name', 'Subcolumn 1'): [1, 2, 3],
+    ('Group Name', 'Subcolumn 2'): [4, 5, 6]
+}
+
+# Create a DataFrame with a MultiIndex for the columns
+df = pd.DataFrame(data)
+
+# Display the DataFrame in Streamlit
+st.write(df)
