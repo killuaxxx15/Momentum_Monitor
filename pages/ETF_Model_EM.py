@@ -11,6 +11,12 @@ excel_file = 'ETF_Model_EM.xlsx'
 sheet_name1 = 'OUTPUT_COUNTRY'
 sheet_name2 = 'OUTPUT_PPT'
 
+
+def percent_whole_number(val):
+    return "{:.0f}%".format(val * 100)
+
+
+
 # TABLE 1
 df1 = pd.read_excel(excel_file,
                    sheet_name=sheet_name1,
@@ -32,7 +38,11 @@ df1 = df1.rename(columns={'Unnamed: 11' : 'CURRENCY'})
 df1 = df1.rename(columns={'Unnamed: 12' : 'OVERALL SCORE'})
 df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
-
+df1 = df1.style.format({
+      'UPGRADES': percent_whole_number, 
+      'COMPOSITE VALUE SCORE': '{:.1f}',
+      'OVERALL SCORE': '{:.1f}'
+})
 st.markdown('### OUTPUT COUNTRY')
 st.dataframe(df1, hide_index=True)
 
