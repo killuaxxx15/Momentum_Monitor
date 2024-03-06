@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title='ETF Model EM',
                    page_icon=':bar_chart:')
 
-st.header('ETF Model EM')
+st.header('ETF Model EM (to be edited)')
 st.markdown('#### Updated: 06/03/2024')
 
 excel_file = 'ETF_Model_EM.xlsx'
@@ -39,9 +39,7 @@ df1 = df1.rename(columns={'Unnamed: 12' : 'OVERALL SCORE'})
 df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
 df1 = df1.style.format({
-      'UPGRADES': percent_whole_number, 
-      'COMPOSITE VALUE SCORE': '{:.1f}',
-      'OVERALL SCORE': '{:.1f}'
+      'UPGRADES': percent_whole_number
 })
 st.markdown('### OUTPUT COUNTRY')
 st.dataframe(df1, hide_index=True)
