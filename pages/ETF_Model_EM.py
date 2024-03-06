@@ -43,7 +43,7 @@ df1_styled = df1.style.format({
 })
 
 st.markdown('### OUTPUT COUNTRY')
-st.dataframe(df1, hide_index=True)
+st.dataframe(df1_styled, hide_index=True)
 
 
 
