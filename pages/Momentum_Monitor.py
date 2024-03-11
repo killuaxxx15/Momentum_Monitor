@@ -36,7 +36,7 @@ def color_cells_2(val):
 def color_circle_1(val):
     if val >= 2:
         return '🔴'  
-    elif val < 0:
+    elif val < -1:
         return '🟢'  
     else:
         return '🟡' 
@@ -102,7 +102,7 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
-#df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
