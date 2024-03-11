@@ -65,6 +65,9 @@ df2 = pd.read_excel(excel_file,
 
 df2 = df2.rename(columns={'Unnamed: 2' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 3' : 'ETF'})
+df2 = df2.rename(columns={'VALUE' : 'COM - VALUE'})
+df2 = df2.rename(columns={'QUALITY' : 'COM - QUALITY'})
+df2 = df2.rename(columns={'RISK' : 'COM - RISK'})
 df2 = df2.rename(columns={'Unnamed: 7' : 'COMPOSITE VALUE'})
 df2 = df2.rename(columns={'Unnamed: 8' : 'LIQUIDITY'})
 df2 = df2.rename(columns={'Unnamed: 9' : 'MOMENTUM'})
