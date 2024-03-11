@@ -5,7 +5,7 @@ st.set_page_config(page_title='Global Momentum',
                    page_icon=':bar_chart:')
 
 st.header('Global Momentum Dashboard')
-st.markdown('#### Updated: 04/03/2024')
+st.markdown('#### Updated: 10/03/2024')
 
 excel_file = 'Global-macro-rankings-final-10032024.xlsx'
 sheet_name = 'Aset class Rankings'
