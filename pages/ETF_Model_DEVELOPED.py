@@ -27,20 +27,25 @@ df1 = pd.read_excel(excel_file,
 df1 = df1.drop(['Unnamed: 6'], axis=1)
 df1 = df1.rename(columns={'Unnamed: 1' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 2' : 'ETF'})
+df1 = df1.rename(columns={'VALUE' : 'COM - VALUE'})
+df1 = df1.rename(columns={'QUALITY: 8' : 'COM - QUALITY'})
+df1 = df1.rename(columns={'RISK' : 'COM - RISK'})
 df1 = df1.rename(columns={'Unnamed: 7' : 'COMPOSITE VALUE SCORE'})
 df1 = df1.rename(columns={'Unnamed: 8' : 'LIQUIDITY'})
+df1 = df1.rename(columns={'SCORE' : 'MOM - SCORE'})
+df1 = df1.rename(columns={'UPGRADES' : 'MOM - UPGRADES'})
 df1 = df1.rename(columns={'Unnamed: 11' : 'CURRENCY'})
 df1 = df1.rename(columns={'Unnamed: 12' : 'OVERALL SCORE'})
 df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 
 df1 = df1.style.format({
-    'VALUE': '{:.1f}',
-    'QUALITY': '{:.1f}',
-    'RISK': '{:.1f}',
+    'COM - VALUE': '{:.1f}',
+    'COM - QUALITY': '{:.1f}',
+    'COM - RISK': '{:.1f}',
     'COMPOSITE VALUE SCORE': '{:.1f}',
     'LIQUIDITY': '{:.1f}',
-    'SCORE': '{:.1f}',
-    'UPGRADES': percent_whole_number,
+    'MOM - SCORE': '{:.1f}',
+    'MOM - UPGRADES': percent_whole_number,
     'CURRENCY': '{:.1f}',
     'OVERALL SCORE': '{:.1f}',
     'OVERALL RANK': '{:.1f}'
