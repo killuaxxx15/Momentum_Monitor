@@ -36,7 +36,7 @@ def color_cells_2(val):
 def color_circle_1(val):
     if val > 2:
         return '🔴'  
-    elif val <= -2:
+    elif val < -2:
         return '🟢'  
     else:
         return '🟡'  
