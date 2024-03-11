@@ -3,15 +3,16 @@ import streamlit as st
 import random
 
 # Create a sample DataFrame with multi-layer column headers
-data = {
-    ('Column AB', 'Column A'): [random.randint(1, 10) for _ in range(3)],
-    ('Column AB', 'Column B'): [random.randint(1, 10) for _ in range(3)]
-}
+data = [
+    [random.randint(1, 10) for _ in range(2)]
+    for _ in range(3)
+]
 
-df = pd.DataFrame(data)
+columns = pd.MultiIndex.from_tuples(
+    [('Column AB', 'Column A'), ('Column AB', 'Column B')]
+)
 
-# Set the column index names
-df.columns.names = ['Span', 'Column']
+df = pd.DataFrame(data, columns=columns)
 
 # Display the DataFrame in Streamlit
 st.write("Table with Multi-Layer Column Headers")
