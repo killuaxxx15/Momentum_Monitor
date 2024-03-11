@@ -7,7 +7,7 @@ st.set_page_config(page_title='Global Momentum',
 st.header('Global Momentum Dashboard')
 st.markdown('#### Updated: 04/03/2024')
 
-excel_file = 'Global-macro-rankings-final-04032024.xlsx'
+excel_file = 'Global-macro-rankings-final-10032024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 
@@ -102,7 +102,7 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
-df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+#df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
