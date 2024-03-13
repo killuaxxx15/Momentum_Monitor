@@ -68,7 +68,7 @@ df2 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:J',
                    header=13,
-                   nrows=11)
+                   nrows=12)
 
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
@@ -86,7 +86,7 @@ df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:P',
                    header=28,
-                   nrows=9)
+                   nrows=10)
 
 df3 = df3.rename(columns={'Unnamed: 5' : 'U/D'})
 df3 = df3.rename(columns={'Unnamed: 6' : 'Breadth'})
