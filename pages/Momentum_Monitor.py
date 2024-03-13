@@ -24,7 +24,7 @@ def color_cells_1(val):
 def color_circle(val):
     if val >= 8:
         return '🔴'  # Red circle if value is greater than or equal to 5
-    elif val <= 2:
+    elif val <= 3:
         return '🟢'  # Green circle if value is less than or equal to 2
     else:
         return '🟡'  # Yellow circle otherwise
@@ -102,7 +102,7 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
-df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+#df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
@@ -149,7 +149,7 @@ st.dataframe(df5, hide_index=True)
 df6 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:F',
-                   header=55,
+                   header=54,
                    nrows=7)
 
 df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
