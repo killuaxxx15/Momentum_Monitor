@@ -85,7 +85,7 @@ st.dataframe(df2, hide_index=True)
 df3 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:P',
-                   header=28,
+                   header=29,
                    nrows=10)
 
 df3 = df3.rename(columns={'Unnamed: 5' : 'U/D'})
@@ -120,7 +120,7 @@ st.dataframe(df3, hide_index=True)
 df4 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:I',
-                   header=40,
+                   header=42,
                    nrows=9)
 
 df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
@@ -134,7 +134,7 @@ st.dataframe(df4, hide_index=True)
 df5 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='K:M',
-                   header=40,
+                   header=42,
                    nrows=10)
 
 df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
@@ -149,7 +149,7 @@ st.dataframe(df5, hide_index=True)
 df6 = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='E:F',
-                   header=52,
+                   header=55,
                    nrows=7)
 
 df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
