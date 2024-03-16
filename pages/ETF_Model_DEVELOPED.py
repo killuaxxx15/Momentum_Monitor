@@ -5,7 +5,7 @@ st.set_page_config(page_title='ETF Model DEVELOPED',
                    page_icon=':bar_chart:')
 
 st.header('ETF Model DEVELOPED')
-st.markdown('#### Updated: 06/03/2024')
+st.markdown('#### Updated: 15/03/2024')
 
 excel_file = 'ETF_Model_DEVELOPED.xlsx'
 sheet_name1 = 'OUTPUT_COUNTRY'
