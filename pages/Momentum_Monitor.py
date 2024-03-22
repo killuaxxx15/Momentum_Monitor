@@ -55,12 +55,16 @@ st.dataframe(df2, hide_index=True)
 # TABLE 3
 df3 = load_data(excel_file, sheet_name, 'E:P', 29, 10, names=['Unnamed: 4', 'Relative Ranking', 'U/D', 'Breadth', 'Closeness to 52 week', '3 month return', 'Unnamed: 9', 'U/D.1', 'Breadth.1', 'Closeness to 52 week.1', '3 month return.1', 'Median'])
 df3['Relative Ranking'] = np.where(df3['Relative Ranking'] >= 4, '🔴', np.where(df3['Relative Ranking'] <= 0, '🟢', '🟡'))
-df3 = df3.drop(['Unnamed: 9'], axis=1)
+df3 = df3.drop(['Unnamed: 4', 'Unnamed: 9'], axis=1)
 df3 = df3.style.format({
     'U/D': percent_one_decimal,
     'Breadth': percent_whole_number,
     'Closeness to 52 week': percent_one_decimal,
-    '3 month return': '{:.1f}',
+    '3 month return': '{:.1%}',
+    'U/D.1': percent_one_decimal,
+    'Breadth.1': percent_whole_number,
+    'Closeness to 52 week.1': percent_one_decimal,
+    '3 month return.1': '{:.1%}',
     'Median': '{:.1f}'
 })
 st.subheader('Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
