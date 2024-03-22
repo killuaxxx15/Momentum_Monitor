@@ -43,7 +43,7 @@ def color_cells_2(val):
     color = '#ffcccc' if val > 2 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
 
-# Define function to display emojis based on cell value
+# Define function to display colored circle based on cell value
 def color_circle_1(val):
     if val >= 4:
         return '🔴'  
