@@ -1,30 +1,35 @@
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title='Global Momentum',
-                   page_icon=':bar_chart:')
+# Set Streamlit page configuration
+st.set_page_config(page_title='Global Momentum', page_icon=':bar_chart:')
 
+# Display header for the dashboard
 st.header('Global Momentum Dashboard')
+
+# Display the last update date
 st.markdown('#### Updated: 15/03/2024')
 
+# Define Excel file and sheet name variables
 excel_file = 'Global-macro-rankings-final-15032024.xlsx'
 sheet_name = 'Aset class Rankings'
 
-# Decorator to cache data loading function
+# Cache data loading function for better performance
 @st.cache
 def load_excel_data(file_name, sheet, use_columns, header_row, num_rows):
     return pd.read_excel(file_name, sheet_name=sheet, usecols=use_columns, header=header_row, nrows=num_rows)
 
-# Function to apply color based on cell value
+# Function to apply background color based on cell value
 def color_cells(val):
     color = '#ffcccc' if val == 'CASH' else ('#ccffcc' if val == 'INVESTED' else '')
     return f'background-color: {color}'
 
+# Function to apply background color based on cell value ranges
 def color_cells_1(val):
     color = '#ffcccc' if val >= 5 else ('#ccffcc' if val <=2 else '#ffffcc')
     return f'background-color: {color}'
 
-# Define the color_circle function
+# Define function to display colored circle based on cell value
 def color_circle(val):
     if val >= 8:
         return '🔴'  
@@ -33,10 +38,12 @@ def color_circle(val):
     else:
         return '🟡'  
 
+# Function to apply background color based on cell value ranges
 def color_cells_2(val):
     color = '#ffcccc' if val > 2 else ('#ccffcc' if val < 0 else '#ffffcc')
     return f'background-color: {color}'
-  
+
+# Define function to display emojis based on cell value
 def color_circle_1(val):
     if val >= 4:
         return '🔴'  
@@ -45,13 +52,13 @@ def color_circle_1(val):
     else:
         return '🟡' 
 
+# Format percentage with one decimal place
 def percent_one_decimal(val):
     return "{:.1f}%".format(val * 100)
 
+# Format percentage as whole number
 def percent_whole_number(val):
     return "{:.0f}%".format(val * 100)
-
-
 
 
 # TABLE 1
@@ -59,7 +66,6 @@ df1 = load_excel_data(excel_file, sheet_name, 'E:H', 2, 5)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 1: Equity Relative to other Asset Classes')
 st.dataframe(df1, hide_index=True)
-
 
 
 # TABLE 2
@@ -71,8 +77,6 @@ df2['Relative Ranking.1'] = df2['Relative Ranking.1'].apply(color_circle)
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
-
-
 
 
 # TABLE 3
@@ -103,15 +107,11 @@ st.markdown('### Table 3: Equity Ranking: Momentum + Breadth + Upgrades')
 st.dataframe(df3, hide_index=True)
 
 
-
-
 # TABLE 4
 df4 = load_excel_data(excel_file, sheet_name, 'E:I', 42, 9)
 df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 4: Equity ETF - MA Signals')
 st.dataframe(df4, hide_index=True)
-
-
 
 
 # TABLE 5
@@ -125,8 +125,6 @@ df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
 df5 = df5.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Table 5: Equity ETF - Upgrades')
 st.dataframe(df5, hide_index=True)
-
-
 
 
 # TABLE 6
