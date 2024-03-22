@@ -9,7 +9,7 @@ st.set_page_config(page_title='India ETF Momentum',
 st.header('Momentum Monitor India ETF (lower is better)')
 
 # Display the last update date
-st.markdown('#### Updated: 15/03/2024')
+st.markdown('#### Updated: 22/03/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'INDIA_ETF_MOMENTUM_RANKINGS_22_03_2024.xlsx'
