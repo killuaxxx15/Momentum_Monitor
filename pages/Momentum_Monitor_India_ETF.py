@@ -2,8 +2,7 @@ import pandas as pd
 import streamlit as st
 
 # Set Streamlit page configuration
-st.set_page_config(page_title='India ETF Momentum',
-                   page_icon=':bar_chart:')
+st.set_page_config(page_title='India ETF Momentum', page_icon=':bar_chart:')
 
 # Display header for the dashboard
 st.header('Momentum Monitor India ETF (lower is better)')
