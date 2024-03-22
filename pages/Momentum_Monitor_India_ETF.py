@@ -37,7 +37,7 @@ def color_circle(val):
     elif val <= 4:
         return '🟢' 
     else:
-        return '🟡'  # Yellow circle otherwise
+        return '🟡'
 
 # Function to apply background color based on cell value ranges
 def color_cells_2(val):
