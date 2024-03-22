@@ -63,12 +63,7 @@ st.dataframe(df1, hide_index=True)
 
 
 # TABLE 2
-df2 = pd.read_excel(excel_file,
-                   sheet_name=sheet_name,
-                   usecols='E:J',
-                   header=13,
-                   nrows=12)
-
+df2 = load_excel_data(excel_file, sheet_name, 'E:J', 13, 12)
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df2 = df2.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
