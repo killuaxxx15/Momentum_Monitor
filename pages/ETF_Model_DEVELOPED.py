@@ -11,7 +11,7 @@ st.header('ETF Model DEVELOPED')
 st.markdown('#### Updated: 15/03/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'ETF_Model_DEVELOPED.xlsx'
+excel_file = 'ETF_Model_DEVELOPED_22_03_2024.xlsx'
 sheet_name1 = 'OUTPUT_COUNTRY'
 sheet_name2 = 'OUTPUT_PPT'
 
@@ -58,13 +58,7 @@ st.markdown('### OUTPUT COUNTRY')
 st.dataframe(df1, hide_index=True)
 
 
-
 # TABLE 2
-df2 = pd.read_excel(excel_file,
-                   sheet_name=sheet_name2,
-                   usecols='C:L',
-                   header=2,
-                   nrows=13)
 df2 = load_excel_data(excel_file, sheet_name2, 'C:L', 2, 14)
 df2 = df2.rename(columns={'Unnamed: 2' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 3' : 'ETF'})
