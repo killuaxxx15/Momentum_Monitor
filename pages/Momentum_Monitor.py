@@ -76,7 +76,7 @@ st.dataframe(df2, hide_index=True)
 
 
 # TABLE 3
-df3 = load_data(excel_file, sheet_name, 'E:P', 29, 10)
+df3 = load_excel_data(excel_file, sheet_name, 'E:P', 29, 10)
 df3 = df3.rename(columns={'Unnamed: 5' : 'U/D'})
 df3 = df3.rename(columns={'Unnamed: 6' : 'Breadth'})
 df3 = df3.rename(columns={'Unnamed: 7' : 'Closeness to 52 week'})
@@ -106,7 +106,7 @@ st.dataframe(df3, hide_index=True)
 
 
 # TABLE 4
-df4 = load_data(excel_file, sheet_name, 'E:I', 42, 9)
+df4 = load_excel_data(excel_file, sheet_name, 'E:I', 42, 9)
 df4 = df4.style.applymap(color_cells, subset=['Above 30D', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 4: Equity ETF - MA Signals')
 st.dataframe(df4, hide_index=True)
@@ -120,7 +120,7 @@ df5 = pd.read_excel(excel_file,
                    usecols='K:M',
                    header=42,
                    nrows=10)
-df5 = load_data(excel_file, sheet_name, 'K:M', 42, 10)
+df5 = load_excel_data(excel_file, sheet_name, 'K:M', 42, 10)
 df5 = df5.rename(columns={'Unnamed: 10' : 'ETF'})
 df5 = df5.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Table 5: Equity ETF - Upgrades')
@@ -130,7 +130,7 @@ st.dataframe(df5, hide_index=True)
 
 
 # TABLE 6
-df6 = load_data(excel_file, sheet_name, 'E:F', 54, 7)
+df6 = load_excel_data(excel_file, sheet_name, 'E:F', 54, 7)
 df6 = df6.rename(columns={'Table 6 : Long Term forecasts ( above local rates )' : 'ETF'})
 df6 = df6.rename(columns={'Unnamed: 5' : 'Long Term Forecasts'})
 df6 = df6.style.format({'Long Term Forecasts': percent_one_decimal})
