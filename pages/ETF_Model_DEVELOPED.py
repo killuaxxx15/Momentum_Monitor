@@ -44,7 +44,7 @@ df1 = df1.rename(columns={'Unnamed: 13' : 'OVERALL RANK'})
 df1 = df1.style.format({
     'COM - VALUE': '{:.1f}',
     'COM - QUALITY': '{:.1f}',
-    'COM - RISK': '{:.1f}',
+    'COM - SAFETY': '{:.1f}',
     'COMPOSITE VALUE SCORE': '{:.1f}',
     'LIQUIDITY': '{:.1f}',
     'MOM - SCORE': '{:.1f}',
