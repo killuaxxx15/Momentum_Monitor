@@ -55,7 +55,7 @@ def percent_whole_number(val):
 
 
 # TABLE 1
-df1 = load_data(excel_file, sheet_name, 'E:H', 2, 5)
+df1 = load_excel_data(excel_file, sheet_name, 'E:H', 2, 5)
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 1: Equity Relative to other Asset Classes')
 st.dataframe(df1, hide_index=True)
