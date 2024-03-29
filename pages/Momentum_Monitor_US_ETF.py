@@ -28,7 +28,7 @@ def color_cells(val):
 def color_circle(val):
     if val >= 24:
         return '🔴'
-    elif val <= 10:
+    elif val <= 11:
         return '🟢'
     else:
         return '🟡'
