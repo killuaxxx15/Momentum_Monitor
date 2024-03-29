@@ -9,6 +9,7 @@ st.header('ETF Model DEVELOPED')
 
 # Display the last update date
 st.markdown('#### Updated: 29/03/2024')
+st.markdown('##### Note: Data did not change from 22/03/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'ETF_Model_DEVELOPED_29_03_2024.xlsx'
