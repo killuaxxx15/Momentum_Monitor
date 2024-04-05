@@ -35,9 +35,9 @@ def color_circle(val):
 
 # Define function to display colored circle based on cell value
 def color_circle_1(val):
-    if val > 16:
+    if val > 10:
         return '🔴'  
-    elif val < 5:
+    elif val < -2:
         return '🟢'  
     else:
         return '🟡'  
