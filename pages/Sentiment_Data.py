@@ -45,3 +45,9 @@ st.image('pic12.png', caption='Figure 12', use_column_width=True)
 st.image('pic13.png', caption='Figure 13', use_column_width=True)
 
 
+st.header('Put/Call & Vix')
+st.image('fig1.png', caption='Figure 1', use_column_width=True)
+st.image('fig2.png', caption='Figure 2', use_column_width=True)
+st.image('fig3.png', caption='Figure 3', use_column_width=True)
+st.image('fig4.png', caption='Figure 4', use_column_width=True)
+st.image('fig5.png', caption='Figure 5', use_column_width=True)
