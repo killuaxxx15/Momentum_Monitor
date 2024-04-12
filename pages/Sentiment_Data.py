@@ -28,3 +28,8 @@ df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
 st.markdown(' ### ')
 
+
+st.header('Bull/Bear Ratios')
+st.image('pic1.png', caption='Your Image Caption', use_column_width=True)
+
+
