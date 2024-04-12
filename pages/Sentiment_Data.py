@@ -21,7 +21,8 @@ df1 = load_excel_data(excel_file, sheet_name, 'F:K', 10, 5)
 df1 = df1.fillna('')
 # Format specific cells as percentages
 df1.iloc[1:3, 2] = df1.iloc[1:3, 2].apply(lambda x: f'{x:.2%}')
-df1.iloc[1:3, 3] = df1.iloc[1:5, 3].apply(lambda x: f'{x:.0%}')
+df1.iloc[4, 2] = df1.iloc[4, 2].apply(lambda x: f'{x:.2%}')
+df1.iloc[1:3, 3] = df1.iloc[1:3, 3].apply(lambda x: f'{x:.0%}')
 st.dataframe(df1, hide_index=True)
 st.markdown(' ### ')
 
