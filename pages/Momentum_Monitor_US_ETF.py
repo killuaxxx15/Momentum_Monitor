@@ -35,9 +35,9 @@ def color_circle(val):
 
 # Define function to display colored circle based on cell value
 def color_circle_1(val):
-    if val > 10:
+    if val >= 10:
         return '🔴'  
-    elif val < -2:
+    elif val < 0:
         return '🟢'  
     else:
         return '🟡'  
@@ -73,7 +73,7 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
