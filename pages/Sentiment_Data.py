@@ -30,6 +30,7 @@ st.markdown(' ### ')
 
 
 st.header('Bull/Bear Ratios')
-st.image('pic1.png', caption='Your Image Caption', use_column_width=True)
-
+st.image('pic1.png', caption='Figure 1', use_column_width=True)
+st.image('pic2.png', caption='Figure 2', use_column_width=True)
+st.image('pic3.png', caption='Figure 3', use_column_width=True)
 
