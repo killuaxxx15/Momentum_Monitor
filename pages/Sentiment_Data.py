@@ -23,6 +23,7 @@ df1 = df1.fillna('')
 df1.iloc[1:3, 2] = df1.iloc[1:3, 2].apply(lambda x: f'{x:.2%}')
 df1.iloc[4:5, 2] = df1.iloc[4:5, 2].apply(lambda x: f'{x:.2%}')
 df1.iloc[1:3, 3] = df1.iloc[1:3, 3].apply(lambda x: f'{x:.0%}')
+df1.iloc[4:5, 3] = df1.iloc[4:5, 3].apply(lambda x: f'{x:.0%}')
 st.dataframe(df1, hide_index=True)
 st.markdown(' ### ')
 
