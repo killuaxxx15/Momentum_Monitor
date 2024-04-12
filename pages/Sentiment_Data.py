@@ -26,7 +26,7 @@ st.markdown(' ### ')
 df2 = load_excel_data(excel_file, sheet_name, 'F:K', 19, 1)
 df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
-st.markdown(' ### ')
+
 
 
 st.header('Bull/Bear Ratios')
