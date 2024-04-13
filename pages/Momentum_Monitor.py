@@ -31,9 +31,9 @@ def color_cells_1(val):
 
 # Define function to display colored circle based on cell value
 def color_circle(val):
-    if val >= 8:
+    if val >= 10:
         return '🔴'  
-    elif val <= 3:
+    elif val <= 4:
         return '🟢'  
     else:
         return '🟡'  
@@ -47,7 +47,7 @@ def color_cells_2(val):
 def color_circle_1(val):
     if val >= 3:
         return '🔴'  
-    elif val <= 0:
+    elif val < 0:
         return '🟢'  
     else:
         return '🟡' 
@@ -73,7 +73,7 @@ df2 = load_excel_data(excel_file, sheet_name, 'E:J', 13, 13)
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df2 = df2.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
-#df2['Relative Ranking.1'] = df2['Relative Ranking.1'].apply(color_circle)
+df2['Relative Ranking.1'] = df2['Relative Ranking.1'].apply(color_circle)
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
@@ -95,7 +95,7 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
-#df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
