@@ -11,7 +11,7 @@ st.header('Global Momentum Dashboard')
 st.markdown('#### Updated: 05/04/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Global_macro_rankings_final_05_04_2024.xlsx'
+excel_file = 'Global_macro_rankings_final_12_04_2024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
