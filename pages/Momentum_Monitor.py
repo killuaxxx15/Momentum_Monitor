@@ -44,13 +44,13 @@ def color_cells_2(val):
     return f'background-color: {color}'
 
 # Define function to display colored circle based on cell value
-def color_circle_1(val):
-    if val >= 3:
+def color_circle_1(val, lowest_3, highest_3):
+    if val in highest_3:
         return '🔴'  
-    elif val < 0:
-        return '🟢'  
+    elif val in lowest_3:
+        return '🟢' 
     else:
-        return '🟡' 
+        return '🟡'
 
 # Format percentage with one decimal place
 def percent_one_decimal(val):
@@ -109,7 +109,19 @@ relative_ranking = df3['Relative Ranking']
 df3 = df3.drop(['Relative Ranking'], axis=1)
 df3 = df3.drop(['Unnamed: 9'], axis=1)
 df3.insert(1, "Relative Ranking", relative_ranking)
-df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+#df3['Relative Ranking'] = df3['Relative Ranking'].apply(color_circle_1)
+# Sort the 'Relative Ranking' series in ascending order
+sorted_relative_ranking = relative_ranking.sort_values()
+
+# Determine the thresholds for the lowest 10 and highest 10 values
+lowest_3 = sorted_relative_ranking.head(3).values
+highest_3 = sorted_relative_ranking.tail(3).values
+
+# Apply the color_circle_1 function to each value in the 'Relative Ranking' column
+df3['Relative Ranking'] = relative_ranking.apply(color_circle_1, args=(lowest_3, highest_3))
+
+
+
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
