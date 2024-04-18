@@ -95,7 +95,19 @@ relative_ranking = df2['Relative ranking']
 df2 = df2.drop(['Relative ranking'], axis=1)
 df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
-df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+#df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
+
+# Sort the 'Relative Ranking' series in ascending order
+sorted_relative_ranking = relative_ranking.sort_values()
+
+# Determine the thresholds for the lowest 10 and highest 10 values
+lowest_4 = sorted_relative_ranking.head(4).values
+highest_4 = sorted_relative_ranking.tail(4).values
+
+# Apply the color_circle_1 function to each value in the 'Relative Ranking' column
+df2['Relative Ranking'] = relative_ranking.apply(color_circle, args=(lowest_4, highest_4))
+
+
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
