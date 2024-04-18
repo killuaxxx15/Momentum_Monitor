@@ -57,7 +57,14 @@ df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
-df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
+#df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
+
+relative_ranking = df1['Relative Ranking']
+sorted_relative_ranking = relative_ranking.sort_values()
+lowest_10 = sorted_relative_ranking.head(10).values
+highest_10 = sorted_relative_ranking.tail(10).values
+df1['Relative Ranking'] = relative_ranking.apply(color_circle_1, args=(lowest_10, highest_10))
+
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
