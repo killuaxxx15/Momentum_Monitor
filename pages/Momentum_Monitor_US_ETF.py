@@ -58,7 +58,7 @@ df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
 df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
 #df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
-relative_ranking_1 = df1['Relative ranking.1']
+relative_ranking_1 = df1['Relative Ranking.1']
 # Sort the 'Relative Ranking' series in ascending order
 sorted_relative_ranking_1 = relative_ranking_1.sort_values()
 
