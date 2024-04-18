@@ -77,7 +77,7 @@ lowest_4 = sorted_relative_ranking_1.head(4).values
 highest_4 = sorted_relative_ranking_1.tail(4).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle_1, args=(lowest_4, highest_4))
+df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle, args=(lowest_4, highest_4))
 
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
