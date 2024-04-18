@@ -75,9 +75,6 @@ df2 = df2.drop(['Unnamed: 9'], axis=1)
 df2.insert(2, "Relative Ranking", relative_ranking)
 #df2['Relative Ranking'] = df2['Relative Ranking'].apply(color_circle_1)
 
-# Extract the 'Relative Ranking' column as a separate series
-relative_ranking = df2['Relative ranking']
-
 # Sort the 'Relative Ranking' series in ascending order
 sorted_relative_ranking = relative_ranking.sort_values()
 
