@@ -73,12 +73,12 @@ df2 = load_excel_data(excel_file, sheet_name, 'E:K', 13, 14)
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Unnamed: 7' : 'Current Ranking.1'})
 ranking_1 = df2['Current Ranking.1']
-# Sort the 'Relative Ranking' series in ascending order
+# Sort the 'Current Ranking.1' series in ascending order
 sorted_ranking_1 = ranking_1.sort_values()
-# Determine the thresholds for the lowest 10 and highest 10 values
+# Determine the thresholds for the lowest 4 and highest 4 values
 lowest_4 = sorted_ranking_1.head(4).values
 highest_4 = sorted_ranking_1.tail(4).values
-# Apply the color_circle_1 function to each value in the 'Relative Ranking' column
+# Apply the color_circle function to each value in the 'Current Ranking.1' column
 df2['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_4, highest_4))
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 2: Relative Ranking')
