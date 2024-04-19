@@ -8,7 +8,7 @@ st.set_page_config(page_title='Sentiment Data', page_icon=':bar_chart:')
 st.header('Sentiment Data to be updated')
 
 # Define Excel file and sheet name variables
-excel_file = 'Sentimnet data.xlsx'
+excel_file = 'Sentiment_Data.xlsx'
 sheet_name = 'Sheet1'
 
 # Cache data loading function for better performance
@@ -32,14 +32,10 @@ df2 = load_excel_data(excel_file, sheet_name, 'F:K', 19, 1)
 df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
 
-
-
 st.header('Bull/Bear Ratios')
-st.image('pic1.png', caption='Figure 1', use_column_width=True)
-
+st.image('fig1.png', caption='Figure 1', use_column_width=True)
 
 st.header('Put/Call & Vix')
-st.image('fig1.png', caption='Figure 2', use_column_width=True)
+st.image('fig2.png', caption='Figure 2', use_column_width=True)
 
-st.header('Figure 3')
 st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
