@@ -64,7 +64,7 @@ st.dataframe(df1, hide_index=True)
 
 
 # TABLE 2
-df2 = load_excel_data(excel_file, sheet_name, 'D:P', 42, 33)
+df2 = load_excel_data(excel_file, sheet_name, 'D:P', 42, 34)
 df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
