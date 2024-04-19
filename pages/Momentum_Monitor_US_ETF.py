@@ -25,16 +25,7 @@ def color_cells(val):
     return f'background-color: {color}'
 
 # Define function to display colored circle based on cell value
-def color_circle(val):
-    if val >= 24:
-        return '🔴'
-    elif val <= 10:
-        return '🟢'
-    else:
-        return '🟡'
-
-# Define function to display colored circle based on cell value
-def color_circle_1(val, lowest_10, highest_10):
+def color_circle(val, lowest_10, highest_10):
     if val in lowest_10:
         return '🟢'
     elif val in highest_10:
@@ -53,21 +44,19 @@ def percent_whole_number(val):
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'D:K', 5, 34)
-#df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
-#df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
-#df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
-#df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
-#df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
-#relative_ranking_1 = df1['Relative Ranking.1']
-# Sort the 'Relative Ranking' series in ascending order
-#sorted_relative_ranking_1 = relative_ranking_1.sort_values()
+df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
+df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+df1 = df1.rename(columns={'Unnamed: 7' : 'Current Ranking.1'})
+ranking_1 = df1['Current Ranking.1']
+# Sort the 'Current Ranking.1' series in ascending order
+sorted_ranking_1 = ranking_1.sort_values()
 
 # Determine the thresholds for the lowest 10 and highest 10 values
-#lowest_10 = sorted_relative_ranking_1.head(10).values
-#highest_10 = sorted_relative_ranking_1.tail(10).values
+lowest_10 = sorted_ranking_1.head(10).values
+highest_10 = sorted_ranking_1.tail(10).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-#df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle_1, args=(lowest_10, highest_10))
+df1['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_10, highest_10))
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
