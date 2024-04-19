@@ -93,7 +93,7 @@ st.dataframe(df2, hide_index=True)
 
 
 # TABLE 3
-df3 = load_excel_data(excel_file, sheet_name, 'D:G', 80, 33)
+df3 = load_excel_data(excel_file, sheet_name, 'D:G', 80, 34)
 df3 = df3.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
 st.markdown('### Equity ETF - Upgrades')
 st.dataframe(df3, hide_index=True)
