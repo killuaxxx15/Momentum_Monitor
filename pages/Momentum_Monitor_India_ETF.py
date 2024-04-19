@@ -63,9 +63,12 @@ def percent_whole_number(val):
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'D:K', 5, 15)
-#df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
-#df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
-#df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
+df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+df1 = df1.rename(columns={'Above 30 D ' : 'Current Ranking.1'})
+df1 = df1.rename(columns={'Above 60 D' : 'Above 30 D '})
+df1 = df1.rename(columns={'Above 200D' : 'Above 60 D'})
+df1 = df1.rename(columns={'Unnamed: 10' : 'Above 200D'})
 #df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
 #df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
 #relative_ranking_1 = df1['Relative Ranking.1']
