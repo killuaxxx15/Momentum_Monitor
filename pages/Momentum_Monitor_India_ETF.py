@@ -62,7 +62,7 @@ def percent_whole_number(val):
 
 
 # TABLE 1
-df1 = load_excel_data(excel_file, sheet_name, 'D:J', 5, 15)
+df1 = load_excel_data(excel_file, sheet_name, 'D:K', 5, 15)
 #df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
 #df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
 #df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
