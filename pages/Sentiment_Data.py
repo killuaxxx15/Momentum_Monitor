@@ -5,7 +5,10 @@ import streamlit as st
 st.set_page_config(page_title='Sentiment Data', page_icon=':bar_chart:')
 
 # Display header for the dashboard
-st.header('Sentiment Data to be updated')
+st.header('Sentiment Data')
+
+# Display the last update date
+st.markdown('#### Updated: 19/04/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'Sentiment_Data.xlsx'
