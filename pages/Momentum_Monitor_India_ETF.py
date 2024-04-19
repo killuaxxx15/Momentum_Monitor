@@ -116,7 +116,7 @@ st.dataframe(df2, hide_index=True)
 
 
 # TABLE 3
-df3 = load_excel_data(excel_file, sheet_name, 'D:I', 42, 14)
+df3 = load_excel_data(excel_file, sheet_name, 'D:I', 42, 15)
 df3 = df3.drop(['Unnamed: 5'], axis=1)
 df3 = df3.style.applymap(color_cells)
 st.markdown('### Equity ETF - MA Signals')
@@ -124,7 +124,7 @@ st.dataframe(df3, hide_index=True)
 
 
 # TABLE 4
-df4 = load_excel_data(excel_file, sheet_name, 'K:N', 42, 14)
+df4 = load_excel_data(excel_file, sheet_name, 'K:N', 42, 15)
 df4 = df4.rename(columns={'TICKER.1' : 'TICKER'})
 df4 = df4.rename(columns={'ETF.1' : 'ETF'})
 df4 = df4.style.format({'Upgrades 1 month': percent_one_decimal, 'Downgrades 1 month': percent_one_decimal})
