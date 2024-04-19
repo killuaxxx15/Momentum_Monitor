@@ -76,11 +76,10 @@ sorted_ranking_1 = ranking_1.sort_values()
 
 # Determine the thresholds for the lowest 5 and highest 5 values
 lowest_5 = sorted_ranking_1.head(5).values
-highest_ = sorted_ranking_1.tail(5).values
+highest_5 = sorted_ranking_1.tail(5).values
 
-# Apply the color_circle_1 function to each value in the 'Relative Ranking' column
+# Apply the color_circle_1 function to each value in the 'Current Ranking.1' column
 df1['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_5, highest_5))
-
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
