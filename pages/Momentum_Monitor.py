@@ -79,7 +79,7 @@ sorted_ranking_1 = ranking_1.sort_values()
 lowest_4 = sorted_ranking_1.head(4).values
 highest_4 = sorted_ranking_1.tail(4).values
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df2['Ranking'] = ranking_1.apply(color_circle, args=(lowest_4, highest_4))
+df2['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_4, highest_4))
 df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
