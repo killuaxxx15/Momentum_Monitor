@@ -69,25 +69,21 @@ df1 = df1.rename(columns={'Above 30 D ' : 'Current Ranking.1'})
 df1 = df1.rename(columns={'Above 60 D' : 'Above 30 D '})
 df1 = df1.rename(columns={'Above 200D' : 'Above 60 D'})
 df1 = df1.rename(columns={'Unnamed: 10' : 'Above 200D'})
-
 ranking_1 = df1['Current Ranking.1']
 # Sort the 'Relative Ranking' series in ascending order
 sorted_ranking_1 = ranking_1.sort_values()
-
 # Determine the thresholds for the lowest 5 and highest 5 values
 lowest_5 = sorted_ranking_1.head(5).values
 highest_5 = sorted_ranking_1.tail(5).values
-
 # Apply the color_circle_1 function to each value in the 'Current Ranking.1' column
 df1['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_5, highest_5))
-
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
 st.dataframe(df1, hide_index=True)
 
 
 # TABLE 2
-df2 = load_excel_data(excel_file, sheet_name, 'D:P', 23, 14)
+df2 = load_excel_data(excel_file, sheet_name, 'D:P', 23, 15)
 df2 = df2.rename(columns={'Unnamed: 3' : 'TICKER'})
 df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
 df2 = df2.rename(columns={'Clsoeness to 52 week' : 'Closeness to 52 week.1'})
@@ -102,12 +98,11 @@ df2.insert(2, "Relative Ranking", relative_ranking)
 sorted_relative_ranking = relative_ranking.sort_values()
 
 # Determine the thresholds for the lowest 10 and highest 10 values
-lowest_4 = sorted_relative_ranking.head(4).values
-highest_4 = sorted_relative_ranking.tail(4).values
+lowest_5 = sorted_relative_ranking.head(5).values
+highest_5 = sorted_relative_ranking.tail(5).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df2['Relative Ranking'] = relative_ranking.apply(color_circle, args=(lowest_4, highest_4))
-
+df2['Relative Ranking'] = relative_ranking.apply(color_circle, args=(lowest_5, highest_5))
 
 df2 = df2.style.format({
       'U/D': percent_one_decimal, 
