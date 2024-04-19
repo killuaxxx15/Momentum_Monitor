@@ -70,9 +70,8 @@ st.dataframe(df1, hide_index=True)
 
 # TABLE 2
 df2 = load_excel_data(excel_file, sheet_name, 'E:K', 13, 14)
-#df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
-#df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
-#df2 = df2.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
+df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+df2 = df2.rename(columns={'Unnamed: 7' : 'Current Ranking.1'})
 #df2['Relative Ranking.1'] = df2['Relative Ranking.1'].apply(color_circle)
 #relative_ranking_1 = df2['Relative Ranking.1']
 # Sort the 'Relative Ranking' series in ascending order
