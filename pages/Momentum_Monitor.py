@@ -11,7 +11,7 @@ st.header('Global Momentum Dashboard')
 st.markdown('#### Updated: 12/04/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Global_macro_rankings_final_12_04_2024.xlsx'
+excel_file = 'Global_macro_rankings_final_12042024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
@@ -69,26 +69,26 @@ st.dataframe(df1, hide_index=True)
 
 
 # TABLE 2
-df2 = load_excel_data(excel_file, sheet_name, 'E:J', 13, 13)
-df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
-df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
-df2 = df2.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
+df2 = load_excel_data(excel_file, sheet_name, 'E:K', 13, 14)
+#df2 = df2.rename(columns={'Unnamed: 4' : 'ETF'})
+#df2 = df2.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+#df2 = df2.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
 #df2['Relative Ranking.1'] = df2['Relative Ranking.1'].apply(color_circle)
-relative_ranking_1 = df2['Relative Ranking.1']
+#relative_ranking_1 = df2['Relative Ranking.1']
 # Sort the 'Relative Ranking' series in ascending order
-sorted_relative_ranking_1 = relative_ranking_1.sort_values()
+#sorted_relative_ranking_1 = relative_ranking_1.sort_values()
 
 # Determine the thresholds for the lowest 10 and highest 10 values
-lowest_4 = sorted_relative_ranking_1.head(4).values
-highest_4 = sorted_relative_ranking_1.tail(4).values
+#lowest_4 = sorted_relative_ranking_1.head(4).values
+#highest_4 = sorted_relative_ranking_1.tail(4).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df2['Relative Ranking.1'] = relative_ranking_1.apply(color_circle, args=(lowest_4, highest_4))
+#df2['Relative Ranking.1'] = relative_ranking_1.apply(color_circle, args=(lowest_4, highest_4))
 
 
 
 
-df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
+#df2 = df2.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Table 2: Relative Ranking')
 st.dataframe(df2, hide_index=True)
 
