@@ -30,10 +30,10 @@ def color_cells_1(val):
     return f'background-color: {color}'
 
 # Define function to display colored circle based on cell value
-def color_circle(val, lowest_4, highest_4):
-    if val in highest_4:
+def color_circle(val, lowest_5, highest_5):
+    if val in highest_5:
         return '🔴'  
-    elif val in lowest_4:
+    elif val in lowest_5:
         return '🟢' 
     else:
         return '🟡'
@@ -69,18 +69,17 @@ df1 = df1.rename(columns={'Above 30 D ' : 'Current Ranking.1'})
 df1 = df1.rename(columns={'Above 60 D' : 'Above 30 D '})
 df1 = df1.rename(columns={'Above 200D' : 'Above 60 D'})
 df1 = df1.rename(columns={'Unnamed: 10' : 'Above 200D'})
-#df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
-#df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
-#relative_ranking_1 = df1['Relative Ranking.1']
-# Sort the 'Relative Ranking' series in ascending order
-#sorted_relative_ranking_1 = relative_ranking_1.sort_values()
 
-# Determine the thresholds for the lowest 10 and highest 10 values
-#lowest_4 = sorted_relative_ranking_1.head(4).values
-#highest_4 = sorted_relative_ranking_1.tail(4).values
+ranking_1 = df1['Current Ranking.1']
+# Sort the 'Relative Ranking' series in ascending order
+sorted_ranking_1 = ranking_1.sort_values()
+
+# Determine the thresholds for the lowest 5 and highest 5 values
+lowest_5 = sorted_ranking_1.head(5).values
+highest_ = sorted_ranking_1.tail(5).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-#df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle, args=(lowest_4, highest_4))
+df1['Current Ranking.1'] = ranking_1.apply(color_circle, args=(lowest_5, highest_5))
 
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
