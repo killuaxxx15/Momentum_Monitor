@@ -11,7 +11,7 @@ st.header('Momentum Monitor US ETF (lower is better)')
 st.markdown('#### Updated: 12/04/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'US_ETF_MOMENTUM_RANKINGS_12_04_2024.xlsx'
+excel_file = 'US_ETF_MOMENTUM_RANKINGS.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
@@ -53,21 +53,21 @@ def percent_whole_number(val):
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'D:J', 5, 33)
-df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
-df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
-df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
-df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
+#df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
+#df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+#df1 = df1.rename(columns={'Unnamed: 5' : 'Relative Ranking'})
+#df1 = df1.rename(columns={'Unnamed: 6' : 'Relative Ranking.1'})
 #df1['Relative Ranking.1'] = df1['Relative Ranking.1'].apply(color_circle)
-relative_ranking_1 = df1['Relative Ranking.1']
+#relative_ranking_1 = df1['Relative Ranking.1']
 # Sort the 'Relative Ranking' series in ascending order
-sorted_relative_ranking_1 = relative_ranking_1.sort_values()
+#sorted_relative_ranking_1 = relative_ranking_1.sort_values()
 
 # Determine the thresholds for the lowest 10 and highest 10 values
-lowest_10 = sorted_relative_ranking_1.head(10).values
-highest_10 = sorted_relative_ranking_1.tail(10).values
+#lowest_10 = sorted_relative_ranking_1.head(10).values
+#highest_10 = sorted_relative_ranking_1.tail(10).values
 
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle_1, args=(lowest_10, highest_10))
+#df1['Relative Ranking.1'] = relative_ranking_1.apply(color_circle_1, args=(lowest_10, highest_10))
 
 df1 = df1.style.applymap(color_cells, subset=['Above 30 D ', 'Above 60 D', 'Above 200D'])
 st.markdown('### Relative Ranking')
