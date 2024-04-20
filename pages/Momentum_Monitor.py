@@ -8,7 +8,7 @@ st.set_page_config(page_title='Global Momentum', page_icon=':bar_chart:')
 st.header('Global Momentum Dashboard')
 
 # Display the last update date
-st.markdown('#### Updated: 12/04/2024')
+st.markdown('#### Updated: 19/04/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'Global_macro_rankings_final_19_04_2024.xlsx'
