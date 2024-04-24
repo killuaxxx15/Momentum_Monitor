@@ -96,15 +96,15 @@ def calculate_percentiles(data):
   return data.rank(pct=True, axis=0)
 
 
-def plot_percentile_heatmap(df, end_date):
+def plot_percentile_heatmap(df, end_date, percentile_ranks):
     """
     Plot a heatmap using percentile ranks of the data in df.
 
     Parameters:
     df (DataFrame): The DataFrame with the data to plot.
     end_date (str): The end date of the data period.
+    percentile_ranks (DataFrame): The DataFrame with the calculated percentile ranks.
     """
-
 
     df_inverted = np.round(100 - (percentile_ranks * 100), 0).replace(0, 1)
 
@@ -157,7 +157,7 @@ def main():
     final_df = calculate_standardized_period_returns(risk_prices, safe_prices, benchmark_prices, frequency=frequency)
 
     percentile_ranks = final_df.apply(calculate_percentiles, axis=0)
-    fig = plot_percentile_heatmap(percentile_ranks, end_date)
+    fig = plot_percentile_heatmap(percentile_ranks, end_date, percentile_ranks)
 
     # Display the heatmap using Streamlit
     st.pyplot(fig)
