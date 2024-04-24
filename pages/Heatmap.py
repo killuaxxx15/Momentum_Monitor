@@ -169,7 +169,11 @@ def main():
 
             - Green: The ETF's relative performance was in the top percentiles (better than most others). Darker green means even better performance.
             - Red: The ETF's relative performance was in the bottom percentiles (worse than most others). Darker red means even worse performance.
-            - Yellow/Orange: The ETF's relative performance was in the middle percentiles (similar to others).
+
+            When an investment performed better or worse, it means:
+
+            - Better performance (Green): The ETF's standardized price increased more (or decreased less) than the benchmark during the time period.
+            - Worse performance (Red): The ETF's standardized price increased less (or decreased more) than the benchmark during the time period.
 
             The relative performance is measured by calculating the percentage change in the standardized price of each ETF relative to the benchmark. The standardized price is obtained by dividing the ETF's price by the benchmark's price at each time point.
 
