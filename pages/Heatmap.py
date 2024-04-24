@@ -150,7 +150,7 @@ def main():
     end_date = end_date.strftime("%Y-%m-%d")  # Convert to string format
 
     # Add frequency selection widget
-    frequency = st.selectbox("Select Frequency", ("Weakly", "Monthly"))
+    frequency = st.selectbox("Select Frequency", ("Weekly", "Monthly"))
     frequency = "M" if frequency == "Monthly" else "W"
 
     risk_prices, safe_prices, benchmark_prices = retrieve_all_prices_yf(risk_tickers, safe_tickers, end_date, frequency)
