@@ -183,7 +183,7 @@ def main():
     # Add expander with ETFs description
     with st.expander("ETF Description"):
         st.write("""
-            For the 'Risk-On' ETFs (top half), I selected the bottom 10 from the US ETF Momentum, while for the 'Risk-Off' (bottom half), I chose the top 10.
+            For the 'Risk-On' ETFs (top half), I selected the bottom 10 from the US ETF Momentum, while for the 'Risk-Off' (bottom half), I selected the top 10.
 
         """)
 
