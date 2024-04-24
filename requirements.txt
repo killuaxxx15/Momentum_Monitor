@@ -4,7 +4,7 @@ seaborn
 streamlit
 tabulate
 pandas
-matplotli
+matplotlib
 numpy
 dateutil
 datetime
