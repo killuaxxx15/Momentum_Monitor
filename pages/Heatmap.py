@@ -162,6 +162,21 @@ def main():
     # Display the heatmap using Streamlit
     st.pyplot(fig)
 
+    # Add expander with heatmap description
+    with st.expander("Heatmap Description"):
+        st.write("""
+            The heatmap uses colors to show how well different investments (ETFs) performed compared to the S&P 500 index (benchmark) over a given time period:
+
+            - Green: The ETF's relative performance was in the top percentiles (better than most others). Darker green means even better performance.
+            - Red: The ETF's relative performance was in the bottom percentiles (worse than most others). Darker red means even worse performance.
+            - Yellow/Orange: The ETF's relative performance was in the middle percentiles (similar to others).
+
+            The relative performance is measured by calculating the percentage change in the standardized price of each ETF relative to the benchmark. The standardized price is obtained by dividing the ETF's price by the benchmark's price at each time point.
+
+            The heatmap helps identify which investments outperformed or underperformed the benchmark and the other investments during each time period, making it easy to spot patterns and trends in the performance of "risk-on" investments (top half) and "risk-off" investments (bottom half).
+        """)
+
+
 
 if __name__ == "__main__":
     main()
