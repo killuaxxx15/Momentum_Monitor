@@ -146,11 +146,11 @@ def main():
     st.title("Risk-On vs. Risk-Off Percentile Dashboard")
 
     # Add date input widget
-    end_date = st.date_input("Select End Date", value=pd.to_datetime("2023-04-24"))
+    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-04-21"))
     end_date = end_date.strftime("%Y-%m-%d")  # Convert to string format
 
     # Add frequency selection widget
-    frequency = st.selectbox("Select Frequency", ("Monthly", "Weekly"))
+    frequency = st.selectbox("Select Frequency", ("Weakly", "Monthly"))
     frequency = "M" if frequency == "Monthly" else "W"
 
     risk_prices, safe_prices, benchmark_prices = retrieve_all_prices_yf(risk_tickers, safe_tickers, end_date, frequency)
