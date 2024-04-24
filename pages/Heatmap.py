@@ -180,6 +180,13 @@ def main():
             The heatmap helps identify which investments outperformed or underperformed the benchmark and the other investments during each time period, making it easy to spot patterns and trends in the performance of "risk-on" investments (top half) and "risk-off" investments (bottom half).
         """)
 
+    # Add expander with ETFs description
+    with st.expander("ETF Description"):
+        st.write("""
+            For the 'Risk-On' ETFs (top half), I selected the bottom 10 from the US ETF Momentum, while for the 'Risk-Off' (bottom half), I chose the top 10.
+
+        """)
+
 
 
 if __name__ == "__main__":
