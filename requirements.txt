@@ -4,3 +4,8 @@ seaborn
 streamlit
 tabulate
 pandas
+matplotli
+numpy
+dateutil
+datetime
+yfinance
