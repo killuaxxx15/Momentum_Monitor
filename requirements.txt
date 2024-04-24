@@ -6,6 +6,6 @@ tabulate
 pandas
 matplotlib
 numpy
-dateutil
+python-dateutil
 datetime
 yfinance
