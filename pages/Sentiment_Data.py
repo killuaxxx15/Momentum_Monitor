@@ -8,7 +8,7 @@ st.set_page_config(page_title='Sentiment Data', page_icon=':bar_chart:')
 st.header('Sentiment Data')
 
 # Display the last update date
-st.markdown('#### Updated: 19/04/2024')
+st.markdown('#### Updated: 19/04/2024 Updating')
 
 # Define Excel file and sheet name variables
 excel_file = 'Sentiment_Data.xlsx'
