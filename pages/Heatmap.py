@@ -10,16 +10,18 @@ import pandas as pd
 # %% Initialization
 
 risk_tickers = [
-    'XLY', 'IGV', 'RWR', 'VNQ', 'MOO', 'IBB', 'LIT', 'ICLN', 'XTL', 'TAN',
+#    'XLY', 'IGV', 'RWR', 'VNQ', 'MOO', 'IBB', 'LIT', 'ICLN', 'XTL', 'TAN',
+    'CPSEETF.BO', 'PSUBANK.NS', 'MOMOMENTUM.NS', 'ICICIB22.NS', '0P0001O955.BO', 'COMMOIETF.NS',
 ]
 
 safe_tickers = [
-    'COPX', 'IYG', 'PRN', 'XLI', 'SMH', 'GDX', 'ITA', 'PTF', 'XLF', 'XLB',
+#    'COPX', 'IYG', 'PRN', 'XLI', 'SMH', 'GDX', 'ITA', 'PTF', 'XLF', 'XLB',
+    'MOHEALTH.NS', 'ICICIQTY30.NS', 'AXISHCETF.NS', 'HDFCLOWVOL.NS', 'HDFCPVTBAN.NS', 'FMCGIETF.NS', 'INFRAIETF.NS',
 ]
 
 
 def retrieve_all_prices_yf(risk_tickers, safe_tickers, end_date, 
-                           frequency='M', benchmark='SPY'):
+                           frequency='M', benchmark='^NSEI'):
     """
     Retrieve all closing prices for the supplied tickers using yfinance.
     """
