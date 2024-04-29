@@ -10,11 +10,11 @@ import pandas as pd
 # %% Initialization
 
 risk_tickers = [
-    'XLY', 'IGV', 'RWR', 'VNQ', 'IBB', 'MOO', 'ICLN', 'LIT', 'XTL', 'TAN',
+    'XLY', 'IGV', 'RWR', 'VNQ', 'MOO', 'IBB', 'LIT', 'ICLN', 'XTL', 'TAN',
 ]
 
 safe_tickers = [
-    'COPX', 'IYG', 'XLF', 'XLI', 'PICK', 'PRN', 'GDX', 'XLB', 'ITA', 'PSCI',
+    'COPX', 'IYG', 'PRN', 'XLI', 'SMH', 'GDX', 'ITA', 'PTF', 'XLF', 'XLB',
 ]
 
 
