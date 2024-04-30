@@ -11,12 +11,12 @@ import pandas as pd
 
 risk_tickers = [
 #    'XLY', 'IGV', 'RWR', 'VNQ', 'MOO', 'IBB', 'LIT', 'ICLN', 'XTL', 'TAN',
-    '^CNXAUTO', '^NSEBANK', 'NIFTY_FIN_SERVICE.NS', '^CNXFMCG', 'NIFTY_HEALTHCARE.NS', '^CNXIT', 
+    '^CNXAUTO', '^NSEBANK', 'NIFTY_FIN_SERVICE.NS', '^CNXFMCG', 'NIFTY_HEALTHCARE.NS', '^CNXIT', '^CNXMEDIA', 
 ]
 
 safe_tickers = [
 #    'COPX', 'IYG', 'PRN', 'XLI', 'SMH', 'GDX', 'ITA', 'PTF', 'XLF', 'XLB',
-    '^CNXMEDIA', '^CNXMETAL', '^CNXPSUBANK', '^CNXREALTY', '^CNXCONSUM', 
+    '^CNXMETAL', '^CNXPSUBANK', '^CNXREALTY', '^CNXCONSUM', '^CNXPSE', '^CNXMNC',
 ]
 
 
