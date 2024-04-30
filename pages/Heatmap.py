@@ -16,7 +16,7 @@ risk_tickers = [
 
 safe_tickers = [
 #    'COPX', 'IYG', 'PRN', 'XLI', 'SMH', 'GDX', 'ITA', 'PTF', 'XLF', 'XLB',
-    '^CNXMETAL', '^CNXPSUBANK', '^CNXREALTY', '^CNXCONSUM', '^CNXPSE', '^CNXMNC',
+    '^CNXMETAL', #'^CNXPSUBANK', '^CNXREALTY', '^CNXCONSUM', '^CNXPSE', '^CNXMNC',
 ]
 
 
