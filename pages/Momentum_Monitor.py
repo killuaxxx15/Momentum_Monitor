@@ -107,7 +107,7 @@ sorted_relative_ranking = relative_ranking.sort_values()
 lowest_3 = sorted_relative_ranking.head(3).values
 highest_3 = sorted_relative_ranking.tail(3).values
 # Apply the color_circle_1 function to each value in the 'Relative Ranking' column
-df3['Relative Ranking'] = relative_ranking.apply(color_circle_1, args=(lowest_3, highest_3))
+#df3['Relative Ranking'] = relative_ranking.apply(color_circle_1, args=(lowest_3, highest_3))
 df3 = df3.style.format({
       'U/D': percent_one_decimal, 
       'Breadth': percent_whole_number, 
