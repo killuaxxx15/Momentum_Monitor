@@ -11,7 +11,7 @@ st.header('Sentiment Data')
 st.markdown('#### Updated: 03/05/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Sentiment_Data_03_05_2024.xlsx'
+excel_file = 'Sentiment_Data_10_05_2024.xlsx'
 sheet_name = 'Sheet1'
 
 # Cache data loading function for better performance
@@ -36,9 +36,9 @@ df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
 
 st.header('Bull/Bear Ratios')
-st.image('fig1_03_05_2024.png', caption='Figure 1', use_column_width=True)
+st.image('fig1_10_05_2024.png', caption='Figure 1', use_column_width=True)
 
 st.header('Put/Call & Vix')
-st.image('fig2_03_05_2024.png', caption='Figure 2', use_column_width=True)
+st.image('fig2_10_05_2024.png', caption='Figure 2', use_column_width=True)
 
 st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
