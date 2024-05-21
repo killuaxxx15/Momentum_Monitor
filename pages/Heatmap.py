@@ -164,6 +164,30 @@ def main():
     # Display the heatmap using Streamlit
     st.pyplot(fig)
 
+    # Displaying the median for the last 6 months for each sector
+    ticker = [
+        '^CNXAUTO', '^NSEBANK', 'NIFTY_FIN_SERVICE.NS', '^CNXFMCG', '^CNXIT', '^CNXMEDIA',
+        '^CNXMETAL', '^CNXPSUBANK', '^CNXREALTY', '^CNXCONSUM', '^CNXPSE', '^CNXMNC'
+    ]
+
+    name = [
+        'NIFTY AUTO', 'NIFTY BANK', 'NIFTY FIN SERVICE', 'NIFTY FMCG', 'NIFTY IT', 'NIFTY MEDIA',
+        'NIFTY METAL', 'NIFTY PSU BANK', 'NIFTY REALTY', 'NIFTY CONSUMPTION', 'NIFTY PSE', 'NIFTY MNC'
+    ]
+
+    median_6_months = [21, 54, 62.5, 75, 42, 92, 16.5, 17, 21, 46, 8, 54]
+
+    # Create DataFrame
+    df_median = pd.DataFrame({
+        'Ticker': ticker,
+        'Name': name,
+        'Median last 6 months': median_6_months
+    })
+
+    # Display the DataFrame
+    st.dataframe(df_median, hide_index=True)
+    
+
     # Add expander with heatmap description
     with st.expander("Heatmap Description"):
         st.write("""
