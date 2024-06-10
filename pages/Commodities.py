@@ -5,10 +5,10 @@ import streamlit as st
 st.set_page_config(page_title='Commodities', page_icon=':bar_chart:')
 
 # Display header for the dashboard
-st.header('Commodities')
+st.header('Commodities (to be updated)')
 
 # Display the last update date
-st.markdown('#### Updated: 07/06/2024')
+st.markdown('#### Updated: 10/06/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'COMMODITIES_MOMENTUM_RANKINGS_10_06_2024.xlsx'
