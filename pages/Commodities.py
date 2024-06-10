@@ -27,8 +27,8 @@ def color_cells(val):
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'D:K', 5, 14)
-df1 = df1.rename(columns={'Unnamed: 3' : 'TICKER'})
-df1 = df1.rename(columns={'Unnamed: 4' : 'ETF'})
+df1 = df1.rename(columns={'Unnamed: 3' : 'Code'})
+df1 = df1.rename(columns={'Unnamed: 4' : 'Commodity'})
 df1 = df1.rename(columns={'Above 30 D ' : 'Current Ranking.1'})
 df1 = df1.rename(columns={'Above 60 D' : 'Above 30 D '})
 df1 = df1.rename(columns={'Above 200D' : 'Above 60 D'})
