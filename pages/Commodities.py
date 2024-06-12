@@ -5,7 +5,7 @@ import streamlit as st
 st.set_page_config(page_title='Commodities', page_icon=':bar_chart:')
 
 # Display header for the dashboard
-st.header('Commodities (to be updated)')
+st.header('Commodities (waiting for data)')
 
 # Display the last update date
 st.markdown('#### Updated: 12/06/2024')
