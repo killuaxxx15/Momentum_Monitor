@@ -20,10 +20,24 @@ sheet_name = 'Sheet1'
 def load_excel_data(file_name, sheet, use_columns, header_row, num_rows):
     return pd.read_excel(file_name, sheet_name=sheet, usecols=use_columns, header=header_row, nrows=num_rows)
 
+# Define a function to format numbers
+def format_number(val):
+    if pd.isna(val) or val == '':
+        return ''
+    try:
+        val = float(val)
+        if val.is_integer():
+            return "{:.0f}".format(val)
+        else:
+            return "{:.2f}".format(val)
+    except ValueError:
+        return val
+
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'C:H', 7, 9)
 df1 = df1.fillna('')
+df1 = df1.applymap(format_number)
 st.markdown('### Table 1')
 st.dataframe(df1, hide_index=True)
 
