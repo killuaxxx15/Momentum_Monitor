@@ -8,7 +8,7 @@ st.set_page_config(page_title='US ETF Momentum Monitor', page_icon=':bar_chart:'
 st.header('Momentum Monitor US ETF (lower is better)')
 
 # Display the last update date
-st.markdown('#### Updated: 07/06/2024')
+st.markdown('#### Updated: 07/06/2024 (waiting for new data)')
 
 # Define Excel file and sheet name variables
 excel_file = 'US_ETF_MOMENTUM_RANKINGS_07_06_2024.xlsx'
