@@ -8,10 +8,10 @@ st.set_page_config(page_title='Global Momentum', page_icon=':bar_chart:')
 st.header('Global Momentum Dashboard')
 
 # Display the last update date
-st.markdown('#### Updated: 07/06/2024 (waiting for new data)')
+st.markdown('#### Updated: 14/06/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Global_macro_rankings_final_07_06_2024.xlsx'
+excel_file = 'Global_macro_rankings_final_14_06_2024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
