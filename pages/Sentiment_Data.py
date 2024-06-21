@@ -71,7 +71,6 @@ current_rolling_corr_sp500 = rolling_corr_sp500.iloc[-1]
 current_rolling_corr_russell2000 = rolling_corr_russell2000.iloc[-1]
 current_date = rolling_corr_sp500.index[-1]
 
-
 # Plot the rolling correlations over time
 fig, ax = plt.subplots(figsize=(14, 7))
 ax.plot(rolling_corr_sp500, label='S&P 500 vs. 10-Yr. Yield')
@@ -81,8 +80,3 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
 ax.legend()
 st.pyplot(fig)
-
-# Display the results
-st.write(f"The current 2-month rolling correlation for S&P 500 vs 10-Yr. Yield is {current_rolling_corr_sp500:.4f} on {current_date.date()}")
-st.write(f"The current 2-month rolling correlation for Russell 2000 vs 10-Yr. Yield is {current_rolling_corr_russell2000:.4f} on {current_date.date()}")
-
