@@ -83,9 +83,4 @@ ax.set_title('Rolling 2-Month Correlation')
 ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
 ax.legend()
-ax.grid(True, alpha=0.3)
-
-# Format x-axis to show dates nicely
-plt.gcf().autofmt_xdate()
-
 st.pyplot(fig)
