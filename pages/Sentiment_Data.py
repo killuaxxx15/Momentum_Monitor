@@ -78,7 +78,6 @@ st.write(f"The current 2-month rolling correlation for Russell 2000 vs 10-Yr. Yi
 # Plot the rolling correlations over time
 fig, ax = plt.subplots(figsize=(14, 7))
 ax.plot(rolling_corr_sp500, label='S&P 500 vs. 10-Yr. Yield')
-ax.axhline(y=current_rolling_corr, color='g', linestyle='--', label=f'Current Correlation: {current_rolling_corr:.4f}')
 ax.plot(rolling_corr_russell2000, label='Russell 2000 vs. 10-Yr. Yield', color='orange')
 ax.set_title('Rolling 2-Month Correlation')
 ax.set_xlabel('Date')
