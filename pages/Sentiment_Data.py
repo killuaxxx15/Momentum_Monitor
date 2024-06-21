@@ -42,3 +42,50 @@ st.header('Put/Call & Vix')
 st.image('fig2_21_06_2024.png', caption='Figure 2', use_column_width=True)
 
 st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
+
+
+
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+# Fetch data
+@st.cache_data
+def fetch_data(ticker, start):
+    return yf.download(ticker, start=start)['Adj Close']
+
+sp500 = fetch_data('^GSPC', '2021-11-01')
+russell2000 = fetch_data('^RUT', '2021-11-01')
+treasury_yield = fetch_data('^TNX', '2021-11-01')
+
+# Calculate daily returns
+sp500_returns = sp500.pct_change().dropna()
+russell2000_returns = russell2000.pct_change().dropna()
+treasury_yield_returns = treasury_yield.pct_change().dropna()
+
+# Calculate rolling 42-day (2-month) correlations
+rolling_corr_sp500 = sp500_returns.rolling(window=42).corr(treasury_yield_returns)
+rolling_corr_russell2000 = russell2000_returns.rolling(window=42).corr(treasury_yield_returns)
+
+# Get the current 2-month rolling correlations
+current_rolling_corr_sp500 = rolling_corr_sp500.iloc[-1]
+current_rolling_corr_russell2000 = rolling_corr_russell2000.iloc[-1]
+current_date = rolling_corr_sp500.index[-1]
+
+# Display the results
+st.write(f"The current 2-month rolling correlation for S&P 500 vs 10-Yr. Yield is {current_rolling_corr_sp500:.4f} on {current_date.date()}")
+st.write(f"The current 2-month rolling correlation for Russell 2000 vs 10-Yr. Yield is {current_rolling_corr_russell2000:.4f} on {current_date.date()}")
+
+# Plot the rolling correlations over time
+fig, ax = plt.subplots(figsize=(14, 7))
+ax.plot(rolling_corr_sp500, label='S&P 500 vs. 10-Yr. Yield', color='blue')
+ax.plot(rolling_corr_russell2000, label='Russell 2000 vs. 10-Yr. Yield', color='orange')
+ax.set_title('Rolling 2-Month Correlation')
+ax.set_xlabel('Date')
+ax.set_ylabel('Correlation')
+ax.legend()
+ax.grid(True, alpha=0.3)
+
+# Format x-axis to show dates nicely
+plt.gcf().autofmt_xdate()
+
+st.pyplot(fig)
