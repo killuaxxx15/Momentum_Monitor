@@ -41,8 +41,6 @@ st.image('fig1_28_06_2024.png', caption='Figure 1', use_column_width=True)
 st.header('Put/Call & Vix')
 st.image('fig2_28_06_2024.png', caption='Figure 2', use_column_width=True)
 
-st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
-
 
 
 import yfinance as yf
@@ -80,3 +78,6 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
 ax.legend()
 st.pyplot(fig)
+
+
+st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
