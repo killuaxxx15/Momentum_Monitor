@@ -175,7 +175,7 @@ def main():
         'NIFTY METAL', 'NIFTY PSU BANK', 'NIFTY REALTY', 'NIFTY CONSUMPTION', 'NIFTY PSE', 'NIFTY MNC'
     ]
 
-    median_6_months = [29, 54, 62.5, 62.5, 62.5, 92, 8, 17, 25, 46, 12.5, 41.5]
+    median_6_months = [25, 54, 62.5, 67, 62.5, 83.5, 33, 33.5, 21, 46, 21, 41.5]
 
     # Create DataFrame
     df_median = pd.DataFrame({
