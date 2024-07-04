@@ -81,24 +81,24 @@ current_rolling_corr = rolling_corr.iloc[-1]
 current_rolling_corr_date = rolling_corr.index[-1]
 
 # Display the results
-st.write(f"The lowest 252-day rolling correlation is {min_rolling_corr:.4f} on {min_rolling_corr_date.date()}")
+#st.write(f"The lowest 252-day rolling correlation is {min_rolling_corr:.4f} on {min_rolling_corr_date.date()}")
 
 # Plot the rolling correlation over time, highlighting the lowest correlation
-fig1, ax1 = plt.subplots(figsize=(14, 7))
-ax1.plot(rolling_corr, label='252-day Rolling Correlation')
-ax1.axhline(y=min_rolling_corr, color='r', linestyle='--', label=f'Lowest Correlation: {min_rolling_corr:.4f}')
-ax1.set_title('252-day Rolling Correlation between SPY and RSP (Highlighting Lowest)')
-ax1.set_xlabel('Date')
-ax1.set_ylabel('Correlation')
-ax1.legend()
-st.pyplot(fig1)
+#fig1, ax1 = plt.subplots(figsize=(14, 7))
+#ax1.plot(rolling_corr, label='252-day Rolling Correlation')
+#ax1.axhline(y=min_rolling_corr, color='r', linestyle='--', label=f'Lowest Correlation: {min_rolling_corr:.4f}')
+#ax1.set_title('252-day Rolling Correlation between SPY and RSP (Highlighting Lowest)')
+#ax1.set_xlabel('Date')
+#ax1.set_ylabel('Correlation')
+#ax1.legend()
+#st.pyplot(fig1)
 
 st.write(f"The current 252-day rolling correlation is {current_rolling_corr:.4f} on {current_rolling_corr_date.date()}")
 # Plot the rolling correlation over time, highlighting the current correlation
 fig2, ax2 = plt.subplots(figsize=(14, 7))
 ax2.plot(rolling_corr, label='252-day Rolling Correlation')
 ax2.axhline(y=current_rolling_corr, color='g', linestyle='--', label=f'Current Correlation: {current_rolling_corr:.4f}')
-ax2.set_title('252-day Rolling Correlation between SPY and RSP (Highlighting Current)')
+ax2.set_title('252-day Rolling Correlation between SPY and RSP')
 ax2.set_xlabel('Date')
 ax2.set_ylabel('Correlation')
 ax2.legend()
