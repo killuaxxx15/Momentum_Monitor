@@ -56,7 +56,7 @@ def create_price_chart(data, ticker):
 
 # Function to create relative performance chart
 def create_relative_performance_chart(data1, data2, ticker1, ticker2):
-    relative_perf = (data1['Close'] / (data2['Close'])
+    relative_perf = data1['Close'] / data2['Close']
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(relative_perf.index, relative_perf, label=f'{ticker1} vs {ticker2}')
     ax.set_title(f"Relative Performance: {ticker1} vs {ticker2}")
