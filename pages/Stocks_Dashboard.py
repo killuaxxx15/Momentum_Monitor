@@ -34,7 +34,7 @@ def get_company_info(ticker):
     
     return {
         "Ticker": ticker,
-        "Symbol Name": info.get("longName", "N/A"),
+        "Name": info.get("longName", "N/A"),
         "Last Price": last_price,
         "Market Cap": info.get("marketCap", "N/A"),
         "P/E Ratio": info.get("trailingPE", "N/A"),
