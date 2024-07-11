@@ -73,6 +73,7 @@ current_date = rolling_corr_sp500.index[-1]
 fig, ax = plt.subplots(figsize=(14, 7))
 ax.plot(rolling_corr_sp500, label='S&P 500 vs. 10-Yr. Yield')
 ax.plot(rolling_corr_russell2000, label='Russell 2000 vs. 10-Yr. Yield', color='orange')
+ax.axhline(y=0, color='black', linestyle='--', linewidth=1)
 ax.set_title('Rolling 2-Month Correlation')
 ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
