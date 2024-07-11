@@ -12,7 +12,7 @@ import time
 ### Configure App
 ##################################################################
 
-st.set_page_config(page_title="Stocks Dashboard", layout="wide")
+st.set_page_config(page_title="Stocks Dashboard", page_icon=':bar_chart:', layout="wide")
 st.html("styles.html")
 pio.templates.default = "plotly_white"
 
