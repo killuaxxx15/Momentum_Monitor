@@ -6,12 +6,13 @@ from datetime import datetime, timedelta
 from itertools import islice
 from plotly.subplots import make_subplots
 import yfinance as yf
+import time
 
 ##################################################################
 ### Configure App
 ##################################################################
 
-st.set_page_config(page_title="Stocks Dashboard", page_icon="💹", layout="wide")
+st.set_page_config(page_title="Stocks Dashboard", layout="wide")
 st.html("styles.html")
 pio.templates.default = "plotly_white"
 
@@ -30,13 +31,29 @@ def batched(iterable, n_cols):
 
 @st.cache_data
 def download_data(tickers, period="5y"):
-    ticker_data = yf.download(tickers, period=period, group_by="ticker")
+    ticker_data = {}
+    for ticker in tickers:
+        retries = 3
+        while retries > 0:
+            try:
+                ticker_data[ticker] = yf.download(ticker, period=period)
+                break
+            except Exception as e:
+                st.warning(f"Failed to download data for {ticker}: {str(e)}. Retrying...")
+                retries -= 1
+                time.sleep(1)
+        if retries == 0:
+            st.error(f"Failed to download data for {ticker} after multiple attempts.")
     
     history_dfs = {}
     ticker_df = pd.DataFrame(columns=["Ticker", "Symbol Name", "Last Price", "Previous Day Price", "Change", "Change Pct", "Volume", "Volume Avg", "Shares", "Day High", "Day Low", "Market Cap", "P/E Ratio", "EPS"])
     
-    for ticker in tickers:
-        history_df = ticker_data[ticker].copy()
+    for ticker, data in ticker_data.items():
+        if data.empty:
+            st.warning(f"No data available for {ticker}. Skipping...")
+            continue
+        
+        history_df = data.copy()
         history_df.reset_index(inplace=True)
         history_dfs[ticker] = history_df
         
@@ -96,8 +113,8 @@ def plot_sparkline(data):
             fill="tozeroy",
             line_color="red",
             fillcolor="pink",
-            hoverinfo="y",  # Only show y value on hover
-            hovertemplate="$%{y:.2f}<extra></extra>",  # Custom hover template
+            hoverinfo="y",
+            hovertemplate="$%{y:.2f}<extra></extra>",
         ),
     )
     fig_spark.update_xaxes(visible=False, fixedrange=True)
@@ -266,15 +283,17 @@ def display_symbol_history(ticker_df, history_dfs):
 
         with st.container():
             st.html('<span class="bottom_indicator"></span>')
-            st.metric("Average Daily Volume", f'{int(history_df["Volume"].mean()):,}')
-            st.metric(
-                "Current Market Cap",
-                "{:,} $".format(
-                    ticker_df[ticker_df["Ticker"] == selected_ticker][
-                        "Market Cap"
-                    ].values[0]
-                ),
-            )
+            avg_volume = history_df["Volume"].mean()
+            if pd.isna(avg_volume):
+                st.metric("Average Daily Volume", "N/A")
+            else:
+                st.metric("Average Daily Volume", f'{int(avg_volume):,}')
+            
+            market_cap = ticker_df[ticker_df["Ticker"] == selected_ticker]["Market Cap"].values[0]
+            if pd.isna(market_cap):
+                st.metric("Current Market Cap", "N/A")
+            else:
+                st.metric("Current Market Cap", "{:,} $".format(int(market_cap)))
 
 def display_overview(ticker_df):
     def format_currency(val):
@@ -328,7 +347,6 @@ ticker_df, history_dfs = transform_data(ticker_df, history_dfs)
 all_symbols = list(ticker_df["Ticker"])
 
 st.html('<h1 class="title">Stocks Dashboard</h1>')
-st.markdown("### Set to Wide mode to view properly")
 
 display_watchlist(ticker_df)
 
