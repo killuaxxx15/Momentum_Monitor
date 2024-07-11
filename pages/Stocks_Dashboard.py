@@ -83,11 +83,6 @@ data = get_stock_data(selected_ticker, period)
 price_chart = create_price_chart(data, selected_ticker)
 st.pyplot(price_chart)
 
-# Display company information
-st.subheader("Company Information")
-company_info = [get_company_info(ticker) for ticker in tickers]
-df = pd.DataFrame(company_info)
-st.dataframe(df, hide_index=True)
 
 # Relative performance chart
 st.subheader("Relative Performance")
@@ -101,3 +96,10 @@ data2 = get_stock_data(compare_ticker, period)
 # Create and display relative performance chart
 rel_perf_chart = create_relative_performance_chart(data1, data2, selected_ticker, compare_ticker)
 st.pyplot(rel_perf_chart)
+
+
+# Display company information
+st.subheader("Company Information")
+company_info = [get_company_info(ticker) for ticker in tickers]
+df = pd.DataFrame(company_info)
+st.dataframe(df, hide_index=True)
