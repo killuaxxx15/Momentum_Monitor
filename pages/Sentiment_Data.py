@@ -62,7 +62,7 @@ treasury_yield_returns = treasury_yield.pct_change().dropna()
 
 # Calculate rolling 42-day (2-month) correlations
 rolling_corr_sp500 = sp500_returns.rolling(window=44).corr(treasury_yield_returns)
-rolling_corr_russell2000 = russell2000_returns.rolling(window=42).corr(treasury_yield_returns)
+rolling_corr_russell2000 = russell2000_returns.rolling(window=44).corr(treasury_yield_returns)
 
 # Get the current 2-month rolling correlations
 current_rolling_corr_sp500 = rolling_corr_sp500.iloc[-1]
