@@ -13,10 +13,7 @@ import time
 ##################################################################
 
 st.set_page_config(page_title="Stocks Dashboard", layout="wide")
-# Read and apply custom CSS
-with open("styles.html", "r") as f:
-    styles = f.read()
-st.markdown(f"<style>{styles}</style>", unsafe_allow_html=True)
+st.html("styles.html")
 pio.templates.default = "plotly_white"
 
 # from itertools.batched, used to produce rows of columns
