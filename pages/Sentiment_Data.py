@@ -84,7 +84,7 @@ ax.plot(rolling_corr_russell2000, label='Russell 2000 vs. 10-Yr. Yield', color='
 # Add horizontal line at y=0
 ax.axhline(y=0, color='black', linestyle='--', linewidth=1)
 
-ax.set_title('Rolling 2-Month (44-day) Correlation')
+ax.set_title('Rolling 2-Month Correlation')
 ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
 ax.legend()
