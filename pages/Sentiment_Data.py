@@ -51,18 +51,25 @@ import matplotlib.pyplot as plt
 def fetch_data(ticker, start):
     return yf.download(ticker, start=start)['Adj Close']
 
-sp500 = fetch_data('^GSPC', '2021-11-01')
-russell2000 = fetch_data('^RUT', '2021-11-01')
-treasury_yield = fetch_data('^TNX', '2021-11-01')
+# Start fetching data from November 1, 2021
+start_date = '2021-11-01'
+sp500 = fetch_data('^GSPC', start_date)
+russell2000 = fetch_data('^RUT', start_date)
+treasury_yield = fetch_data('^TNX', start_date)
 
 # Calculate daily returns
 sp500_returns = sp500.pct_change().dropna()
 russell2000_returns = russell2000.pct_change().dropna()
 treasury_yield_returns = treasury_yield.pct_change().dropna()
 
-# Calculate rolling 42-day (2-month) correlations
+# Calculate rolling 44-day (2-month) correlations
 rolling_corr_sp500 = sp500_returns.rolling(window=44).corr(treasury_yield_returns)
 rolling_corr_russell2000 = russell2000_returns.rolling(window=44).corr(treasury_yield_returns)
+
+# Filter data to start from January 1, 2022
+start_display_date = '2022-01-01'
+rolling_corr_sp500 = rolling_corr_sp500[start_display_date:]
+rolling_corr_russell2000 = rolling_corr_russell2000[start_display_date:]
 
 # Get the current 2-month rolling correlations
 current_rolling_corr_sp500 = rolling_corr_sp500.iloc[-1]
@@ -73,11 +80,15 @@ current_date = rolling_corr_sp500.index[-1]
 fig, ax = plt.subplots(figsize=(14, 7))
 ax.plot(rolling_corr_sp500, label='S&P 500 vs. 10-Yr. Yield')
 ax.plot(rolling_corr_russell2000, label='Russell 2000 vs. 10-Yr. Yield', color='orange')
+
+# Add horizontal line at y=0
 ax.axhline(y=0, color='black', linestyle='--', linewidth=1)
-ax.set_title('Rolling 2-Month Correlation')
+
+ax.set_title('Rolling 2-Month (44-day) Correlation')
 ax.set_xlabel('Date')
 ax.set_ylabel('Correlation')
 ax.legend()
+
 st.pyplot(fig)
 
 
