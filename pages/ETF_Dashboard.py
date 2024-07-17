@@ -2,7 +2,6 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:')
@@ -136,5 +135,13 @@ etf_data1, etf_full_name1 = get_etf_data(selected_etf, time_period)
 etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
 
 # Create and display relative performance chart
+rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
+st.pyplot(rel_perf_chart)
+
+
+# Relative performance chart vs QQQ
+default_comparison_index = etf_tickers.index("QQQ")
+comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
 rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
 st.pyplot(rel_perf_chart)
