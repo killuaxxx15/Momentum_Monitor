@@ -2,7 +2,6 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='Stock Dashboard', page_icon=':bar_chart:')
@@ -141,15 +140,21 @@ st.pyplot(price_chart)
 
 # Relative performance chart
 st.subheader("Relative Performance")
-comparison_options = stock_tickers + index_etfs
-default_comparison_index = comparison_options.index("SPY")
-comparison_stock = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+comparison_options = index_etfs + stock_tickers
+comparison_stock = st.selectbox("Compare with", comparison_options, index=0)
 
 # Get data for both stocks
 stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
 stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
 
 # Create and display relative performance chart
+rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
+st.pyplot(rel_perf_chart)
+
+
+# Relative performance chart vs QQQ
+comparison_stock = st.selectbox("Compare with", comparison_options, index=1)
+stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
 rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
 st.pyplot(rel_perf_chart)
 
