@@ -2,6 +2,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:')
@@ -21,6 +22,7 @@ etf_tickers = [
     "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX", "AIRR", "SPMO"
 ]
 
+@st.cache_data
 def get_etf_data(etf_ticker, time_period):
     """
     Fetch ETF data, full name, and calculate moving averages if enough data points are available.
@@ -47,6 +49,7 @@ def get_etf_data(etf_ticker, time_period):
     
     return historical_data, full_name
 
+@st.cache_data
 def create_etf_price_chart(etf_data, etf_full_name):
     """
     Create a price chart for the ETF including moving averages if available.
@@ -66,6 +69,7 @@ def create_etf_price_chart(etf_data, etf_full_name):
     ax.legend()
     return fig
 
+@st.cache_data
 def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2):
     """
     Create a relative performance chart comparing two ETFs using aligned dates,
@@ -104,6 +108,57 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
     ax.set_ylabel("Relative Performance")
     ax.legend()
     return fig
+
+@st.cache_data
+def get_ETF_info(ticker):
+    ETF = yf.Ticker(ticker)
+    info = ETF.info
+    
+    try:
+        last_price = info['currentPrice']
+    except KeyError:
+        try:
+            last_price = ETF.history(period="1d")['Close'].iloc[-1]
+        except IndexError:
+            last_price = np.nan
+    
+    return {
+        "Ticker": ticker,
+        "Name": info.get("longName", "N/A"),
+        "Price": last_price,
+        "P/E Ratio": info.get("trailingPE", np.nan),
+        "52 Week Low": info.get("fiftyTwoWeekLow", np.nan),
+        "52 Week High": info.get("fiftyTwoWeekHigh", np.nan),
+        "Yield": info.get("yield", np.nan),
+        "Net Assets": info.get("totalAssets", np.nan),
+        "NAV": info.get("navPrice", np.nan),
+        "YTD Daily Total Return": info.get("ytdReturn", np.nan),
+        "Beta": info.get("beta3Year", np.nan)
+    }
+
+def process_etf_info(etf_info_list):
+    for info in etf_info_list:
+        # Process numeric columns
+        for key in ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Beta']:
+            if info[key] != "N/A" and not pd.isna(info[key]):
+                info[key] = round(float(info[key]), 2)
+            else:
+                info[key] = np.nan
+        
+        # Process percentage columns
+        for key in ['Yield', 'YTD Daily Total Return']:
+            if info[key] != "N/A" and not pd.isna(info[key]):
+                info[key] = round(float(info[key]) * 100, 2)  # Convert to percentage
+            else:
+                info[key] = np.nan
+        
+        # Process Net Assets
+        if info['Net Assets'] != "N/A" and not pd.isna(info['Net Assets']):
+            info['Net Assets'] = float(info['Net Assets']) / 1_000_000  # Convert to millions
+        else:
+            info['Net Assets'] = np.nan
+    
+    return etf_info_list
 
 # Streamlit app
 st.header("ETF Dashboard")
@@ -145,3 +200,30 @@ comparison_etf = st.selectbox("Compare with", comparison_options, index=default_
 etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
 rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
 st.pyplot(rel_perf_chart)
+
+
+# Display ETF information
+st.subheader("ETF Information")
+ETF_info = [get_ETF_info(ticker) for ticker in etf_tickers]
+processed_ETF_info = process_etf_info(ETF_info)
+df = pd.DataFrame(processed_ETF_info)
+
+# Convert columns to numeric, coercing errors to NaN
+numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Yield', 'YTD Daily Total Return', 'Beta', 'Net Assets']
+for col in numeric_columns:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
+# Create a formatting dictionary
+format_dict = {
+    'Price': '{:.2f}',
+    'P/E Ratio': '{:.2f}',
+    '52 Week Low': '{:.2f}',
+    '52 Week High': '{:.2f}',
+    'NAV': '{:.2f}',
+    'Yield': '{:.2f}%',
+    'YTD Daily Total Return': '{:.2f}%',
+    'Beta': '{:.2f}',
+    'Net Assets': lambda x: f'{x:.2f}M' if pd.notnull(x) else 'N/A'
+}
+
+st.dataframe(df.style.format(format_dict), hide_index=True)
