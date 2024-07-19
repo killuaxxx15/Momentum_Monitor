@@ -136,7 +136,7 @@ def get_ETF_info(ticker):
     }
 
 # Streamlit app
-st.header("ETF Dashboard (still editing")
+st.header("ETF Dashboard (still editing)")
 
 # Selection options in main content area
 col1, col2 = st.columns(2)
