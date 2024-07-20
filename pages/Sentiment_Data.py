@@ -8,10 +8,10 @@ st.set_page_config(page_title='Sentiment Data', page_icon=':bar_chart:')
 st.header('Sentiment Data')
 
 # Display the last update date
-st.markdown('#### Updated: 12/07/2024')
+st.markdown('#### Updated: 19/07/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Sentiment_Data_12_07_2024.xlsx'
+excel_file = 'Sentiment_Data_19_07_2024.xlsx'
 sheet_name = 'Sheet1'
 
 # Cache data loading function for better performance
@@ -36,10 +36,10 @@ df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
 
 st.header('Bull/Bear Ratios')
-st.image('fig1_12_07_2024.png', caption='Figure 1', use_column_width=True)
+st.image('fig1_19_07_2024.png', caption='Figure 1', use_column_width=True)
 
 st.header('Put/Call & Vix')
-st.image('fig2_12_07_2024.png', caption='Figure 2', use_column_width=True)
+st.image('fig2_19_07_2024.png', caption='Figure 2', use_column_width=True)
 
 
 
