@@ -2,6 +2,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='Stock Dashboard', page_icon=':bar_chart:')
@@ -14,6 +15,7 @@ stock_tickers = [
 # List of major index ETFs for comparison
 index_etfs = ["SPY", "QQQ"]
 
+@st.cache_data
 def get_stock_data(stock_ticker, time_period):
     """
     Fetch stock data, full name, and calculate moving averages if enough data points are available.
@@ -40,27 +42,7 @@ def get_stock_data(stock_ticker, time_period):
     
     return historical_data, full_name
 
-# Function to get company info (retained from original code)
-def get_company_info(ticker):
-    stock = yf.Ticker(ticker)
-    info = stock.info
-    
-    # Use the same fallback method for the last price
-    try:
-        last_price = info['currentPrice']
-    except KeyError:
-        last_price = stock.history(period="1d")['Close'].iloc[-1]
-    
-    return {
-        "Ticker": ticker,
-        "Name": info.get("longName", "N/A"),
-        "Last Price": last_price,
-        "Market Cap": info.get("marketCap", "N/A"),
-        "P/E Ratio": info.get("trailingPE", "N/A"),
-        "52 Week High": info.get("fiftyTwoWeekHigh", "N/A"),
-        "52 Week Low": info.get("fiftyTwoWeekLow", "N/A")
-    }
-
+@st.cache_data
 def create_stock_price_chart(stock_data, stock_full_name):
     """
     Create a price chart for the stock including moving averages if available.
@@ -80,6 +62,7 @@ def create_stock_price_chart(stock_data, stock_full_name):
     ax.legend()
     return fig
 
+@st.cache_data
 def create_relative_performance_chart(stock_data1, stock_data2, stock_name1, stock_name2):
     """
     Create a relative performance chart comparing two stocks using aligned dates,
@@ -118,6 +101,58 @@ def create_relative_performance_chart(stock_data1, stock_data2, stock_name1, sto
     ax.set_ylabel("Relative Performance")
     ax.legend()
     return fig
+
+# Function to get company info
+@st.cache_data
+def get_company_info(ticker):
+    stock = yf.Ticker(ticker)
+    info = stock.info
+    
+    try:
+        last_price = info['currentPrice']
+    except KeyError:
+        try:
+            last_price = stock.history(period="1d")['Close'].iloc[-1]
+        except IndexError:
+            last_price = np.nan
+    
+    return {
+        "Ticker": ticker,
+        "Name": info.get("longName", "N/A"),
+        "Price": last_price,
+        "P/E Ratio": info.get("trailingPE", np.nan),
+        "52 Week Low": info.get("fiftyTwoWeekLow", np.nan),
+        "52 Week High": info.get("fiftyTwoWeekHigh", np.nan),
+        "Market Cap": info.get("marketCap", np.nan),
+        "Div Yield": info.get("dividendYield", np.nan),
+        "Beta": info.get("beta", np.nan),
+        "EPS": info.get("trailingEps", np.nan)
+    }
+
+@st.cache_data
+def process_company_info(company_info_list):
+    for info in company_info_list:
+        # Process numeric columns
+        for key in ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Beta', 'EPS']:
+            if info[key] != "N/A" and not pd.isna(info[key]):
+                info[key] = round(float(info[key]), 2)
+            else:
+                info[key] = np.nan
+
+        # Process percentage columns
+        for key in ['Div Yield']:
+            if info[key] != "N/A" and not pd.isna(info[key]):
+                info[key] = round(float(info[key]) * 100, 2)  # Convert to percentage
+            else:
+                info[key] = np.nan
+
+        # Process Market Cap
+        if info['Market Cap'] != "N/A" and not pd.isna(info['Market Cap']):
+            info['Market Cap'] = float(info['Market Cap']) / 1_000_000_000 # Convert to billions
+        else:
+            info['Market Cap'] = np.nan
+
+    return company_info_list
 
 # Streamlit app
 st.header("Stock Dashboard")
@@ -161,5 +196,24 @@ st.pyplot(rel_perf_chart)
 # Display company information
 st.subheader("Company Information")
 company_info = [get_company_info(ticker) for ticker in stock_tickers]
-df = pd.DataFrame(company_info)
-st.dataframe(df, hide_index=True)
+process_Company_info = process_company_info(company_info)
+df = pd.DataFrame(process_Company_info)
+
+# Convert columns to numeric, coercing errors to NaN
+numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Div Yield', 'Beta', 'EPS']
+for col in numeric_columns:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
+# Create a formatting dictionary
+format_dict = {
+    'Price': '{:.2f}',
+    'P/E Ratio': '{:.2f}',
+    '52 Week Low': '{:.2f}',
+    '52 Week High': '{:.2f}',
+    'Div Yield': '{:.2f}%',
+    'Beta': '{:.2f}',
+    'EPS': '{:.2f}',
+    'Market Cap': lambda x: f'{x:.2f}B' if pd.notnull(x) else 'N/A'
+}
+
+st.dataframe(df.style.format(format_dict), hide_index=True)
