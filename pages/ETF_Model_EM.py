@@ -8,10 +8,10 @@ st.set_page_config(page_title='ETF Model EM', page_icon=':bar_chart:')
 st.header('ETF Model EM')
 
 # Display the last update date
-st.markdown('#### Updated: 22/07/2024')
+st.markdown('#### Updated: 29/07/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'ETF_Model_EM_22_07_2024.xlsx'
+excel_file = 'ETF_Model_EM_29_07_2024.xlsx'
 sheet_name1 = 'OUTPUT_COUNTRY'
 sheet_name2 = 'OUTPUT_PPT'
 
