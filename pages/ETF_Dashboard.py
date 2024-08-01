@@ -19,7 +19,7 @@ etf_tickers = [
     "KIE", "TIP", "SHY", "DBA", "UNG", "DBC", "KSA", "USO", "ILF", "UUP", "WEAT",
     "VNM", "EWZ", "^VIX", "BNO", "CHIR", "CBON", "EMCB", "LEMB", "VWO", "EWI",
     "^MOVE", "VGK", "XWD.TO", "ITB", "IYT", "IYJ", "QUAL", "IVW", "IAI", "IGE", "IHI",
-    "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX", "AIRR", "SPMO"
+    "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX", "AIRR", "SPMO", "ITA"
 ]
 
 @st.cache_data
