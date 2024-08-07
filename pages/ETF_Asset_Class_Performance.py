@@ -21,7 +21,7 @@ def get_ETF_info(ticker):
 
     # Define end date and start date for data fetch
     end_date = datetime.now().strftime("%Y-%m-%d")
-    ytd_start_date = "2023-12-29"  # YTD start date
+    ytd_start_date = "2024-07-31"  # YTD start date
 
     # Get historical data
     hist_data = yf.download(ticker, start=ytd_start_date, end=end_date)
@@ -30,8 +30,8 @@ def get_ETF_info(ticker):
         # YTD calculation
         ytd_start_price = hist_data.loc[ytd_start_date, 'Adj Close']
         st.write(f"Debug - YTD Start Price (Adj Close): {ytd_start_price}")
-        ytd_start_price1 = hist_data.loc[ytd_start_date, 'Open']
-        st.write(f"Debug - YTD Start Price (Open): {ytd_start_price1}")
+        ytd_start_price1 = hist_data.loc[ytd_start_date, 'Close']
+        st.write(f"Debug - YTD Start Price (Close): {ytd_start_price1}")
 
         # MTD calculation
         current_month = datetime.now().replace(day=1)
