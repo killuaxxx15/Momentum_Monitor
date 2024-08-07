@@ -29,6 +29,7 @@ def get_ETF_info(ticker):
     if not hist_data.empty:
         # YTD calculation
         ytd_start_price = hist_data.loc[ytd_start_date, 'Adj Close']
+        st.write(f"Debug - YTD Start Price (Adj Close): {ytd_start_price}")
 
         # MTD calculation
         current_month = datetime.now().replace(day=1)
