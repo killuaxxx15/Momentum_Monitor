@@ -24,7 +24,7 @@ def get_ETF_info(ticker):
     ytd_start_date = "2023-12-29"  # YTD start date
 
     # Get historical data
-    hist_data = yf.download(ticker, start="2023-12-28", end=end_date)
+    hist_data = yf.download(ticker, start=ytd_start_date, end=end_date)
 
     if not hist_data.empty:
         # YTD calculation
