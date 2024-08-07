@@ -108,7 +108,8 @@ def create_etf_table(tickers):
     return df.style.format(format_dict).map(color_scale, subset=numeric_columns)
 
 # Main Streamlit app
-st.header('ETF Asset Class Performance YTD, MTD, and This Week (Currently Editing)')
+st.header('Currently Editing')
+st.header('ETF Asset Class Performance YTD, MTD, and This Week')
 
 st.subheader('US Related')
 us_related_etf_table = create_etf_table(us_related_etf_tickers)
