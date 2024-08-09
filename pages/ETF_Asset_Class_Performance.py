@@ -14,7 +14,7 @@ us_related_etf_tickers = ['SPY', 'DIA', 'QQQ', 'IJH', 'IJR', 'IWB', 'IWM', 'IWV'
 us_sectors_etf_tickers = ['XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLB', 'XLRE', 'XLK', 'XLC', 'XLU', 'DBC', 'DBA', 'USO', 'UNG', 'GLD', 'SLV', 'SHY', 'IEF' ,'TLT', 'AGG', 'BND', 'TIP']
 global_etf_tickers = ['EWA', 'EWZ', 'EWC', 'ASHR', 'EWQ', 'EWG', 'EWH', 'PIN', 'EWI', 'EWJ', 'EWW', 'EWP', 'EIS', 'EWU', 'EFA', 'EEM', 'IOO', 'BKF', 'CWI', 'FXB', 'FXE', 'FXY']
 
-
+@st.data_cache
 def get_ETF_info(ticker):
     ETF = yf.Ticker(ticker)
     info = ETF.info
@@ -108,7 +108,6 @@ def create_etf_table(tickers):
     return df.style.format(format_dict).map(color_scale, subset=numeric_columns)
 
 # Main Streamlit app
-st.header('Currently Editing')
 st.header('ETF Asset Class Performance YTD, MTD, and This Week')
 
 st.subheader('US Related')
