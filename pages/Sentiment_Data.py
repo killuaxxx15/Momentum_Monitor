@@ -92,4 +92,4 @@ ax.legend()
 st.pyplot(fig)
 
 
-st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
+# st.image('fig33.jpeg', caption='Figure 3', use_column_width=True)
