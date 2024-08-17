@@ -33,13 +33,28 @@ def format_number(val):
     except ValueError:
         return val
 
+# Function to apply background color based on cell value
+def color_cells(val):
+    if val == 'Equity':
+        return 'background-color: #ccffcc'  # Light green
+    elif val == 'Turn Cautious':
+        return 'background-color: #ffffcc'  # Light yellow
+    elif val == 'Cash':
+        return 'background-color: #ffcccc'  # Light red
+    else:
+        return ''
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'C:H', 7, 9)
 df1 = df1.fillna('')
 df1 = df1.applymap(format_number)
+
+# Apply styling to the dataframe
+df1 = df1.style.applymap(color_cells)
+
 st.markdown('### Table 1')
 st.dataframe(df1, hide_index=True)
+
 
 # TABLE 2
 df2 = load_excel_data(excel_file, sheet_name, 'C:E', 19, 1)
