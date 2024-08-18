@@ -148,7 +148,7 @@ def main():
     st.header("Risk-On vs. Risk-Off Percentile Dashboard")
 
     # Add date input widget
-    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-08-11"))
+    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-08-18"))
     end_date = end_date.strftime("%Y-%m-%d")  # Convert to string format
 
     # Add frequency selection widget
