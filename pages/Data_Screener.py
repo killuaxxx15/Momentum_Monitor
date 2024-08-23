@@ -10,4 +10,4 @@ st.header('Data Screener')
 url = "https://data-screener.streamlit.app"
 
 # Create a clickable link
-st.markdown(f'Link: [Data Screener]({url})')
+st.markdown(f'Link to [Data Screener]({url})')
