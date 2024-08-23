@@ -8,10 +8,10 @@ st.set_page_config(page_title='Sentiment Data', page_icon=':bar_chart:')
 st.header('Sentiment Data')
 
 # Display the last update date
-st.markdown('#### Updated: 16/08/2024')
+st.markdown('#### Updated: 23/08/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'Sentiment_Data_16_08_2024.xlsx'
+excel_file = 'Sentiment_Data_23_08_2024.xlsx'
 sheet_name = 'Sheet1'
 
 # Cache data loading function for better performance
@@ -39,7 +39,7 @@ st.header('Bull/Bear Ratios')
 st.image('fig1_16_08_2024.png', caption='Figure 1', use_column_width=True)
 
 st.header('Put/Call & Vix')
-st.image('fig2_16_08_2024.png', caption='Figure 2', use_column_width=True)
+st.image('fig2_23_08_2024.png', caption='Figure 2', use_column_width=True)
 
 
 
