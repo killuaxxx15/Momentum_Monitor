@@ -8,9 +8,6 @@ st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 # Display header for the dashboard
 st.header('Cash Model')
 
-# Display the last update date
-st.markdown('#### from Excel file from Alvaro')
-
 # Define Excel file and sheet name variables
 excel_file = 'CashSignal_Streamlit.xlsm'
 sheet_name = 'CashSignals'
@@ -98,5 +95,6 @@ for col in signal_columns_2:
 # Apply row highlighting
 styled_df = styled_df.apply(highlight_rows, axis=1)
 
-st.markdown('### US Sentiment Signals')
+st.markdown('#US Sentiment Signals')
+st.markdown('#### from Excel file from Alvaro')
 st.dataframe(styled_df, hide_index=True)
