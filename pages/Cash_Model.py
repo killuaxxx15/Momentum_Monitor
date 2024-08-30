@@ -9,7 +9,7 @@ st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 st.header('Cash Model')
 
 # Display the last update date
-st.markdown('#### To Be Updated')
+st.markdown('#### Data To Be Updated')
 
 # Define Excel file and sheet name variables
 excel_file = 'CashSignal_Streamlit.xlsm'
@@ -17,7 +17,7 @@ sheet_name_us = 'CashSignals'
 sheet_name_world = 'WorldxUSSignals'
 
 # Cache data loading function for better performance
-@st.cache_data
+st.cache_data
 def load_excel_data(file_name, sheet, header_row, num_rows):
     # Define the columns to use
     cols_to_use = list(range(1, 11)) + [18, 27]  # B to K (1-10), S (18), AB (27)
