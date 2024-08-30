@@ -96,5 +96,5 @@ for col in signal_columns_2:
 styled_df = styled_df.apply(highlight_rows, axis=1)
 
 st.markdown('### US Sentiment Signals')
-st.markdown('#### from Excel file from Alvaro')
+st.markdown('#### data to be updated')
 st.dataframe(styled_df, hide_index=True)
