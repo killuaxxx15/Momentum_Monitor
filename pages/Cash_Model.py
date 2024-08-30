@@ -12,7 +12,7 @@ st.header('Cash Model')
 st.markdown('#### Data To Be Updated')
 
 # Define Excel file and sheet name variables
-excel_file = 'CashSignal_Streamlit.xlsm'
+excel_file = 'CashSignal_Streamlit_v2.xlsm'
 sheet_name_us = 'CashSignals'
 sheet_name_world = 'WorldxUSSignals'
 
