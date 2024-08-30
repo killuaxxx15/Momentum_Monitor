@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import numpy as np
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
@@ -8,115 +9,110 @@ st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 st.header('Cash Model')
 
 # Display the last update date
-st.markdown('#### Updated: 23/08/2024')
+st.markdown('#### Data To Be Updated')
 
 # Define Excel file and sheet name variables
-excel_file = 'Cash_Model_16_08_2024.xlsx'
-sheet_name = 'Sheet1'
-
+excel_file = 'CashSignal_Streamlit.xlsm'
+sheet_name_us = 'CashSignals'
+sheet_name_world = 'WorldxUSSignals'
 
 # Cache data loading function for better performance
 @st.cache_data
-def load_excel_data(file_name, sheet, use_columns, header_row, num_rows):
-    return pd.read_excel(file_name, sheet_name=sheet, usecols=use_columns, header=header_row, nrows=num_rows)
+def load_excel_data(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = list(range(1, 11)) + [18, 27]  # B to K (1-10), S (18), AB (27)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
-# Define a function to format numbers
-def format_number(val):
-    if pd.isna(val) or val == '':
-        return ''
-    try:
-        val = float(val)
-        if val.is_integer():
-            return "{:.0f}".format(val)
-        else:
-            return "{:.2f}".format(val)
-    except ValueError:
+# Format percentage as whole number with one decimal place, handling non-numeric values
+def percent_whole_number(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
         return val
+    return f"{val * 100:.1f}%"
 
-# Function to apply background color based on cell value
-def color_cells(val):
-    if val == 'Equity':
-        return 'background-color: #ccffcc'  # Light green
-    elif val == 'Turn Cautious':
-        return 'background-color: #ffffcc'  # Light yellow
-    elif val == 'Cash':
-        return 'background-color: #ffcccc'  # Light red
-    else:
-        return ''
+# Format as whole number without decimal points
+def whole_number(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return val
+    return f"{int(val)}"
 
-# TABLE 1
-df1 = load_excel_data(excel_file, sheet_name, 'C:H', 7, 9)
-df1 = df1.fillna('')
-df1 = df1.applymap(format_number)
+# New function to format as percentage whole number without decimals
+def percent_whole_number_no_decimal(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return val
+    return f"{int(val * 100)}%"
 
-# Apply styling to the dataframe
-df1 = df1.style.applymap(color_cells)
+# Conditional formatting function
+def color_signal_1(val):
+    if val == 1:
+        return 'background-color: #90EE90'  # Green
+    return ''
 
-st.markdown('### Table 1')
-st.dataframe(df1, hide_index=True)
+def color_signal_2(val):
+    if val == 'INVESTED' or (isinstance(val, (int, float)) and val > 0.75):
+        return 'background-color: #90EE90'  # Green
+    elif val == 'CAUTIOUS' or (isinstance(val, (int, float)) and 0.25 <= val <= 0.75):
+        return 'background-color: #FFFF99'  # Yellow
+    elif val == 'CASH' or (isinstance(val, (int, float)) and val < 0.25):
+        return 'background-color: #FF9999'  # Red
+    elif val == 'IMPROVING':
+        return 'background-color: #ADD8E6'  # Blue
+    return ''
 
+# New function to highlight specific rows
+def highlight_rows(row):
+    if row.name in [0, 9, 13, 16, 19]:  # Adjust for 0-based index
+        return ['background-color: #ADD8E6'] * len(row)  # Light blue
+    return [''] * len(row)
 
-# TABLE 2
-df2 = load_excel_data(excel_file, sheet_name, 'C:E', 19, 1)
-st.markdown('### Table 2')
-st.dataframe(df2, hide_index=True)
+def process_and_style_dataframe(df):
+    df = df.fillna('')
 
+    # Format specific cells as percentages
+    df.iloc[0:20, df.columns.get_loc('Level')] = df.iloc[0:20, df.columns.get_loc('Level')].apply(lambda x: f'{x:.0%}' if isinstance(x, (int, float)) else x)
+    df.iloc[20, df.columns.get_loc('Level')] = f'{df.iloc[20, df.columns.get_loc("Level")]:.2f}' if isinstance(df.iloc[20, df.columns.get_loc('Level')], (int, float)) else df.iloc[20, df.columns.get_loc('Level')]
+    df.iloc[21, df.columns.get_loc('Level')] = f'{df.iloc[21, df.columns.get_loc("Level")]:.1f}' if isinstance(df.iloc[21, df.columns.get_loc('Level')], (int, float)) else df.iloc[21, df.columns.get_loc('Level')]
+    df.iloc[22, df.columns.get_loc('Level')] = f'{df.iloc[22, df.columns.get_loc("Level")]:.0f}' if isinstance(df.iloc[22, df.columns.get_loc('Level')], (int, float)) else df.iloc[22, df.columns.get_loc('Level')]
 
+    # Apply formatting
+    format_dict = {}
+    for col in df.columns:
+        if col in ['50DMA', '100DMA', '200DMA']:
+            format_dict[col] = percent_whole_number
+        elif col in ['50DMA.1', '100DMA.1', '200DMA.1']:
+            format_dict[col] = whole_number
+        elif col in ['Current Reading', 'Short Term Trend', '1 Week Ago', '1M Ago']:
+            format_dict[col] = percent_whole_number_no_decimal
 
+    styled_df = df.style.format(format_dict)
 
+    # Apply conditional formatting
+    signal_columns_1 = ['50DMA.1', '100DMA.1', '200DMA.1']  # Adjust this list as needed
+    for col in signal_columns_1:
+        if col in df.columns:
+            styled_df = styled_df.applymap(color_signal_1, subset=[col])
 
-import yfinance as yf
-import matplotlib.pyplot as plt
+    signal_columns_2 = ['Current Reading', 'Short Term Trend', '1 Week Ago', '1M Ago']  # Adjust this list as needed
+    for col in signal_columns_2:
+        if col in df.columns:
+            styled_df = styled_df.applymap(color_signal_2, subset=[col])
 
-# Set up the Streamlit app
-st.markdown("### Breadth")
-st.markdown("#### Rolling 252-day Correlation between SPY and RSP")
+    # Apply row highlighting and bold text
+    styled_df = styled_df.apply(highlight_rows, axis=1)
 
-# Fetch data
-@st.cache_data
-def fetch_data(ticker, start):
-    return yf.download(ticker, start=start)['Adj Close']
+    return styled_df
 
-spy = fetch_data('SPY', '2003-01-01')
-rsp = fetch_data('RSP', '2003-01-01')
+# Load and process US data
+df_us = load_excel_data(excel_file, sheet_name_us, 2, 33)
+styled_df_us = process_and_style_dataframe(df_us)
 
-# Calculate daily returns
-spy_returns = spy.pct_change().dropna()
-rsp_returns = rsp.pct_change().dropna()
+# Load and process World ex-US data
+df_world = load_excel_data(excel_file, sheet_name_world, 2, 33)
+styled_df_world = process_and_style_dataframe(df_world)
 
-# Calculate rolling 252-day correlation
-rolling_corr = spy_returns.rolling(window=252).corr(rsp_returns)
+# Display US Sentiment Signals
+st.markdown('### US Sentiment Signals')
+st.dataframe(styled_df_us, hide_index=True)
 
-# Find the minimum rolling correlation
-min_rolling_corr = rolling_corr.min()
-min_rolling_corr_date = rolling_corr.idxmin()
-
-# Get the current 252-day rolling correlation
-current_rolling_corr = rolling_corr.iloc[-1]
-current_rolling_corr_date = rolling_corr.index[-1]
-
-# Display the results
-#st.write(f"The lowest 252-day rolling correlation is {min_rolling_corr:.4f} on {min_rolling_corr_date.date()}")
-
-# Plot the rolling correlation over time, highlighting the lowest correlation
-#fig1, ax1 = plt.subplots(figsize=(14, 7))
-#ax1.plot(rolling_corr, label='252-day Rolling Correlation')
-#ax1.axhline(y=min_rolling_corr, color='r', linestyle='--', label=f'Lowest Correlation: {min_rolling_corr:.4f}')
-#ax1.set_title('252-day Rolling Correlation between SPY and RSP (Highlighting Lowest)')
-#ax1.set_xlabel('Date')
-#ax1.set_ylabel('Correlation')
-#ax1.legend()
-#st.pyplot(fig1)
-
-st.write(f"The current 252-day rolling correlation is {current_rolling_corr:.4f} on {current_rolling_corr_date.date()}")
-# Plot the rolling correlation over time, highlighting the current correlation
-fig2, ax2 = plt.subplots(figsize=(14, 7))
-ax2.plot(rolling_corr, label='252-day Rolling Correlation')
-ax2.axhline(y=current_rolling_corr, color='g', linestyle='--', label=f'Current Correlation: {current_rolling_corr:.4f}')
-ax2.set_title('252-day Rolling Correlation between SPY and RSP')
-ax2.set_xlabel('Date')
-ax2.set_ylabel('Correlation')
-ax2.legend()
-st.pyplot(fig2)
-
-
+# Display World ex-US Sentiment Signals
+st.markdown('### World ex-US Sentiment Signals')
+st.dataframe(styled_df_world, hide_index=True)
