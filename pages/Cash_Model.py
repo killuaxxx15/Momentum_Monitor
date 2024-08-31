@@ -9,10 +9,10 @@ st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 st.header('Cash Model')
 
 # Display the last update date
-st.markdown('#### Data To Be Updated')
+st.markdown('#### Update: 31/08/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'CashSignal_Streamlit_v2.xlsm'
+excel_file = 'CashSignal_Streamlit_31_08_2024.xlsm'
 sheet_name_us = 'CashSignals'
 sheet_name_world = 'WorldxUSSignals'
 
