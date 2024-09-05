@@ -20,7 +20,7 @@ def main():
         return
 
     # Create a slider to select the image
-    selected_image_index = st.slider(" ", 0, len(image_files) - 1)
+    selected_image_index = st.slider(" ", 0, len(image_files) - 1, value=len(image_files) - 1)
 
     # Display the selected image
     image_path = image_files[selected_image_index]
