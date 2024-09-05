@@ -149,7 +149,7 @@ def main():
     st.markdown("### To Be Updated")
 
     # Add date input widget
-    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-08-25"))
+    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-09-01"))
     end_date = end_date.strftime("%Y-%m-%d")  # Convert to string format
 
     # Add frequency selection widget
@@ -176,7 +176,7 @@ def main():
         'NIFTY METAL', 'NIFTY PSU BANK', 'NIFTY REALTY', 'NIFTY CONSUMPTION', 'NIFTY PSE', 'NIFTY MNC'
     ]
 
-    median_6_months = [29, 54, 62.5, 62.5, 62.5, 58.5, 41.5, 54, 25, 46, 21, 41.5]
+    median_6_months = [37.5, 46, 45.5, 54, 42, 58.5, 33, 75, 50, 37.5, 33.5, 46]
 
     # Create DataFrame
     df_median = pd.DataFrame({
