@@ -136,7 +136,7 @@ etf_tickers = [
     "EIDO", "EPOL", "EWM", "EWT", "EWW", "EWY", "EWZ", "EZA", "GREK", "TUR", "UAE", "KSA", "ARGT",
     "THD", "EPHE", "ECH", "INDA", "COPX", "PICK", "MOO", "PRN", "EWL", "EWG", "EWU", "EWC", "EWA",
     "EWQ", "EWN", "EWD", "EWI", "EWJ", "QQQ", "SPY", "XLF", "XLV", "XLY", "XLP", "XLB", "XLE", "XLU",
-    "ITA", "ITB", "CNYA", "MCHI", "KTEC-US", "KWEB-US", "IWM", "SOXX", "EFV", "EEM", "EFA", "3110.HK", 
+    "ITA", "ITB", "CNYA", "MCHI", "KTEC", "KWEB", "IWM", "SOXX", "EFV", "EEM", "EFA", "3110.HK", 
     "EPI", "GDX", "SMIN"
 ]
 
