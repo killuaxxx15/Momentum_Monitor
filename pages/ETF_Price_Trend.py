@@ -32,7 +32,7 @@ def Logarithmic_regression(df):
     return df
 
 @st.cache_data
-def plot_chart(ax, df):
+def plot_chart(_ax, df):
     RAINBOWCOLOR1 = 'hotpink'
     RAINBOWCOLOR2 = 'orange'
     RAINBOWCOLOR3 = 'gold'
