@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import yfinance as yf
 
-@st.cache_data
+#@st.cache_data
 def Logarithmic_regression(df):
     # Create a copy of the DataFrame to ensure we're not working on a slice
     df = df[df['Close'].notna()].copy()
@@ -31,8 +31,8 @@ def Logarithmic_regression(df):
     
     return df
 
-@st.cache_data
-def plot_chart(_ax, df):
+#@st.cache_data
+def plot_chart(ax, df):
     RAINBOWCOLOR1 = 'hotpink'
     RAINBOWCOLOR2 = 'orange'
     RAINBOWCOLOR3 = 'gold'
