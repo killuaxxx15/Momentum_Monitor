@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Set Streamlit page configuration
-st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:')
+st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:', layout="wide")
 
 # List of ETF tickers
 etf_tickers = [
@@ -165,66 +165,72 @@ def process_etf_info(etf_info_list):
 st.header("ETF Dashboard")
 
 # Selection options in main content area
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:
     default_index = 0
     selected_etf = st.selectbox("Select an ETF", etf_tickers, index=default_index)
 with col2:
     time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
+with col3:
+    comparison_options = etf_tickers
+    default_comparison_index = etf_tickers.index("SPY")
+    comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
 
+
+col11, col22 = st.columns(2)
 # Main content
-etf_data, etf_full_name = get_etf_data(selected_etf, time_period)
-st.subheader(f"{etf_full_name} ({selected_etf})")
+with col11:
+    etf_data, etf_full_name = get_etf_data(selected_etf, time_period)
+    st.subheader(f"{etf_full_name} ({selected_etf})")
 
-# Create and display price chart
-price_chart = create_etf_price_chart(etf_data, etf_full_name)
-st.pyplot(price_chart)
+    # Create and display price chart
+    price_chart = create_etf_price_chart(etf_data, etf_full_name)
+    st.pyplot(price_chart)
 
-# Relative performance chart
-st.subheader("Relative Performance")
-comparison_options = etf_tickers
-default_comparison_index = etf_tickers.index("SPY")
-comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+with col22:
+    # Relative performance chart
+    st.subheader("Relative Performance")
 
-# Get data for both ETFs
-etf_data1, etf_full_name1 = get_etf_data(selected_etf, time_period)
-etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
+    # Get data for both ETFs
+    etf_data1, etf_full_name1 = get_etf_data(selected_etf, time_period)
+    etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
 
-# Create and display relative performance chart
-rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
-st.pyplot(rel_perf_chart)
+    # Create and display relative performance chart
+    rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
+    st.pyplot(rel_perf_chart)
+
+col111, col222, col333 = st.columns([1, 2, 1])
+with col222:
+    # Relative performance chart vs QQQ
+    default_comparison_index = etf_tickers.index("QQQ")
+    comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+    etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
+    rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
+    st.pyplot(rel_perf_chart)
 
 
-# Relative performance chart vs QQQ
-default_comparison_index = etf_tickers.index("QQQ")
-comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
-etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
-rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
-st.pyplot(rel_perf_chart)
+    # Display ETF information
+    st.subheader("ETF Information")
+    ETF_info = [get_ETF_info(ticker) for ticker in etf_tickers]
+    processed_ETF_info = process_etf_info(ETF_info)
+    df = pd.DataFrame(processed_ETF_info)
 
+    # Convert columns to numeric, coercing errors to NaN
+    numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Yield', 'YTD Daily Total Return', 'Beta', 'Net Assets']
+    for col in numeric_columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
 
-# Display ETF information
-st.subheader("ETF Information")
-ETF_info = [get_ETF_info(ticker) for ticker in etf_tickers]
-processed_ETF_info = process_etf_info(ETF_info)
-df = pd.DataFrame(processed_ETF_info)
+    # Create a formatting dictionary
+    format_dict = {
+        'Price': '{:.2f}',
+        'P/E Ratio': '{:.2f}',
+        '52 Week Low': '{:.2f}',
+        '52 Week High': '{:.2f}',
+        'NAV': '{:.2f}',
+        'Yield': '{:.2f}%',
+        'YTD Daily Total Return': '{:.2f}%',
+        'Beta': '{:.2f}',
+        'Net Assets': lambda x: f'{x:.2f}M' if pd.notnull(x) else 'N/A'
+    }
 
-# Convert columns to numeric, coercing errors to NaN
-numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Yield', 'YTD Daily Total Return', 'Beta', 'Net Assets']
-for col in numeric_columns:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
-
-# Create a formatting dictionary
-format_dict = {
-    'Price': '{:.2f}',
-    'P/E Ratio': '{:.2f}',
-    '52 Week Low': '{:.2f}',
-    '52 Week High': '{:.2f}',
-    'NAV': '{:.2f}',
-    'Yield': '{:.2f}%',
-    'YTD Daily Total Return': '{:.2f}%',
-    'Beta': '{:.2f}',
-    'Net Assets': lambda x: f'{x:.2f}M' if pd.notnull(x) else 'N/A'
-}
-
-st.dataframe(df.style.format(format_dict), hide_index=True)
+    st.dataframe(df.style.format(format_dict), hide_index=True)
