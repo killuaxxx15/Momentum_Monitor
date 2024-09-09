@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Set Streamlit page configuration
-st.set_page_config(page_title='Stock Dashboard', page_icon=':bar_chart:')
+st.set_page_config(page_title='Stock Dashboard', page_icon=':bar_chart:', layout="wide")
 
 # List of stock tickers
 stock_tickers = [
@@ -158,62 +158,73 @@ def process_company_info(company_info_list):
 st.header("Stock Dashboard")
 
 # Selection options in main content area
-col1, col2 = st.columns(2)
-with col1:
+col11, col22, col33 = st.columns(3)
+with col11:
     default_index = 0
     selected_stock = st.selectbox("Select a Stock", stock_tickers, index=default_index)
-with col2:
+with col22:
     time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
+with col33:
+    comparison_options = index_etfs + stock_tickers
+    comparison_stock = st.selectbox("Compare with", comparison_options, index=0)
+    
 
+
+col1, col2 = st.columns(2)
 # Main content
-stock_data, stock_full_name = get_stock_data(selected_stock, time_period)
-st.subheader(f"{stock_full_name} ({selected_stock})")
+with col1:
+    stock_data, stock_full_name = get_stock_data(selected_stock, time_period)
+    st.subheader(f"{stock_full_name} ({selected_stock})")
 
-# Create and display price chart
-price_chart = create_stock_price_chart(stock_data, stock_full_name)
-st.pyplot(price_chart)
+    # Create and display price chart
+    price_chart = create_stock_price_chart(stock_data, stock_full_name)
+    st.pyplot(price_chart)
 
-# Relative performance chart
-st.subheader("Relative Performance")
-comparison_options = index_etfs + stock_tickers
-comparison_stock = st.selectbox("Compare with", comparison_options, index=0)
+with col2:
+    # Relative performance chart
+    st.subheader("Relative Performance")
+    
+    # Get data for both stocks
+    stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
+    stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
 
-# Get data for both stocks
-stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
-stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
-
-# Create and display relative performance chart
-rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
-st.pyplot(rel_perf_chart)
+    # Create and display relative performance chart
+    rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
+    st.pyplot(rel_perf_chart)
 
 
+col111, col222, col333 = st.columns([1, 2, 1])
 # Relative performance chart vs QQQ
-comparison_stock = st.selectbox("Compare with", comparison_options, index=1)
-stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
-rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
-st.pyplot(rel_perf_chart)
 
-# Display company information
-st.subheader("Company Information")
-company_info = [get_company_info(ticker) for ticker in stock_tickers]
-process_Company_info = process_company_info(company_info)
-df = pd.DataFrame(process_Company_info)
+# Use col2 and col3 to display the image
+with col222:
+    # Display the image across both col2 and col3
+    comparison_stock = st.selectbox("Compare with", comparison_options, index=1)
+    stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
+    rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
+    st.pyplot(rel_perf_chart)
 
-# Convert columns to numeric, coercing errors to NaN
-numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Div Yield', 'Beta', 'EPS']
-for col in numeric_columns:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
+    # Display company information
+    st.subheader("Company Information")
+    company_info = [get_company_info(ticker) for ticker in stock_tickers]
+    process_Company_info = process_company_info(company_info)
+    df = pd.DataFrame(process_Company_info)
 
-# Create a formatting dictionary
-format_dict = {
-    'Price': '{:.2f}',
-    'P/E Ratio': '{:.2f}',
-    '52 Week Low': '{:.2f}',
-    '52 Week High': '{:.2f}',
-    'Div Yield': '{:.2f}%',
-    'Beta': '{:.2f}',
-    'EPS': '{:.2f}',
-    'Market Cap': lambda x: f'{x:.2f}B' if pd.notnull(x) else 'N/A'
-}
+    # Convert columns to numeric, coercing errors to NaN
+    numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Div Yield', 'Beta', 'EPS']
+    for col in numeric_columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
 
-st.dataframe(df.style.format(format_dict), hide_index=True)
+    # Create a formatting dictionary
+    format_dict = {
+        'Price': '{:.2f}',
+        'P/E Ratio': '{:.2f}',
+        '52 Week Low': '{:.2f}',
+        '52 Week High': '{:.2f}',
+        'Div Yield': '{:.2f}%',
+        'Beta': '{:.2f}',
+        'EPS': '{:.2f}',
+        'Market Cap': lambda x: f'{x:.2f}B' if pd.notnull(x) else 'N/A'
+    }
+
+    st.dataframe(df.style.format(format_dict), hide_index=True)
