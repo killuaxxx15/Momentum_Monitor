@@ -20,7 +20,7 @@ etf_tickers = [
     "VNM", "EWZ", "^VIX", "BNO", "CBON", "EMCB", "LEMB", "VWO", "EWI",
     "^MOVE", "VGK", "XWD.TO", "ITB", "IYT", "IYJ", "QUAL", "IVW", "IAI", "IGE", "IHI",
     "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX", "AIRR", "SPMO", "ITA", "ACWX",
-    "IVE"
+    "IVE", "GLUX.MI"
 ]
 
 @st.cache_data
