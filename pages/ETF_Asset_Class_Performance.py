@@ -14,52 +14,50 @@ us_related_etf_tickers = ['SPY', 'DIA', 'QQQ', 'IJH', 'IJR', 'IWB', 'IWM', 'IWV'
 us_sectors_etf_tickers = ['XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLB', 'XLRE', 'XLK', 'XLC', 'XLU', 'DBC', 'DBA', 'USO', 'UNG', 'GLD', 'SLV', 'SHY', 'IEF' ,'TLT', 'AGG', 'BND', 'TIP']
 global_etf_tickers = ['EWA', 'EWZ', 'EWC', 'ASHR', 'EWQ', 'EWG', 'EWH', 'PIN', 'EWI', 'EWJ', 'EWW', 'EWP', 'EIS', 'EWU', 'EFA', 'EEM', 'IOO', 'BKF', 'CWI', 'FXB', 'FXE', 'FXY']
 
-# @st.cache_data
+@st.cache_data
 def get_ETF_info(ticker):
     ETF = yf.Ticker(ticker)
     info = ETF.info
 
     # Define end date and start date for data fetch
     end_date = datetime.now().strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")  # One year ago
     ytd_start_date = "2023-12-29"  # YTD start date
 
     # Get historical data
-    hist_data = yf.download(ticker, start=ytd_start_date, end=end_date)
+    hist_data = yf.download(ticker, start=start_date, end=end_date)
 
     if not hist_data.empty:
         # YTD calculation
         ytd_start_price = hist_data.loc[ytd_start_date:, 'Adj Close'].iloc[0]
-
-        # MTD calculation
-        current_month = datetime.now().replace(day=1)
-        prev_month_end = current_month - timedelta(days=1)
-        mtd_start_price = hist_data.loc[:prev_month_end.strftime("%Y-%m-%d"), 'Adj Close'].iloc[-1]
-
-        # This Week calculation
-        current_weekday = datetime.now().weekday()
-        prev_week_end = datetime.now() - timedelta(days=current_weekday+3)  # Go back to previous Friday
-        week_start_price = hist_data.loc[:prev_week_end.strftime("%Y-%m-%d"), 'Adj Close'].iloc[-1]
-
         current_price = hist_data['Adj Close'].iloc[-1]
-
         ytd_return = (current_price - ytd_start_price) / ytd_start_price
-        mtd_return = (current_price - mtd_start_price) / mtd_start_price
-        week_return = (current_price - week_start_price) / week_start_price
+
+        # Calculate daily returns
+        hist_data['Daily Return'] = hist_data['Adj Close'].pct_change()
+
+        # Rolling 1-month (21 trading days) return
+        rolling_1month = (hist_data['Adj Close'] / hist_data['Adj Close'].shift(21) - 1).iloc[-1]
+
+        # Rolling 1-week (5 trading days) return
+        rolling_1week = (hist_data['Adj Close'] / hist_data['Adj Close'].shift(5) - 1).iloc[-1]
+
     else:
-        ytd_return = mtd_return = week_return = np.nan
+        ytd_return = rolling_1month = rolling_1week = np.nan
 
     return {
         "ETF": ticker,
         "Name": info.get("longName", "N/A"),
         "YTD Return": ytd_return,
-        "MTD Return": mtd_return,
-        "This Week Return": week_return
+        "1-Month Return": rolling_1month,
+        "1-Week Return": rolling_1week
     }
+
 
 def process_etf_info(etf_info_list):
     for info in etf_info_list:        
         # Process percentage columns
-        for key in ['YTD Return', 'MTD Return', 'This Week Return']:
+        for key in ['YTD Return', '1-Month Return', '1-Week Return']:
             if info[key] != "N/A" and not pd.isna(info[key]):
                 info[key] = round(float(info[key]) * 100, 2)  # Convert to percentage
             else:
@@ -94,21 +92,21 @@ def create_etf_table(tickers):
     df = pd.DataFrame(processed_ETF_info)
 
     # Convert columns to numeric, coercing errors to NaN
-    numeric_columns = ['YTD Return', 'MTD Return', 'This Week Return']
+    numeric_columns = ['YTD Return', '1-Month Return', '1-Week Return']
     for col in numeric_columns:
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Create a formatting dictionary
     format_dict = {
         'YTD Return': '{:.2f}%',
-        'MTD Return': '{:.2f}%',
-        'This Week Return': '{:.2f}%',
+        '1-Month Return': '{:.2f}%',
+        '1-Week Return': '{:.2f}%',
     }
 
     return df.style.format(format_dict).map(color_scale, subset=numeric_columns)
 
 # Main Streamlit app
-st.header('ETF Asset Class Performance YTD, MTD, and This Week')
+st.header('ETF Asset Class Performance YTD, 1-Month, and 1-Week')
 
 st.subheader('US Related')
 us_related_etf_table = create_etf_table(us_related_etf_tickers)
