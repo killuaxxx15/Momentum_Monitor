@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import yfinance as yf
 
-#@st.cache_data
+@st.cache_data
 def Logarithmic_regression(df):
     # Create a copy of the DataFrame to ensure we're not working on a slice
     df = df[df['Close'].notna()].copy()
@@ -30,28 +30,6 @@ def Logarithmic_regression(df):
     df['TL+SD'] = df['priceTL'] + sd
     
     return df
-
-#@st.cache_data
-def plot_chart(ax, df):
-    RAINBOWCOLOR1 = 'hotpink'
-    RAINBOWCOLOR2 = 'orange'
-    RAINBOWCOLOR3 = 'gold'
-    RAINBOWCOLOR4 = 'yellowgreen'
-    RAINBOWCOLOR5 = 'lightgreen'
-      
-    ax.plot(df['Date'], df['price_y'], color='black', linewidth=0.5)
-    ax.plot(df['Date'], df['TL+2SD'], color=RAINBOWCOLOR1, linewidth=0.5)
-    ax.plot(df['Date'], df['TL+SD'], color=RAINBOWCOLOR2, linewidth=0.5)
-    ax.plot(df['Date'], df['priceTL'], color=RAINBOWCOLOR3, linewidth=0.5)
-    ax.plot(df['Date'], df['TL-SD'], color=RAINBOWCOLOR4, linewidth=0.5)
-    ax.plot(df['Date'], df['TL-2SD'], color=RAINBOWCOLOR5, linewidth=0.5)
-
-    ax.fill_between(df['Date'], df['TL+2SD'], df['TL+SD'], facecolor=RAINBOWCOLOR2, alpha=0.6, edgecolor=None, linewidth=0)
-    ax.fill_between(df['Date'], df['TL+SD'], df['priceTL'], facecolor=RAINBOWCOLOR3, alpha=0.6, edgecolor=None, linewidth=0)
-    ax.fill_between(df['Date'], df['priceTL'], df['TL-SD'], facecolor=RAINBOWCOLOR4, alpha=0.6, edgecolor=None, linewidth=0)
-    ax.fill_between(df['Date'], df['TL-SD'], df['TL-2SD'], facecolor=RAINBOWCOLOR5, alpha=0.6, edgecolor=None, linewidth=0)
-
-    return ax
 
 @st.cache_data
 def stock_screener(tickers, startdate):
@@ -80,7 +58,26 @@ def stock_screener(tickers, startdate):
         facecolor = 'white'
 
         tickerDf = Logarithmic_regression(tickerDf)
-        ax = plot_chart(ax, tickerDf)
+        
+        # Create the chart directly here
+        RAINBOWCOLOR1 = 'hotpink'
+        RAINBOWCOLOR2 = 'orange'
+        RAINBOWCOLOR3 = 'gold'
+        RAINBOWCOLOR4 = 'yellowgreen'
+        RAINBOWCOLOR5 = 'lightgreen'
+        
+        ax.clear()  # Clear the existing axes
+        ax.plot(tickerDf['Date'], tickerDf['price_y'], color='black', linewidth=0.5)
+        ax.plot(tickerDf['Date'], tickerDf['TL+2SD'], color=RAINBOWCOLOR1, linewidth=0.5)
+        ax.plot(tickerDf['Date'], tickerDf['TL+SD'], color=RAINBOWCOLOR2, linewidth=0.5)
+        ax.plot(tickerDf['Date'], tickerDf['priceTL'], color=RAINBOWCOLOR3, linewidth=0.5)
+        ax.plot(tickerDf['Date'], tickerDf['TL-SD'], color=RAINBOWCOLOR4, linewidth=0.5)
+        ax.plot(tickerDf['Date'], tickerDf['TL-2SD'], color=RAINBOWCOLOR5, linewidth=0.5)
+
+        ax.fill_between(tickerDf['Date'], tickerDf['TL+2SD'], tickerDf['TL+SD'], facecolor=RAINBOWCOLOR2, alpha=0.6, edgecolor=None, linewidth=0)
+        ax.fill_between(tickerDf['Date'], tickerDf['TL+SD'], tickerDf['priceTL'], facecolor=RAINBOWCOLOR3, alpha=0.6, edgecolor=None, linewidth=0)
+        ax.fill_between(tickerDf['Date'], tickerDf['priceTL'], tickerDf['TL-SD'], facecolor=RAINBOWCOLOR4, alpha=0.6, edgecolor=None, linewidth=0)
+        ax.fill_between(tickerDf['Date'], tickerDf['TL-SD'], tickerDf['TL-2SD'], facecolor=RAINBOWCOLOR5, alpha=0.6, edgecolor=None, linewidth=0)
         
         pct_change = 0
 
@@ -124,7 +121,6 @@ def stock_screener(tickers, startdate):
     fig.tight_layout()
     
     return fig
-
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='ETF Price Trend with Logarithmic Regression', page_icon=':bar_chart:', layout="wide")
