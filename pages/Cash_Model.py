@@ -141,7 +141,7 @@ def color_scale_trend_summary(val):
     if pd.isna(val):
         return ''
     
-    if val == 1 or val == 'Positive':
+    if val == 1 or val == 'Positive' or val == 'Outperformer':
         return 'background-color: #90EE90'  # Light green
     elif val in ['Cautious', 'Outperformer AND Losing', 'Underperformer AND Gaining']:
         return 'background-color: #FFFF99'  # Light yellow
