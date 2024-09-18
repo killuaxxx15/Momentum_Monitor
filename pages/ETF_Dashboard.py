@@ -110,7 +110,7 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
     ax.legend()
     return fig
 
-#@st.cache_data
+@st.cache_data
 def get_ETF_info(ticker):
     ETF = yf.Ticker(ticker)
     info = ETF.info
