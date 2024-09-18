@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
@@ -9,18 +11,26 @@ st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 st.header('Cash Model')
 
 # Display the last update date
-st.markdown('#### Updated: 13/09/2024')
+st.markdown('#### Updated: 18/09/2024')
 
 # Define Excel file and sheet name variables
-excel_file = 'CashSignal_Streamlit_13_09_2024.xlsm'
+excel_file = 'CashSignal_Streamlit.xlsx'
 sheet_name_us = 'CashSignals'
 sheet_name_world = 'WorldxUSSignals'
+sheet_name_qqq = 'QQQ'
+sheet_name_factors = 'Factors'
 
 # Cache data loading function for better performance
 @st.cache_data
 def load_excel_data(file_name, sheet, header_row, num_rows):
     # Define the columns to use
     cols_to_use = list(range(1, 11)) + [18, 27]  # B to K (1-10), S (18), AB (27)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
+
+@st.cache_data
+def load_excel_data_2(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = [5] + list(range(10, 20))  # F (5), K to T (10-20)
     return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
 # Format percentage as whole number with one decimal place, handling non-numeric values
@@ -64,8 +74,34 @@ def highlight_rows(row):
         return ['background-color: #ADD8E6'] * len(row)  # Light blue
     return [''] * len(row)
 
+# New function to highlight specific rows
+def highlight_rows_2(row):
+    if row.name in [0, 7, 14]:  # Adjust for 0-based index
+        return ['background-color: #ADD8E6'] * len(row)  # Light blue
+    return [''] * len(row)
+
+def color_scale(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return ''
+    
+    color_map = {
+        1: '#90EE90',  # Light green
+        2: '#B8E6B8',  # Lighter green
+        3: '#FFFFFF',  # White
+        4: '#FFE6E6',  # Very very light red
+        5: '#FFCCCC',  # Very light red
+        6: '#FF9999'   # Light red
+    }
+    
+    val = int(val)  # Ensure the value is an integer
+    if val in color_map:
+        return f'background-color: {color_map[val]}'
+    return ''
+
+
 def process_and_style_dataframe(df):
     df = df.fillna('')
+    df = df.rename(columns={'Unnamed: 1' : ' '})
 
     # Format specific cells as percentages
     df.iloc[0:20, df.columns.get_loc('Level')] = df.iloc[0:20, df.columns.get_loc('Level')].apply(lambda x: f'{x:.0%}' if isinstance(x, (int, float)) else x)
@@ -101,6 +137,49 @@ def process_and_style_dataframe(df):
 
     return styled_df
 
+def color_scale_trend_summary(val):
+    if pd.isna(val):
+        return ''
+    
+    if val == 1 or val == 'Positive':
+        return 'background-color: #90EE90'  # Light green
+    elif val in ['Cautious', 'Outperformer AND Losing', 'Underperformer AND Gaining']:
+        return 'background-color: #FFFF99'  # Light yellow
+    elif val == 'Underperformer':
+        return 'background-color: #FF9999'  # Light red
+    return ''
+
+def process_and_style_dataframe_2(df):
+    # Rename the columns
+    column_rename_map = {
+        'Unnamed: 5': ' ',
+        'Unnamed: 11': 'Relative Rankings.2',
+        'Unnamed: 12': 'Relative Rankings.3',
+        'Unnamed: 13': 'Relative Rankings.4',
+        'Unnamed: 15': 'Trend.2',
+        'Unnamed: 16': 'Trend.3',
+        'Unnamed: 18': 'Summary.2',
+        'Unnamed: 19': 'Summary.3',
+    }
+    df = df.rename(columns=column_rename_map)
+
+    # Apply row highlighting
+    styled_df_2 = df.style.apply(highlight_rows_2, axis=1)
+
+    # Apply color scale to specific columns
+    ranking_columns = ['Relative Rankings', 'Relative Rankings.2', 'Relative Rankings.3', 'Relative Rankings.4']
+    for col in ranking_columns:
+        if col in df.columns:
+            styled_df_2 = styled_df_2.applymap(color_scale, subset=[col])
+
+    # Apply color scale to Trend and Summary columns
+    trend_summary_columns = ['Trend', 'Trend.2', 'Trend.3', 'Summary', 'Summary.2', 'Summary.3']
+    for col in trend_summary_columns:
+        if col in df.columns:
+            styled_df_2 = styled_df_2.applymap(color_scale_trend_summary, subset=[col])
+
+    return styled_df_2
+
 # Load and process US data
 df_us = load_excel_data(excel_file, sheet_name_us, 2, 33)
 styled_df_us = process_and_style_dataframe(df_us)
@@ -109,6 +188,14 @@ styled_df_us = process_and_style_dataframe(df_us)
 df_world = load_excel_data(excel_file, sheet_name_world, 2, 33)
 styled_df_world = process_and_style_dataframe(df_world)
 
+# Load and process QQQ data
+df_qqq = load_excel_data(excel_file, sheet_name_qqq, 2, 33)
+styled_df_qqq = process_and_style_dataframe(df_qqq)
+
+# Load and process Factors
+df_factors = load_excel_data_2(excel_file, sheet_name_factors, 13, 21)
+styled_df_factors = process_and_style_dataframe_2(df_factors)
+
 # Display US Sentiment Signals
 st.markdown('### US Sentiment Signals')
 st.dataframe(styled_df_us, hide_index=True)
@@ -116,3 +203,11 @@ st.dataframe(styled_df_us, hide_index=True)
 # Display World ex-US Sentiment Signals
 st.markdown('### World ex-US Sentiment Signals')
 st.dataframe(styled_df_world, hide_index=True)
+
+# Display NASDAQ Sentiment Signals
+st.markdown('### NASDAQ Sentiment Signals')
+st.dataframe(styled_df_qqq, hide_index=True)
+
+# Display Factors
+st.markdown('### Factors')
+st.dataframe(styled_df_factors, hide_index=True)
