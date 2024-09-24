@@ -9,7 +9,7 @@ st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:', layout="
 
 # List of ETF tickers
 etf_tickers = [
-    "GDX", "COPX", "TAN", "SMH", "EZA", "EPOL", "EWY", "SLV", "EWG", "EWT", "KWEB",
+    "COPX", "TAN", "SMH", "EZA", "EPOL", "EWY", "SLV", "EWG", "EWT", "KWEB",
     "PPLT", "FXI", "XLB", "ICLN", "TUR", "MCHI", "EWQ", "ECH", "XME", "CQQQ", "IEV",
     "LIT", "EWL", "GREK", "XLRE", "EPU", "XAR", "EWA", "DEM", "XSOE", "EWJ", "EEM",
     "PCY", "GLD", "EWU", "GNR", "HEDJ", "EWC", "QQQ", "ASHR", "URTH", "EPHE", "RSP",
