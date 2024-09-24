@@ -9,6 +9,9 @@ st.set_page_config(page_title='US Sector Rotation', page_icon=':bar_chart:')
 # Display header for the dashboard
 st.header('US Sector Rotation')
 
+# Display the last update date
+st.markdown('#### Updated: 23/09/2024')
+
 def main():
     # Get list of image files
     image_files = [f for f in os.listdir() if f.endswith('.jpg')]
