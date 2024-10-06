@@ -12,19 +12,8 @@ url = "https://ai.gopubby.com/how-to-create-the-investment-diversification-heat-
 # Create a clickable link
 st.markdown(f'Link to [How to Create the Investment Diversification Heat Map in Python]({url})')
 
-st.write('Portfolio is 60% SPY and 40% AIRR')
+st.subheader('Sectors')
+st.image('Figure_1.png', caption='SECTORS', use_column_width=True)
 
-st.write('''
-            For the calculation of the portfolio return:
-         
-            Portfolio = SPY x 0.6 + AIRR x 0.40
-         
-            Example for Year 2015:
-         
-            Portfolio = SPY(1.23%) * 0.6 + AIRR(-9.51%) * 0.4
-         
-            Portfolio = -3.06%
-         ''')
-
-st.image('Figure_1.png', caption='Figure 1', use_column_width=True)
-st.image('Figure_2.png', caption='Figure 2', use_column_width=True)
+st.subheader('Countries')
+st.image('Figure_2.png', caption='COUNTRIES', use_column_width=True)
