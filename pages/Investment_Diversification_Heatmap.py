@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title='Investment Diversification Heat Map', page_icon=':bar_chart:')
 
 # Display header for the dashboard
-st.header('Investment Diversification Heat Map')
+st.header('Investment Diversification Heat Map ss')
 
 # Define the URL
 url = "https://ai.gopubby.com/how-to-create-the-investment-diversification-heat-map-in-python-c72b7fd91c57"
