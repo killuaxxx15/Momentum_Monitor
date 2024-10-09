@@ -5,7 +5,7 @@ st.set_page_config(page_title='Investment Diversification Heat Map', page_icon='
 
 # Display header for the dashboard
 st.header('Investment Diversification Heat Map')
-st.header('To be edited')
+st.subheader('To be edited - reduce tickers to around 12 to 15')
 
 # Define the URL
 url = "https://ai.gopubby.com/how-to-create-the-investment-diversification-heat-map-in-python-c72b7fd91c57"
