@@ -1,75 +1,213 @@
 import pandas as pd
-import pytrends
-from pytrends.request import TrendReq
 import streamlit as st
+import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
-pytrend = TrendReq(hl='en-US', tz=360)
+# Set Streamlit page configuration
+st.set_page_config(page_title='Cash Model', page_icon=':bar_chart:')
 
-st.header('Google Trends Keyword Search')
+# Display header for the dashboard
+st.header('Cash Model')
 
-keyword = st.text_input("Enter a keyword", help="Look up on Google Trends")
+# Display the last update date
+st.markdown('#### Updated: 05/10/2024')
 
-# Timeframe options
-TIMEFRAME_OPTIONS = {
-    '2004 to present': 'all',
-    'Past 5 years': 'today 5-y',
-    'Past 12 months': 'today 12-m',
-    'Past 90 days': 'today 3-m',
-    'Past 7 days': 'now 7-d',
-    'Past day': 'now 1-d',
-    'Past 4 hours': 'now 4-H',
-    'Past hour': 'now 1-H'
-}
+# Define Excel file and sheet name variables
+excel_file = 'CashSignal_Streamlit_05_10_2024.xlsx'
+sheet_name_us = 'CashSignals'
+sheet_name_world = 'WorldxUSSignals'
+sheet_name_qqq = 'QQQ'
+sheet_name_factors = 'Factors'
 
-# Selecting the index for 'Past 5 years'
-default_timeframe_index = list(TIMEFRAME_OPTIONS.keys()).index('Past 5 years')
-timeframe = st.selectbox("Select Timeframe", list(TIMEFRAME_OPTIONS.keys()), index=default_timeframe_index)
+# Cache data loading function for better performance
+@st.cache_data
+def load_excel_data(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = list(range(1, 11)) + [18, 27]  # B to K (1-10), S (18), AB (27)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
-# Updated country list with 'Worldwide' option
-COUNTRY = ['Worldwide', 'US', 'PH', 'IN', 'CN', 'TH', 'VN', 'GB', 'KR', 'JP', 'RU', 'AE']
-country = st.selectbox("Choose a country or worldwide", COUNTRY, index=COUNTRY.index("US"))
+@st.cache_data
+def load_excel_data_2(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = [5] + list(range(10, 20))  # F (5), K to T (10-20)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
-# Updated get_data function to handle 'Worldwide'
-def get_data(keyword, country, timeframe):
-    KEYWORDS = [keyword]
-    KEYWORDS_CODES = [pytrend.suggestions(keyword=i)[0] for i in KEYWORDS]
-    df_CODES = pd.DataFrame(KEYWORDS_CODES)
-    # st.dataframe(df_CODES)
+# Format percentage as whole number with one decimal place, handling non-numeric values
+def percent_whole_number(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return val
+    return f"{val * 100:.1f}%"
 
-    EXACT_KEYWORDS = df_CODES['mid'].to_list()
-    CATEGORY = 0
-    SEARCH_TYPE = ''
+# Format as whole number without decimal points
+def whole_number(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return val
+    return f"{int(val)}"
 
-    # Set geo parameter to '' for worldwide
-    geo_param = '' if country == 'Worldwide' else country
+# New function to format as percentage whole number without decimals
+def percent_whole_number_no_decimal(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return val
+    return f"{int(val * 100)}%"
 
-    pytrend.build_payload(kw_list=EXACT_KEYWORDS,
-                          timeframe=TIMEFRAME_OPTIONS[timeframe],
-                          geo=geo_param,
-                          cat=CATEGORY,
-                          gprop=SEARCH_TYPE)
-    df_trends = pytrend.interest_over_time()
+# Conditional formatting function
+def color_signal_1(val):
+    if val == 1:
+        return 'background-color: #90EE90'  # Green
+    return ''
 
-    df_trends = df_trends.drop('isPartial', axis=1)  # drop "isPartial"
-    df_trends.reset_index(level=0, inplace=True)  # reset_index
-    df_trends.columns = ['Date', country]  # change column names
+def color_signal_2(val):
+    if val == 'INVESTED' or (isinstance(val, (int, float)) and val > 0.75):
+        return 'background-color: #90EE90'  # Green
+    elif val == 'CAUTIOUS' or (isinstance(val, (int, float)) and 0.25 <= val <= 0.75):
+        return 'background-color: #FFFF99'  # Yellow
+    elif val == 'CASH' or (isinstance(val, (int, float)) and val < 0.25):
+        return 'background-color: #FF9999'  # Red
+    elif val == 'IMPROVING':
+        return 'background-color: #ADD8E6'  # Blue
+    return ''
 
-    return df_trends
+# New function to highlight specific rows
+def highlight_rows(row):
+    if row.name in [0, 9, 13, 16, 19]:  # Adjust for 0-based index
+        return ['background-color: #ADD8E6'] * len(row)  # Light blue
+    return [''] * len(row)
 
-def linePlot(input_data, keyword, country):
-    if not input_data.empty:
-        plt.figure(figsize=(10, 4))
-        plt.plot(input_data['Date'], input_data[country])
-        plt.title(f'Google Trends for "{keyword}" in {country}')
-        plt.xlabel('Date')
-        plt.ylabel('Trends Index')
-        plt.grid(True)
-        plt.xticks(rotation=45)
-        st.pyplot(plt)
+# New function to highlight specific rows
+def highlight_rows_2(row):
+    if row.name in [0, 7, 14]:  # Adjust for 0-based index
+        return ['background-color: #ADD8E6'] * len(row)  # Light blue
+    return [''] * len(row)
 
-if keyword and country:
-    df_trends = get_data(keyword, country, timeframe)
-    if not df_trends.empty:
-        # st.dataframe(df_trends, 2000, 200)
-        linePlot(df_trends, keyword, country)
+def color_scale(val):
+    if pd.isna(val) or not isinstance(val, (int, float)):
+        return ''
+    
+    color_map = {
+        1: '#90EE90',  # Light green
+        2: '#B8E6B8',  # Lighter green
+        3: '#FFFFFF',  # White
+        4: '#FFE6E6',  # Very very light red
+        5: '#FFCCCC',  # Very light red
+        6: '#FF9999'   # Light red
+    }
+    
+    val = int(val)  # Ensure the value is an integer
+    if val in color_map:
+        return f'background-color: {color_map[val]}'
+    return ''
+
+
+def process_and_style_dataframe(df):
+    df = df.fillna('')
+    df = df.rename(columns={'Unnamed: 1' : ' '})
+
+    # Format specific cells as percentages
+    df.iloc[0:20, df.columns.get_loc('Level')] = df.iloc[0:20, df.columns.get_loc('Level')].apply(lambda x: f'{x:.0%}' if isinstance(x, (int, float)) else x)
+    df.iloc[20, df.columns.get_loc('Level')] = f'{df.iloc[20, df.columns.get_loc("Level")]:.2f}' if isinstance(df.iloc[20, df.columns.get_loc('Level')], (int, float)) else df.iloc[20, df.columns.get_loc('Level')]
+    df.iloc[21, df.columns.get_loc('Level')] = f'{df.iloc[21, df.columns.get_loc("Level")]:.1f}' if isinstance(df.iloc[21, df.columns.get_loc('Level')], (int, float)) else df.iloc[21, df.columns.get_loc('Level')]
+    df.iloc[22, df.columns.get_loc('Level')] = f'{df.iloc[22, df.columns.get_loc("Level")]:.0f}' if isinstance(df.iloc[22, df.columns.get_loc('Level')], (int, float)) else df.iloc[22, df.columns.get_loc('Level')]
+
+    # Apply formatting
+    format_dict = {}
+    for col in df.columns:
+        if col in ['50DMA', '100DMA', '200DMA']:
+            format_dict[col] = percent_whole_number
+        elif col in ['50DMA.1', '100DMA.1', '200DMA.1']:
+            format_dict[col] = whole_number
+        elif col in ['Current Reading', 'Short Term Trend', '1 Week Ago', '1M Ago']:
+            format_dict[col] = percent_whole_number_no_decimal
+
+    styled_df = df.style.format(format_dict)
+
+    # Apply conditional formatting
+    signal_columns_1 = ['50DMA.1', '100DMA.1', '200DMA.1']  # Adjust this list as needed
+    for col in signal_columns_1:
+        if col in df.columns:
+            styled_df = styled_df.applymap(color_signal_1, subset=[col])
+
+    signal_columns_2 = ['Current Reading', 'Short Term Trend', '1 Week Ago', '1M Ago']  # Adjust this list as needed
+    for col in signal_columns_2:
+        if col in df.columns:
+            styled_df = styled_df.applymap(color_signal_2, subset=[col])
+
+    # Apply row highlighting and bold text
+    styled_df = styled_df.apply(highlight_rows, axis=1)
+
+    return styled_df
+
+def color_scale_trend_summary(val):
+    if pd.isna(val):
+        return ''
+    
+    if val == 1 or val == 'Positive' or val == 'Outperformer':
+        return 'background-color: #90EE90'  # Light green
+    elif val in ['Cautious', 'Outperformer AND Losing', 'Underperformer AND Gaining']:
+        return 'background-color: #FFFF99'  # Light yellow
+    elif val == 'Underperformer':
+        return 'background-color: #FF9999'  # Light red
+    return ''
+
+def process_and_style_dataframe_2(df):
+    # Rename the columns
+    column_rename_map = {
+        'Unnamed: 5': ' ',
+        'Unnamed: 11': 'Relative Rankings.2',
+        'Unnamed: 12': 'Relative Rankings.3',
+        'Unnamed: 13': 'Relative Rankings.4',
+        'Unnamed: 15': 'Trend.2',
+        'Unnamed: 16': 'Trend.3',
+        'Unnamed: 18': 'Summary.2',
+        'Unnamed: 19': 'Summary.3',
+    }
+    df = df.rename(columns=column_rename_map)
+
+    # Apply row highlighting
+    styled_df_2 = df.style.apply(highlight_rows_2, axis=1)
+
+    # Apply color scale to specific columns
+    ranking_columns = ['Relative Rankings', 'Relative Rankings.2', 'Relative Rankings.3', 'Relative Rankings.4']
+    for col in ranking_columns:
+        if col in df.columns:
+            styled_df_2 = styled_df_2.applymap(color_scale, subset=[col])
+
+    # Apply color scale to Trend and Summary columns
+    trend_summary_columns = ['Trend', 'Trend.2', 'Trend.3', 'Summary', 'Summary.2', 'Summary.3']
+    for col in trend_summary_columns:
+        if col in df.columns:
+            styled_df_2 = styled_df_2.applymap(color_scale_trend_summary, subset=[col])
+
+    return styled_df_2
+
+# Load and process US data
+df_us = load_excel_data(excel_file, sheet_name_us, 2, 33)
+styled_df_us = process_and_style_dataframe(df_us)
+
+# Load and process World ex-US data
+df_world = load_excel_data(excel_file, sheet_name_world, 2, 33)
+styled_df_world = process_and_style_dataframe(df_world)
+
+# Load and process QQQ data
+df_qqq = load_excel_data(excel_file, sheet_name_qqq, 2, 33)
+styled_df_qqq = process_and_style_dataframe(df_qqq)
+
+# Load and process Factors
+df_factors = load_excel_data_2(excel_file, sheet_name_factors, 13, 21)
+styled_df_factors = process_and_style_dataframe_2(df_factors)
+
+# Display US Sentiment Signals
+st.markdown('### US Sentiment Signals')
+st.dataframe(styled_df_us, hide_index=True)
+
+# Display World ex-US Sentiment Signals
+st.markdown('### World ex-US Sentiment Signals')
+st.dataframe(styled_df_world, hide_index=True)
+
+# Display NASDAQ Sentiment Signals
+st.markdown('### NASDAQ Sentiment Signals')
+st.dataframe(styled_df_qqq, hide_index=True)
+
+# Display Factors
+st.markdown('### Factors')
+st.dataframe(styled_df_factors, hide_index=True)
