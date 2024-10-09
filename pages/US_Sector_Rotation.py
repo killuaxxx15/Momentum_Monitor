@@ -10,7 +10,7 @@ st.set_page_config(page_title='US Sector Rotation', page_icon=':bar_chart:')
 st.header('US Sector Rotation')
 
 # Display the last update date
-st.markdown('#### Updated: 27/09/2024')
+st.markdown('#### Updated: 07/10/2024')
 
 def main():
     # Get list of image files
