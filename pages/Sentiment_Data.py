@@ -36,10 +36,10 @@ df2 = df2.fillna('')
 st.dataframe(df2, hide_index=True)
 
 st.header('Bull/Bear Ratios')
-st.image('fig1_05_10_2024.png', caption='Figure 1', use_column_width=True)
+st.image('fig1_11_10_2024.png', caption='Figure 1', use_column_width=True)
 
 st.header('Put/Call & Vix')
-st.image('fig2_05_10_2024.png', caption='Figure 2', use_column_width=True)
+st.image('fig2_11_10_2024.png', caption='Figure 2', use_column_width=True)
 
 
 
