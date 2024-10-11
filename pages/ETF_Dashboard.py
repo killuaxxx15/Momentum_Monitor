@@ -29,7 +29,7 @@ etf_tickers = [
 ]
 
 
-@st.cache_data
+#@st.cache_data
 def get_etf_data(etf_ticker, time_period):
     """
     Fetch ETF data, full name, and calculate moving averages if enough data points are available.
@@ -56,7 +56,7 @@ def get_etf_data(etf_ticker, time_period):
     
     return historical_data, full_name
 
-@st.cache_data
+#@st.cache_data
 def create_etf_price_chart(etf_data, etf_full_name):
     """
     Create a price chart for the ETF including moving averages if available.
@@ -76,7 +76,7 @@ def create_etf_price_chart(etf_data, etf_full_name):
     ax.legend()
     return fig
 
-@st.cache_data
+#@st.cache_data
 def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2):
     """
     Create a relative performance chart comparing two ETFs using aligned dates,
@@ -116,7 +116,7 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
     ax.legend()
     return fig
 
-@st.cache_data
+#@st.cache_data
 def get_ETF_info(ticker):
     ETF = yf.Ticker(ticker)
     info = ETF.info
