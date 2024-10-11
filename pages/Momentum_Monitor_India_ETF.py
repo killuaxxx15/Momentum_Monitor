@@ -12,10 +12,11 @@ st.markdown('#### Updated: 05/10/2024')
 
 # Define Excel file and sheet name variables
 excel_file = 'INDIA_ETF_MOMENTUM_RANKINGS_05_10_2024.xlsx'
+excel_file_1 = 'Global_macro_rankings_final_10_10_2024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
-@st.cache
+@st.cache_data
 def load_excel_data(file_name, sheet, use_columns, header_row, num_rows):
     return pd.read_excel(file_name, sheet_name=sheet, usecols=use_columns, header=header_row, nrows=num_rows)
 
@@ -60,6 +61,17 @@ def percent_one_decimal(val):
 def percent_whole_number(val):
     return "{:.0f}%".format(val * 100)
 
+
+
+# TABLE 0
+df0 = load_excel_data(excel_file_1, sheet_name, 'E:H', 8, 3)
+df0 = df0.rename(columns={'BTC00-USA' : ' '})
+df0 = df0.rename(columns={'INVESTED' : 'Above 30D'})
+df0 = df0.rename(columns={'CASH' : 'Above 60D'})
+df0 = df0.rename(columns={'INVESTED.1' : 'Above 200D'})
+df0 = df0.style.applymap(color_cells, subset=['Above 30D', 'Above 60D', 'Above 200D'])
+st.markdown('### Equity Relative to other Asset Classes')
+st.dataframe(df0, hide_index=True)
 
 # TABLE 1
 df1 = load_excel_data(excel_file, sheet_name, 'D:K', 5, 15)
