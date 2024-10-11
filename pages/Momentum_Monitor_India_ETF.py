@@ -16,7 +16,7 @@ excel_file_1 = 'Global_macro_rankings_final_10_10_2024.xlsx'
 sheet_name = 'Aset class Rankings'
 
 # Cache data loading function for better performance
-@st.cache_data
+#@st.cache_data
 def load_excel_data(file_name, sheet, use_columns, header_row, num_rows):
     return pd.read_excel(file_name, sheet_name=sheet, usecols=use_columns, header=header_row, nrows=num_rows)
 
