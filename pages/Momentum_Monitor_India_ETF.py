@@ -69,7 +69,7 @@ df0 = df0.rename(columns={'BTC00-USA' : 'Top Down'})
 df0 = df0.rename(columns={'INVESTED' : 'Above 30D'})
 df0 = df0.rename(columns={'CASH' : 'Above 60D'})
 df0 = df0.rename(columns={'INVESTED.1' : 'Above 200D'})
-df0 = df0.style.applymap(color_cells, subset=['Above 30D', 'Above 60D', 'Above 200D'])
+#df0 = df0.style.applymap(color_cells, subset=['Above 30D', 'Above 60D', 'Above 200D'])
 st.markdown('### Equity Relative to other Asset Classes')
 st.dataframe(df0, hide_index=True)
 
