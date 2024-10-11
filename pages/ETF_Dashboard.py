@@ -9,19 +9,25 @@ st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:', layout="
 
 # List of ETF tickers
 etf_tickers = [
-    "GDX", "COPX", "TAN", "SMH", "EZA", "EPOL", "EWY", "SLV", "EWG", "EWT", "KWEB",
-    "PPLT", "FXI", "XLB", "ICLN", "TUR", "MCHI", "EWQ", "ECH", "XME", "CQQQ", "IEV",
-    "LIT", "EWL", "GREK", "XLRE", "EPU", "XAR", "EWA", "DEM", "XSOE", "EWJ", "EEM",
-    "PCY", "GLD", "EWU", "GNR", "HEDJ", "EWC", "QQQ", "ASHR", "URTH", "EPHE", "RSP",
-    "EEMS", "XLF", "SDY", "EELV", "INDY", "EMLC", "SPY", "IWB", "EMB", "QAT", "EMHY",
-    "INDA", "DIA", "EWW", "VYM", "EWM", "VTV", "UDN", "DVYE", "VPU", "IWO", "SKYY",
-    "VDC", "XLP", "XLY", "HEWJ", "UAE", "LQD", "MOO", "EIDO", "XBI", "XLE", "TLT",
-    "KIE", "TIP", "SHY", "DBA", "UNG", "DBC", "KSA", "USO", "ILF", "UUP", "WEAT",
-    "VNM", "EWZ", "^VIX", "BNO", "CBON", "EMCB", "LEMB", "VWO", "EWI",
-    "^MOVE", "VGK", "XWD.TO", "ITB", "IYT", "IYJ", "QUAL", "IVW", "IAI", "IGE", "IHI",
-    "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX", "AIRR", "SPMO", "ITA", "ACWX",
-    "IVE", "GLUX.MI"
+    "GDX", "COPX", "TAN", "SMH", "EZA", "EPOL", "EWY", "SLV", "EWG",
+    "EWT", "KWEB", "PPLT", "FXI", "XLB", "ICLN", "TUR", "MCHI", "EWQ",
+    "ECH", "XME", "CQQQ", "IEV", "LIT", "EWL", "GREK", "XLRE", "EPU",
+    "XAR", "EWA", "DEM", "XSOE", "EWJ", "EEM", "PCY", "GLD", "EWU",
+    "GNR", "HEDJ", "EWC", "QQQ", "ASHR", "URTH", "EPHE", "RSP", "EEMS",
+    "XLF", "SDY", "EELV", "INDY", "EMLC", "SPY", "IWB", "EMB", "QAT",
+    "EMHY", "INDA", "DIA", "EWW", "VYM", "EWM", "VTV", "UDN", "DVYE",
+    "VPU", "IWO", "SKYY", "VDC", "XLP", "XLY", "HEWJ", "UAE", "LQD",
+    "MOO", "EIDO", "XBI", "XLE", "TLT", "KIE", "TIP", "SHY", "DBA",
+    "UNG", "DBC", "KSA", "USO", "ILF", "UUP", "WEAT", "VNM", "EWZ",
+    "^VIX", "BNO", "CBON", "EMCB", "LEMB", "VWO", "EWI", "^MOVE",
+    "VGK", "XWD.TO", "ITB", "IYT", "IYJ", "QUAL", "IVW", "IAI", "IGE",
+    "IHI", "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX",
+    "AIRR", "SPMO", "ITA", "ACWX", "IVE", "GLUX.MI", "XLV", "XLU",
+    "IWM", "SOXX", "IAT", "XLK", "IBB", "XRT", "XTL", "VNQ", "RWR",
+    "ARGT", "CNYA", "KTEC", "3110.HK", "EFV", "EFA", "EPI", "SMIN",
+    "EWN", "EWD", "THD"
 ]
+
 
 @st.cache_data
 def get_etf_data(etf_ticker, time_period):
