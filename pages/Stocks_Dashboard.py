@@ -43,12 +43,12 @@ def get_stock_data(stock_ticker, time_period):
     return historical_data, full_name
 
 @st.cache_data
-def create_stock_price_chart(stock_data, stock_ticker):
+def create_stock_price_chart(stock_data, stock_full_name):
     """
     Create a price chart for the stock including moving averages if available.
     """
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(stock_data.index, stock_data['Close'], label=f'{stock_ticker}')
+    ax.plot(stock_data.index, stock_data['Close'], label=f'{selected_stock}')
     
     if stock_data['MA50'].notna().any():
         ax.plot(stock_data.index, stock_data['MA50'], color='orange', linestyle=':', label='50DMA')
@@ -56,7 +56,7 @@ def create_stock_price_chart(stock_data, stock_ticker):
     if stock_data['MA200'].notna().any():
         ax.plot(stock_data.index, stock_data['MA200'], color='green', linestyle=':', label='200DMA')
     
-    ax.set_title(f"{stock_ticker}")
+    ax.set_title(f"{stock_full_name}")
     ax.set_xlabel("Date")
     ax.set_ylabel("Price")
     ax.legend()
@@ -127,7 +127,7 @@ with col2:
     stock_data, stock_full_name = get_stock_data(selected_stock, time_period)
 
     # Create and display price chart
-    price_chart = create_stock_price_chart(stock_data, selected_stock)
+    price_chart = create_stock_price_chart(stock_data, stock_full_name)
     st.pyplot(price_chart)
 
 with col3:
