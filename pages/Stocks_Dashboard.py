@@ -9,11 +9,11 @@ st.set_page_config(page_title='Stock Dashboard', page_icon=':bar_chart:', layout
 
 # List of stock tickers
 stock_tickers = [
-    "AAPL", "AMZN", "MSFT", "NVDA", "AVGO", "META", "GOOG", "COST", "TSLA", "ASML"
+    "AAPL", "AMZN", "ASML", "AVGO", "COST", "GOOG", "META", "MSFT", "NVDA", "TSLA"
 ]
 
 # List of major index ETFs for comparison
-index_etfs = ["SPY", "QQQ"]
+index_etfs = ["SPY", "QQQ", "IWM"]
 
 @st.cache_data
 def get_stock_data(stock_ticker, time_period):
@@ -43,12 +43,12 @@ def get_stock_data(stock_ticker, time_period):
     return historical_data, full_name
 
 @st.cache_data
-def create_stock_price_chart(stock_data, stock_full_name):
+def create_stock_price_chart(stock_data, stock_ticker):
     """
     Create a price chart for the stock including moving averages if available.
     """
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(stock_data.index, stock_data['Close'], label=f'{selected_stock}')
+    ax.plot(stock_data.index, stock_data['Close'], label=f'{stock_ticker}')
     
     if stock_data['MA50'].notna().any():
         ax.plot(stock_data.index, stock_data['MA50'], color='orange', linestyle=':', label='50DMA')
@@ -56,7 +56,7 @@ def create_stock_price_chart(stock_data, stock_full_name):
     if stock_data['MA200'].notna().any():
         ax.plot(stock_data.index, stock_data['MA200'], color='green', linestyle=':', label='200DMA')
     
-    ax.set_title(f"{stock_full_name}")
+    ax.set_title(f"{stock_ticker}")
     ax.set_xlabel("Date")
     ax.set_ylabel("Price")
     ax.legend()
@@ -88,7 +88,7 @@ def create_relative_performance_chart(stock_data1, stock_data2, stock_name1, sto
         ma200 = None
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(relative_performance.index, relative_performance, label=f'{selected_stock} vs {comparison_stock}')
+    ax.plot(relative_performance.index, relative_performance, label=f'{stock_name1} vs {stock_name2}')
     
     if ma50 is not None:
         ax.plot(ma50.index, ma50, color='orange', linestyle=':', label='50DMA')
@@ -96,135 +96,59 @@ def create_relative_performance_chart(stock_data1, stock_data2, stock_name1, sto
     if ma200 is not None:
         ax.plot(ma200.index, ma200, color='green', linestyle=':', label='200DMA')
 
-    ax.set_title(f"{selected_stock} vs {comparison_stock}")
+    ax.set_title(f"{stock_name1} vs {stock_name2}")
     ax.set_xlabel("Date")
     ax.set_ylabel("Relative Performance")
     ax.legend()
     return fig
 
-# Function to get company info
-@st.cache_data
-def get_company_info(ticker):
-    stock = yf.Ticker(ticker)
-    info = stock.info
-    
-    try:
-        last_price = info['currentPrice']
-    except KeyError:
-        try:
-            last_price = stock.history(period="1d")['Close'].iloc[-1]
-        except IndexError:
-            last_price = np.nan
-    
-    return {
-        "Ticker": ticker,
-        "Name": info.get("longName", "N/A"),
-        "Price": last_price,
-        "P/E Ratio": info.get("trailingPE", np.nan),
-        "52 Week Low": info.get("fiftyTwoWeekLow", np.nan),
-        "52 Week High": info.get("fiftyTwoWeekHigh", np.nan),
-        "Market Cap": info.get("marketCap", np.nan),
-        "Div Yield": info.get("dividendYield", np.nan),
-        "Beta": info.get("beta", np.nan),
-        "EPS": info.get("trailingEps", np.nan)
-    }
-
-@st.cache_data
-def process_company_info(company_info_list):
-    for info in company_info_list:
-        # Process numeric columns
-        for key in ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Beta', 'EPS']:
-            if info[key] != "N/A" and not pd.isna(info[key]):
-                info[key] = round(float(info[key]), 2)
-            else:
-                info[key] = np.nan
-
-        # Process percentage columns
-        for key in ['Div Yield']:
-            if info[key] != "N/A" and not pd.isna(info[key]):
-                info[key] = round(float(info[key]) * 100, 2)  # Convert to percentage
-            else:
-                info[key] = np.nan
-
-        # Process Market Cap
-        if info['Market Cap'] != "N/A" and not pd.isna(info['Market Cap']):
-            info['Market Cap'] = float(info['Market Cap']) / 1_000_000_000 # Convert to billions
-        else:
-            info['Market Cap'] = np.nan
-
-    return company_info_list
-
 # Streamlit app
 st.header("Stock Dashboard")
+time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
 
 # Selection options in main content area
-col11, col22, col33 = st.columns(3)
+col11, col22, col33, col44 = st.columns(4)
 with col11:
     default_index = 0
     selected_stock = st.selectbox("Select a Stock", stock_tickers, index=default_index)
 with col22:
-    time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
+    comparison_options = index_etfs + stock_tickers
+    comparison_stock1 = st.selectbox("Compare with", comparison_options, index=0)
 with col33:
     comparison_options = index_etfs + stock_tickers
-    comparison_stock = st.selectbox("Compare with", comparison_options, index=0)
-    
+    comparison_stock2 = st.selectbox("Compare with", comparison_options, index=1)
+with col44:
+    comparison_options = index_etfs + stock_tickers
+    comparison_stock3 = st.selectbox("Compare with", comparison_options, index=2)
 
-
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns([1, 3, 3, 1])
 # Main content
-with col1:
+with col2:
     stock_data, stock_full_name = get_stock_data(selected_stock, time_period)
-    st.subheader(f"{stock_full_name} ({selected_stock})")
 
     # Create and display price chart
-    price_chart = create_stock_price_chart(stock_data, stock_full_name)
+    price_chart = create_stock_price_chart(stock_data, selected_stock)
     st.pyplot(price_chart)
 
-with col2:
-    # Relative performance chart
-    st.subheader("Relative Performance")
-    
+with col3:
     # Get data for both stocks
     stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
-    stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
+    stock_data2, stock_full_name2 = get_stock_data(comparison_stock1, time_period)
 
     # Create and display relative performance chart
-    rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
-    st.pyplot(rel_perf_chart)
+    rel_perf_chart_1 = create_relative_performance_chart(stock_data1, stock_data2, selected_stock, comparison_stock1)
+    st.pyplot(rel_perf_chart_1)
 
+# Relative performance chart for second comparison
+with col2:
+    stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
+    stock_data2, stock_full_name2 = get_stock_data(comparison_stock2, time_period)
+    rel_perf_chart_2 = create_relative_performance_chart(stock_data1, stock_data2, selected_stock, comparison_stock2)
+    st.pyplot(rel_perf_chart_2)
 
-col111, col222, col333 = st.columns([1, 2, 1])
-# Relative performance chart vs QQQ
-
-# Use col2 and col3 to display the image
-with col222:
-    # Display the image across both col2 and col3
-    comparison_stock = st.selectbox("Compare with", comparison_options, index=1)
-    stock_data2, stock_full_name2 = get_stock_data(comparison_stock, time_period)
-    rel_perf_chart = create_relative_performance_chart(stock_data1, stock_data2, stock_full_name1, stock_full_name2)
-    st.pyplot(rel_perf_chart)
-
-    # Display company information
-    st.subheader("Company Information")
-    company_info = [get_company_info(ticker) for ticker in stock_tickers]
-    process_Company_info = process_company_info(company_info)
-    df = pd.DataFrame(process_Company_info)
-
-    # Convert columns to numeric, coercing errors to NaN
-    numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'Div Yield', 'Beta', 'EPS']
-    for col in numeric_columns:
-        df[col] = pd.to_numeric(df[col], errors='coerce')
-
-    # Create a formatting dictionary
-    format_dict = {
-        'Price': '{:.2f}',
-        'P/E Ratio': '{:.2f}',
-        '52 Week Low': '{:.2f}',
-        '52 Week High': '{:.2f}',
-        'Div Yield': '{:.2f}%',
-        'Beta': '{:.2f}',
-        'EPS': '{:.2f}',
-        'Market Cap': lambda x: f'{x:.2f}B' if pd.notnull(x) else 'N/A'
-    }
-
-    st.dataframe(df.style.format(format_dict), hide_index=True)
+# Relative performance chart for third comparison
+with col3:
+    stock_data1, stock_full_name1 = get_stock_data(selected_stock, time_period)
+    stock_data2, stock_full_name2 = get_stock_data(comparison_stock3, time_period)
+    rel_perf_chart_3 = create_relative_performance_chart(stock_data1, stock_data2, selected_stock, comparison_stock3)
+    st.pyplot(rel_perf_chart_3)
