@@ -13,7 +13,7 @@ stock_tickers = [
 ]
 
 # List of major index ETFs for comparison
-index_etfs = ["SPY", "QQQ"]
+index_etfs = ["SPY", "QQQ", "IWM"]
 
 @st.cache_data
 def get_stock_data(stock_ticker, time_period):
