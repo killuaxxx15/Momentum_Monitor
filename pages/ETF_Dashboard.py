@@ -9,24 +9,23 @@ st.set_page_config(page_title='ETF Dashboard', page_icon=':bar_chart:', layout="
 
 # List of ETF tickers
 etf_tickers = [
-    "GDX", "COPX", "TAN", "SMH", "EZA", "EPOL", "EWY", "SLV", "EWG",
-    "EWT", "KWEB", "PPLT", "FXI", "XLB", "ICLN", "TUR", "MCHI", "EWQ",
-    "ECH", "XME", "CQQQ", "IEV", "LIT", "EWL", "GREK", "XLRE", "EPU",
-    "XAR", "EWA", "DEM", "XSOE", "EWJ", "EEM", "PCY", "GLD", "EWU",
-    "GNR", "HEDJ", "EWC", "QQQ", "ASHR", "URTH", "EPHE", "RSP", "EEMS",
-    "XLF", "SDY", "EELV", "INDY", "EMLC", "SPY", "IWB", "EMB", "QAT",
-    "EMHY", "INDA", "DIA", "EWW", "VYM", "EWM", "VTV", "UDN", "DVYE",
-    "VPU", "IWO", "SKYY", "VDC", "XLP", "XLY", "HEWJ", "UAE", "LQD",
-    "MOO", "EIDO", "XBI", "XLE", "TLT", "KIE", "TIP", "SHY", "DBA",
-    "UNG", "DBC", "KSA", "USO", "ILF", "UUP", "WEAT", "VNM", "EWZ",
-    "^VIX", "BNO", "CBON", "EMCB", "LEMB", "VWO", "EWI", "^MOVE",
-    "VGK", "XWD.TO", "ITB", "IYT", "IYJ", "QUAL", "IVW", "IAI", "IGE",
-    "IHI", "IYH", "IYZ", "^RUT", "EMXC", "PRN", "XLI", "FANG.AX",
-    "AIRR", "SPMO", "ITA", "ACWX", "IVE", "GLUX.MI", "XLV", "XLU",
-    "IWM", "SOXX", "IAT", "XLK", "IBB", "XRT", "XTL", "VNQ", "RWR",
-    "ARGT", "CNYA", "KTEC", "3110.HK", "EFV", "EFA", "EPI", "SMIN",
-    "EWN", "EWD", "THD"
+    '3110.HK', 'ACWX', 'AIRR', 'ARGT', 'ASHR', 'BNO', 'CBON', 'CNYA', 'COPX', 'CQQQ',
+    'DBA', 'DBC', 'DEM', 'DIA', 'DVYE', 'ECH', 'EELV', 'EEM', 'EEMS', 'EFA',
+    'EFV', 'EIDO', 'EMB', 'EMCB', 'EMHY', 'EMLC', 'EMXC', 'EPHE', 'EPI', 'EPOL',
+    'EPU', 'EWA', 'EWC', 'EWD', 'EWG', 'EWI', 'EWJ', 'EWL', 'EWM', 'EWN',
+    'EWQ', 'EWT', 'EWU', 'EWW', 'EWY', 'EWZ', 'EZA', 'FANG.AX', 'FXI', 'GDX',
+    'GLD', 'GLUX.MI', 'GNR', 'GREK', 'HEDJ', 'HEWJ', 'IAI', 'IAT', 'IBB', 'ICLN',
+    'IEV', 'IGE', 'IHI', 'ILF', 'INDA', 'INDY', 'ITA', 'ITB', 'IVE', 'IVW',
+    'IWB', 'IWM', 'IWO', 'IYH', 'IYJ', 'IYT', 'IYZ', 'KIE', 'KSA', 'KTEC',
+    'KWEB', 'LEMB', 'LIT', 'LQD', 'MCHI', 'MOO', 'PCY', 'PPLT', 'PRN', 'QAT',
+    'QQQ', 'QUAL', 'RSP', 'RWR', 'SDY', 'SHY', 'SKYY', 'SLV', 'SMH', 'SMIN',
+    'SOXX', 'SPMO', 'SPY', 'TAN', 'THD', 'TIP', 'TLT', 'TUR', 'UAE', 'UDN',
+    'UNG', 'URTH', 'USO', 'UUP', 'VDC', 'VGK', 'VNM', 'VNQ', 'VPU', 'VTV',
+    'VWO', 'VYM', 'WEAT', 'XAR', 'XBI', 'XLB', 'XLE', 'XLF', 'XLI', 'XLK',
+    'XLP', 'XLRE', 'XLU', 'XLV', 'XLY', 'XME', 'XRT', 'XSOE', 'XTL', 'XWD.TO',
+    '^MOVE', '^RUT', '^VIX'
 ]
+
 
 
 @st.cache_data
@@ -102,7 +101,7 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
         ma200 = None
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(relative_performance.index, relative_performance, label=f'{selected_etf} vs {comparison_etf}')
+    ax.plot(relative_performance.index, relative_performance, label=f'{etf_name1} vs {etf_name2}')
     
     if ma50 is not None:
         ax.plot(ma50.index, ma50, color='orange', linestyle=':', label='50DMA')
@@ -110,133 +109,63 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
     if ma200 is not None:
         ax.plot(ma200.index, ma200, color='green', linestyle=':', label='200DMA')
 
-    ax.set_title(f"{selected_etf} vs {comparison_etf}")
+    ax.set_title(f"{etf_name1} vs {etf_name2}")
     ax.set_xlabel("Date")
     ax.set_ylabel("Relative Performance")
     ax.legend()
     return fig
 
-@st.cache_data
-def get_ETF_info(ticker):
-    ETF = yf.Ticker(ticker)
-    info = ETF.info
-    
-    try:
-        last_price = info['currentPrice']
-    except KeyError:
-        try:
-            last_price = ETF.history(period="1d")['Close'].iloc[-1]
-        except IndexError:
-            last_price = np.nan
-    
-    return {
-        "Ticker": ticker,
-        "Name": info.get("longName", "N/A"),
-        "Price": last_price,
-        "P/E Ratio": info.get("trailingPE", np.nan),
-        "52 Week Low": info.get("fiftyTwoWeekLow", np.nan),
-        "52 Week High": info.get("fiftyTwoWeekHigh", np.nan),
-        "Yield": info.get("yield", np.nan),
-        "Net Assets": info.get("totalAssets", np.nan),
-        "NAV": info.get("navPrice", np.nan),
-        "YTD Daily Total Return": info.get("ytdReturn", np.nan),
-        "Beta": info.get("beta3Year", np.nan)
-    }
-
-def process_etf_info(etf_info_list):
-    for info in etf_info_list:
-        # Process numeric columns
-        for key in ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Beta']:
-            if info[key] != "N/A" and not pd.isna(info[key]):
-                info[key] = round(float(info[key]), 2)
-            else:
-                info[key] = np.nan
-        
-        # Process percentage columns
-        for key in ['Yield', 'YTD Daily Total Return']:
-            if info[key] != "N/A" and not pd.isna(info[key]):
-                info[key] = round(float(info[key]) * 100, 2)  # Convert to percentage
-            else:
-                info[key] = np.nan
-        
-        # Process Net Assets
-        if info['Net Assets'] != "N/A" and not pd.isna(info['Net Assets']):
-            info['Net Assets'] = float(info['Net Assets']) / 1_000_000  # Convert to millions
-        else:
-            info['Net Assets'] = np.nan
-    
-    return etf_info_list
 
 # Streamlit app
 st.header("ETF Dashboard")
+time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
 
 # Selection options in main content area
-col1, col2, col3 = st.columns(3)
-with col1:
+col11, col22, col33, col44 = st.columns(4)
+with col11:
     default_index = 0
     selected_etf = st.selectbox("Select an ETF", etf_tickers, index=default_index)
-with col2:
-    time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
-with col3:
+with col22:
     comparison_options = etf_tickers
     default_comparison_index = etf_tickers.index("SPY")
-    comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+    comparison_etf1 = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+with col33:
+    comparison_options = etf_tickers
+    default_comparison_index = etf_tickers.index("QQQ")
+    comparison_etf2 = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
+with col44:
+    comparison_options = etf_tickers
+    default_comparison_index = etf_tickers.index("IWM")
+    comparison_etf3 = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
 
-
-col11, col22 = st.columns(2)
+col1, col2, col3, col4 = st.columns([1, 3, 3, 1])
 # Main content
-with col11:
+with col2:
     etf_data, etf_full_name = get_etf_data(selected_etf, time_period)
-    st.subheader(f"{etf_full_name} ({selected_etf})")
 
     # Create and display price chart
     price_chart = create_etf_price_chart(etf_data, etf_full_name)
     st.pyplot(price_chart)
 
-with col22:
-    # Relative performance chart
-    st.subheader("Relative Performance")
-
+with col3:
     # Get data for both ETFs
     etf_data1, etf_full_name1 = get_etf_data(selected_etf, time_period)
-    etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
+    etf_data2, etf_full_name2 = get_etf_data(comparison_etf1, time_period)
 
     # Create and display relative performance chart
-    rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
-    st.pyplot(rel_perf_chart)
+    rel_perf_chart_1 = create_relative_performance_chart(etf_data1, etf_data2, selected_etf, comparison_etf1)
+    st.pyplot(rel_perf_chart_1)
 
-col111, col222, col333 = st.columns([1, 2, 1])
-with col222:
-    # Relative performance chart vs QQQ
-    default_comparison_index = etf_tickers.index("QQQ")
-    comparison_etf = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
-    etf_data2, etf_full_name2 = get_etf_data(comparison_etf, time_period)
-    rel_perf_chart = create_relative_performance_chart(etf_data1, etf_data2, etf_full_name1, etf_full_name2)
-    st.pyplot(rel_perf_chart)
+# Relative performance chart for second comparison
+with col2:
+    etf_data11, etf_full_name11 = get_etf_data(selected_etf, time_period)
+    etf_data22, etf_full_name22 = get_etf_data(comparison_etf2, time_period)
+    rel_perf_chart_2 = create_relative_performance_chart(etf_data11, etf_data22, selected_etf, comparison_etf2)
+    st.pyplot(rel_perf_chart_2)
 
-
-    # Display ETF information
-    st.subheader("ETF Information")
-    ETF_info = [get_ETF_info(ticker) for ticker in etf_tickers]
-    processed_ETF_info = process_etf_info(ETF_info)
-    df = pd.DataFrame(processed_ETF_info)
-
-    # Convert columns to numeric, coercing errors to NaN
-    numeric_columns = ['Price', 'P/E Ratio', '52 Week Low', '52 Week High', 'NAV', 'Yield', 'YTD Daily Total Return', 'Beta', 'Net Assets']
-    for col in numeric_columns:
-        df[col] = pd.to_numeric(df[col], errors='coerce')
-
-    # Create a formatting dictionary
-    format_dict = {
-        'Price': '{:.2f}',
-        'P/E Ratio': '{:.2f}',
-        '52 Week Low': '{:.2f}',
-        '52 Week High': '{:.2f}',
-        'NAV': '{:.2f}',
-        'Yield': '{:.2f}%',
-        'YTD Daily Total Return': '{:.2f}%',
-        'Beta': '{:.2f}',
-        'Net Assets': lambda x: f'{x:.2f}M' if pd.notnull(x) else 'N/A'
-    }
-
-    st.dataframe(df.style.format(format_dict), hide_index=True)
+# Relative performance chart for third comparison
+with col3:
+    etf_data111, etf_full_name111 = get_etf_data(selected_etf, time_period)
+    etf_data222, etf_full_name222 = get_etf_data(comparison_etf3, time_period)
+    rel_perf_chart_3 = create_relative_performance_chart(etf_data111, etf_data222, selected_etf, comparison_etf3)
+    st.pyplot(rel_perf_chart_3)
