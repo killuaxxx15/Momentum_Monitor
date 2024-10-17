@@ -121,7 +121,7 @@ with col44:
     comparison_options = index_etfs + stock_tickers
     comparison_stock3 = st.selectbox("Compare with", comparison_options, index=2)
 
-col1, col2, col3, col4 = st.columns([1, 3, 3, 1])
+col1, col2, col3, col4 = st.columns([1, 4, 4, 1])
 # Main content
 with col2:
     stock_data, stock_full_name = get_stock_data(selected_stock, time_period)
