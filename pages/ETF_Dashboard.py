@@ -138,7 +138,7 @@ with col44:
     default_comparison_index = etf_tickers.index("IWM")
     comparison_etf3 = st.selectbox("Compare with", comparison_options, index=default_comparison_index)
 
-col1, col2, col3, col4 = st.columns([1, 2, 2, 1])
+col1, col2, col3, col4 = st.columns([1, 4, 4, 1])
 # Main content
 with col2:
     etf_data, etf_full_name = get_etf_data(selected_etf, time_period)
