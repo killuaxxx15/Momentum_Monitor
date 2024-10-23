@@ -16,11 +16,8 @@ st.markdown('#### Updated: 19/10/2024')
 # Define Excel file and sheet name variables
 excel_file = 'CashSignal_Streamlit_19_10_2024.xlsx'
 sheet_name_commodities = 'Commodities'
+sheet_name_us = 'CashSignals'
 
-def highlight_rows(row):
-    if row.name in [0, 22]:  # Adjust for 0-based index
-        return ['background-color: #ADD8E6'] * len(row)  # Light blue
-    return [''] * len(row)
 
 def color_scale(val):
     if pd.isna(val) or not isinstance(val, (int, float)):
@@ -82,42 +79,90 @@ def color_scale_2(val):
         return f'background-color: {color_map[val]}'
     return ''
 
+def color_signal_3(val):
+    if val in ['Outperformer', 'Positive - Above 50DMA']:
+        return 'background-color: #90EE90'  # Green
+    elif val in ['Outperformer & Losing', 'Underperformer & Gaining', 'Cautious - Above 200DMA but Below 50DMA']:
+        return 'background-color: #FFFF99'  # Yellow
+    elif val in ['Underperformer', 'Negative - Below 50DMA and Below 200']:
+        return 'background-color: #FF9999'  # Red
+    return ''
+
 def process_and_style_dataframe(df):
     # Rename the columns
     column_rename_map = {
-        'Unnamed: 5': ' ',
-        'Unnamed: 6': '  ',
-        'Unnamed: 12': 'Relative Rankings.2',
-        'Unnamed: 13': 'Relative Rankings.3',
-        'Unnamed: 14': 'Relative Rankings.4',
-        'Unnamed: 16': 'Trend.2',
-        'Unnamed: 17': 'Trend.3',
-        'Unnamed: 19': 'Summary.2',
-        'Unnamed: 20': 'Summary.3',
+        '1M.1': '1M',
+        '3M.1': '3M',
+        '6M.1': '6M',
+        '12M.1': '12M',
+        'Relative': 'Summary'
     }
     df = df.rename(columns=column_rename_map)
 
-    df = df.fillna('')
-
-    # Apply row highlighting
-    df = df.style.apply(highlight_rows, axis=1)
+    # Create a style object
+    styled_df = df.style
 
     # Apply color scale to specific columns
-    ranking_columns = ['Relative Rankings', 'Relative Rankings.2', 'Relative Rankings.3', 'Relative Rankings.4']
+    ranking_columns = ['1M', '3M', '6M', '12M']
     for col in ranking_columns:
         if col in df.columns:
-            # Apply color_scale to rows 1-21
-            df = df.applymap(color_scale, subset=pd.IndexSlice[1:22, col])
-            # Apply color_scale_1_to_4 to rows 23-26
-            df = df.applymap(color_scale_2, subset=pd.IndexSlice[23:27, col])
-
-    # Apply color scale to Trend and Summary columns
-    trend_summary_columns = ['Trend', 'Trend.2', 'Trend.3', 'Summary', 'Summary.2', 'Summary.3']
-    for col in trend_summary_columns:
+            # Apply color_scale to entire columns
+            styled_df = styled_df.apply(lambda x: pd.Series([color_scale(v) for v in x], index=x.index), 
+                                      subset=[col])
+            
+    # Apply color scale to specific columns
+    ranking_columns = ['50MA', '100MA', '200MA', 'Short Term Trend', 'Trend', 'Summary']
+    for col in ranking_columns:
         if col in df.columns:
-            df = df.applymap(color_scale_trend_summary, subset=[col])
+            # Apply color_scale_trend_summary to entire columns
+            styled_df = styled_df.apply(lambda x: pd.Series([color_scale_trend_summary(v) for v in x], index=x.index), 
+                                      subset=[col])
 
-    return df
+    return styled_df
+
+def process_and_style_dataframe_2(df):
+    # Rename the columns
+    column_rename_map = {
+        '1M.1': '1M',
+        '3M.1': '3M',
+        '6M.1': '6M',
+        '12M.1': '12M',
+        'Relative': 'Summary'
+    }
+    df = df.rename(columns=column_rename_map)
+
+    # Create a style object
+    styled_df = df.style
+
+    # Apply color scale to specific columns
+    ranking_columns = ['1M', '3M', '6M', '12M']
+    for col in ranking_columns:
+        if col in df.columns:
+            # Apply color_scale_2 to entire columns
+            styled_df = styled_df.apply(lambda x: pd.Series([color_scale_2(v) for v in x], index=x.index), 
+                                      subset=[col])
+            
+    # Apply color scale to specific columns
+    ranking_columns = ['50MA', '100MA', '200MA', 'Short Term Trend', 'Trend', 'Summary']
+    for col in ranking_columns:
+        if col in df.columns:
+            # Apply color_scale_trend_summary to entire columns
+            styled_df = styled_df.apply(lambda x: pd.Series([color_scale_trend_summary(v) for v in x], index=x.index), 
+                                      subset=[col])
+
+    return styled_df
+
+
+def process_and_style_dataframe_3(df):
+    df = df.fillna('')
+
+    # Create a style object
+    styled_df = df.style
+
+    styled_df = styled_df.map(color_signal_3)
+            
+
+    return styled_df
 
 
 # Cache data loading function for better performance
@@ -128,7 +173,30 @@ def load_excel_data(file_name, sheet, header_row, num_rows):
     return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
 # Load and process Factors
-df_commodities = load_excel_data(excel_file, sheet_name_commodities, 13, 27)
+df_commodities = load_excel_data(excel_file, sheet_name_commodities, 14, 21)
 styled_df_commodities = process_and_style_dataframe(df_commodities)
-
 st.dataframe(styled_df_commodities, hide_index=True)
+
+
+@st.cache_data
+def load_excel_data(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = [6] + list(range(11, 21))  # F and G (5, 6), L to U (10-21)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
+
+# Load and process Factors
+df_commodities = load_excel_data(excel_file, sheet_name_commodities, 36, 4)
+styled_df_commodities = process_and_style_dataframe_2(df_commodities)
+st.dataframe(styled_df_commodities, hide_index=True)
+
+
+@st.cache_data
+def load_excel_data_3(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = list(range(1, 3))  # B to C (1-2)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
+
+# Load and process Rationale
+df_rationale = load_excel_data_3(excel_file, sheet_name_us, 69, 9)
+styled_df_rationale = process_and_style_dataframe_3(df_rationale)
+st.dataframe(styled_df_rationale, hide_index=True)
