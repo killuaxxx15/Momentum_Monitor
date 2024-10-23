@@ -33,6 +33,12 @@ def load_excel_data_2(file_name, sheet, header_row, num_rows):
     cols_to_use = [5] + list(range(10, 20))  # F (5), K to T (10-20)
     return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
 
+@st.cache_data
+def load_excel_data_3(file_name, sheet, header_row, num_rows):
+    # Define the columns to use
+    cols_to_use = list(range(1, 5))  # B to E (1-4)
+    return pd.read_excel(file_name, sheet_name=sheet, usecols=cols_to_use, header=header_row, nrows=num_rows)
+
 # Format percentage as whole number with one decimal place, handling non-numeric values
 def percent_whole_number(val):
     if pd.isna(val) or not isinstance(val, (int, float)):
@@ -66,6 +72,15 @@ def color_signal_2(val):
         return 'background-color: #FF9999'  # Red
     elif val == 'IMPROVING':
         return 'background-color: #ADD8E6'  # Blue
+    return ''
+
+def color_signal_3(val):
+    if val == 'INVESTED' or (isinstance(val, (int, float)) and val ==1):
+        return 'background-color: #90EE90'  # Green
+    elif val == 'CAUTIOUS':
+        return 'background-color: #FFFF99'  # Yellow
+    elif val == 'CASH' or (isinstance(val, (int, float)) and val < 0):
+        return 'background-color: #FF9999'  # Red
     return ''
 
 # New function to highlight specific rows
@@ -125,12 +140,12 @@ def process_and_style_dataframe(df):
     signal_columns_1 = ['50DMA.1', '100DMA.1', '200DMA.1']  # Adjust this list as needed
     for col in signal_columns_1:
         if col in df.columns:
-            styled_df = styled_df.applymap(color_signal_1, subset=[col])
+            styled_df = styled_df.map(color_signal_1, subset=[col])
 
     signal_columns_2 = ['Current Reading', 'Short Term Trend', '1 Week Ago', '1M Ago']  # Adjust this list as needed
     for col in signal_columns_2:
         if col in df.columns:
-            styled_df = styled_df.applymap(color_signal_2, subset=[col])
+            styled_df = styled_df.map(color_signal_2, subset=[col])
 
     # Apply row highlighting and bold text
     styled_df = styled_df.apply(highlight_rows, axis=1)
@@ -170,13 +185,13 @@ def process_and_style_dataframe_2(df):
     ranking_columns = ['Relative Rankings', 'Relative Rankings.2', 'Relative Rankings.3', 'Relative Rankings.4']
     for col in ranking_columns:
         if col in df.columns:
-            styled_df_2 = styled_df_2.applymap(color_scale, subset=[col])
+            styled_df_2 = styled_df_2.map(color_scale, subset=[col])
 
     # Apply color scale to Trend and Summary columns
     trend_summary_columns = ['Trend', 'Trend.2', 'Trend.3', 'Summary', 'Summary.2', 'Summary.3']
     for col in trend_summary_columns:
         if col in df.columns:
-            styled_df_2 = styled_df_2.applymap(color_scale_trend_summary, subset=[col])
+            styled_df_2 = styled_df_2.map(color_scale_trend_summary, subset=[col])
 
     return styled_df_2
 
@@ -196,6 +211,10 @@ styled_df_qqq = process_and_style_dataframe(df_qqq)
 df_factors = load_excel_data_2(excel_file, sheet_name_factors, 13, 21)
 styled_df_factors = process_and_style_dataframe_2(df_factors)
 
+# Load and process Rationale
+df_rationale = load_excel_data_3(excel_file, sheet_name_us, 57, 9)
+styled_df_rationale = df_rationale.style.map(color_signal_3)
+
 # Display US Sentiment Signals
 st.markdown('### US Sentiment Signals')
 st.dataframe(styled_df_us, hide_index=True)
@@ -211,3 +230,7 @@ st.dataframe(styled_df_qqq, hide_index=True)
 # Display Factors
 st.markdown('### Factors')
 st.dataframe(styled_df_factors, hide_index=True)
+
+# Display FRationale
+st.markdown('### Rationale for the Signals')
+st.dataframe(styled_df_rationale, hide_index=True)
