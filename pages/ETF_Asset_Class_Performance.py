@@ -5,6 +5,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+from zoneinfo import ZoneInfo  # For timezone handling
 
 # Set Streamlit page configuration
 st.set_page_config(page_title='ETF Asset Class Performance', page_icon=':bar_chart:')
@@ -20,10 +21,10 @@ def get_ETF_info(ticker):
         ETF = yf.Ticker(ticker)
         info = ETF.info
 
-        # Define end date and start date for data fetch
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=365)  # One year ago
-        ytd_start = datetime(end_date.year, 1, 1)  # Dynamic YTD start
+        # Define dates as strings to avoid timezone issues
+        end_date = datetime.now().strftime('%Y-%m-%d')
+        start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
+        ytd_start = datetime(datetime.now().year, 1, 1).strftime('%Y-%m-%d')
 
         # Get historical data
         hist_data = yf.download(ticker, start=start_date, end=end_date, progress=False)
@@ -37,7 +38,7 @@ def get_ETF_info(ticker):
                 "1-Week Return": np.nan
             }
 
-        # YTD calculation
+        # YTD calculation - use string indexing
         ytd_data = hist_data[hist_data.index >= ytd_start]
         if not ytd_data.empty:
             ytd_return = (ytd_data['Adj Close'].iloc[-1] / ytd_data['Adj Close'].iloc[0] - 1)
