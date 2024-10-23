@@ -107,7 +107,7 @@ def create_etf_table(tickers):
 
 # Main Streamlit app
 st.header('ETF Asset Class Performance YTD, 1-Month, and 1-Week')
-st.subheader('Issue with Streamlit. Still fixing.")
+st.header('Issue with Streamlit. Still fixing.')
 
 st.subheader('US Related')
 us_related_etf_table = create_etf_table(us_related_etf_tickers)
