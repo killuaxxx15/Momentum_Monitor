@@ -118,6 +118,7 @@ def create_relative_performance_chart(etf_data1, etf_data2, etf_name1, etf_name2
 
 # Streamlit app
 st.header("ETF Dashboard")
+st.header('Issue with Streamlit. Still fixing.')
 time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
 
 # Selection options in main content area
