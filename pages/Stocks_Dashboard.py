@@ -104,6 +104,7 @@ def create_relative_performance_chart(stock_data1, stock_data2, stock_name1, sto
 
 # Streamlit app
 st.header("Stock Dashboard")
+st.header('Issue with Streamlit. Still fixing.')
 time_period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=5)
 
 # Selection options in main content area
