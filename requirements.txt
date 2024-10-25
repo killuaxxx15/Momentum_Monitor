@@ -8,5 +8,5 @@ matplotlib
 numpy
 python-dateutil
 datetime
-yfinance
+yfinance==0.2.40
 plotly
