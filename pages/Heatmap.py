@@ -149,7 +149,7 @@ def main():
     st.markdown("### To Be Updated")
 
     # Add date input widget
-    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-10-13"))
+    end_date = st.date_input("Select End Date", value=pd.to_datetime("2024-10-20"))
     end_date = end_date.strftime("%Y-%m-%d")  # Convert to string format
 
     # Add frequency selection widget
